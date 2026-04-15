@@ -297,6 +297,25 @@ header{
 }
 .lb-dot.active{width:22px;border-radius:3px;background:rgba(255,255,255,.7)}
 
+/* per-image caption bar */
+#gif-lb-caption{
+  flex-shrink:0;
+  padding:0 32px 6px;
+  text-align:center;
+  overflow:hidden;
+  transition:max-height .35s cubic-bezier(.22,1,.36,1),opacity .3s ease;
+  max-height:0;opacity:0;
+}
+#gif-lb-caption.visible{max-height:80px;opacity:1}
+#gif-lb-cap-title{
+  font-size:12px;font-weight:500;color:rgba(255,255,255,.82);
+  letter-spacing:.01em;margin-bottom:3px;line-height:1.4;
+}
+#gif-lb-cap-desc{
+  font-size:11px;color:rgba(255,255,255,.38);
+  line-height:1.55;max-width:640px;margin:0 auto;
+}
+
 /* animated neon-blue border on Project Details button */
 @property --lba {
   syntax: '<angle>';
@@ -609,6 +628,12 @@ img{
   <div id="gif-lb-track-wrap">
     <div id="gif-lb-track"></div>
   </div>
+
+  <!-- per-image caption (shown only for projects with captions) -->
+  <div id="gif-lb-caption">
+    <div id="gif-lb-cap-title"></div>
+    <div id="gif-lb-cap-desc"></div>
+  </div>
   <div id="gif-lb-dots"></div>
 
   <!-- Project Details side panel (content injected by JS) -->
@@ -767,6 +792,19 @@ img{
       <div class="pt" style="background:#1a0a06"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzpceAdlNyRCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CBF4FHVQ=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Nussa Ferrero" />
       <div class="pt-overlay">↗</div></div>
       <div class="pi"><div class="pcl">Nussa Ferrero</div><div class="pn">Nussa Ferrero Brand Identity</div><div class="pd">Logo, mascot, brand guidelines, product &amp; social media identity for a dessert brand.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding print"
+      data-title="Mood Spritz Label Design"
+      data-client="Mood Spritz"
+      data-desc="Pocket-sized spritz label design — four bold colour-story variants capturing distinct moods: calming blue, sunny orange, playful pink, and dreamy purple."
+      data-tags="Label Design,Branding,Print,Packaging,Visual Identity,Product Design,Spritz"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXAZiQ1lnRBhCcB1CDhAaAlxX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQih6WHhCSCFCcR5BDkxeAlU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQih6WHhCSDxCfABVBQVRXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXxVqQwJlPSdCYxtaAExeAlU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRgVcWlFvOwxCYwdGGw5RXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZRYGXUFsOCtCfh1bDwBbE0BUHF8ACA=="
+      data-behance="https://www.behance.net/gallery/238425459/Mood-Spritz-Label-Design">
+      <div class="pt" style="background:#0d0a14"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXAZiQ1lnRBhCcB1CDhAaAlxX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Mood Spritz" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Mood Spritz</div><div class="pn">Mood Spritz Label Design</div><div class="pd">Four bold colour-story label variants — calming, sunny, playful, and dreamy.</div></div>
       <span class="parr">↗</span>
     </div>
 
@@ -1091,6 +1129,7 @@ window.addEventListener('DOMContentLoaded', function(){
 (function(){
   var gifList  = [];
   var gifIdx   = 0;
+  var gifCaps  = []; /* per-image captions [{title,desc}] */
   var lb       = document.getElementById('gif-lb');
   var lbWrap   = document.getElementById('gif-lb-track-wrap');
   var lbTrack  = document.getElementById('gif-lb-track');
@@ -1098,14 +1137,12 @@ window.addEventListener('DOMContentLoaded', function(){
   var lbTitle  = document.getElementById('gif-lb-title');
   var lbDots   = document.getElementById('gif-lb-dots');
   var lbPanel  = document.getElementById('gif-lb-panel');
+  var lbCapEl  = document.getElementById('gif-lb-caption');
+  var lbCapTit = document.getElementById('gif-lb-cap-title');
+  var lbCapDesc= document.getElementById('gif-lb-cap-desc');
 
   /* ---- helpers ---- */
   function itemWidth(){ return lbWrap.clientWidth / 2; }
-
-  function scrollToIdx(idx, smooth){
-    idx = Math.max(0, Math.min(idx, gifList.length - 1));
-    lbWrap.scrollTo({ left: idx * itemWidth(), behavior: smooth === false ? 'instant' : 'smooth' });
-  }
 
   function syncUI(){
     var iw  = itemWidth();
@@ -1115,6 +1152,20 @@ window.addEventListener('DOMContentLoaded', function(){
     lbDots.querySelectorAll('.lb-dot').forEach(function(d, i){
       d.classList.toggle('active', i === gifIdx);
     });
+    /* update caption */
+    var cap = gifCaps[gifIdx];
+    if(cap && (cap.title || cap.desc)){
+      lbCapTit.textContent  = cap.title || '';
+      lbCapDesc.textContent = cap.desc  || '';
+      lbCapEl.classList.add('visible');
+    } else {
+      lbCapEl.classList.remove('visible');
+    }
+  }
+
+  function scrollToIdx(idx, smooth){
+    idx = Math.max(0, Math.min(idx, gifList.length - 1));
+    lbWrap.scrollTo({ left: idx * itemWidth(), behavior: smooth === false ? 'instant' : 'smooth' });
   }
 
   /* ---- project panel data ---- */
@@ -1167,6 +1218,21 @@ window.addEventListener('DOMContentLoaded', function(){
       tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator &amp; Photoshop',
       body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">A complete visual brand identity for Nussa Ferrero — a dessert and ice cream brand. The project brings the brand to life through a custom logo with mascot character, a full brand guidelines system, product packaging design, and social media identity built around a signature decorative pattern.</p></div><div class="lbp-section"><div class="lbp-label">Scope of Work</div><div class="lbp-lot"><span class="lbp-lot-n">01</span><span class="lbp-lot-g">Logo &amp; Mascot</span><p>Custom logo mark with a playful mascot character tailored for a dessert brand.</p></div><div class="lbp-lot"><span class="lbp-lot-n">02</span><span class="lbp-lot-g">Brand Guidelines</span><p>Colour palette, typography, spacing rules, and full brand usage documentation.</p></div><div class="lbp-lot"><span class="lbp-lot-n">03</span><span class="lbp-lot-g">Product &amp; Social</span><p>Product packaging design, social media post templates, and pattern system.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Brand Identity</span><span>Logo Design</span><span>Mascot</span><span>Branding</span><span>Brand Guidelines</span><span>Dessert</span><span>Ice Cream</span><span>Product Design</span><span>Social Media</span><span>Pattern</span></div></div>',
       link: 'https://www.behance.net/gallery/228269755/Nussa-Ferrero-Brand-Identity'
+    },
+    'Mood Spritz Label Design': {
+      meta: 'Mood Spritz · Published November 12, 2025',
+      title: 'Mood Spritz Label Design',
+      tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator &amp; Photoshop',
+      body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Mood Spritz is a pocket-sized spritz designed to shift your vibe in seconds. Clean, modern graphics pair with bold, single-note colour stories to capture a specific feeling — playful energy, sunny uplift, or a calming reset. Mist your space whenever you want a quick mood flip without the fuss.</p></div><div class="lbp-section"><div class="lbp-label">Colour Variants</div><div class="lbp-lot"><span class="lbp-lot-n" style="color:#60a5fa">Blue</span><span class="lbp-lot-g">Calming Wave</span><p>A relaxed figure beside a starburst — tension releases, focus returns, everything feels breezy.</p></div><div class="lbp-lot"><span class="lbp-lot-n" style="color:#fb923c">Orange</span><span class="lbp-lot-g">Sunny Uplift</span><p>A lively figure reaching through mango leaves — brightness, optimism, and sun-kissed energy.</p></div><div class="lbp-lot"><span class="lbp-lot-n" style="color:#f472b6">Pink</span><span class="lbp-lot-g">Playful Energy</span><p>A bubbly silhouette blowing gum — nostalgia, flirt, and fun captured in motion.</p></div><div class="lbp-lot"><span class="lbp-lot-n" style="color:#a78bfa">Purple</span><span class="lbp-lot-g">Dreamy Indulgence</span><p>A flowing figure leaning toward a whipped sundae — dreamy, optimistic, a little starry-eyed.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Spritz</span><span>Label Design</span><span>Branding</span><span>Visual Identity</span><span>Product Design</span><span>Print</span><span>Packaging</span><span>Modern</span><span>Creative</span></div></div>',
+      link: 'https://www.behance.net/gallery/238425459/Mood-Spritz-Label-Design',
+      captions: [
+        {title:'Mood Spritz — Label Design', desc:'A pocket-sized spritz designed to shift your vibe in seconds. Bold single-note colour stories capture a specific feeling — playful, uplifting, or calming.'},
+        {title:'Blue Burst — Calming Wave', desc:'A relaxed figure stretches beside a starburst. Crisp blue forms suggest a cool splash and clear skies — tension releases, focus returns, everything feels breezy.'},
+        {title:'Happy Mango — Sunny Uplift', desc:'A lively figure reaches through falling mango leaves and drops. Warm orange palette signals brightness, optimism, and juicy sun-kissed energy.'},
+        {title:'Bubblegum Bliss — Playful Energy', desc:'A bubbly silhouette blows gum amid floating shapes. Rounded blobs echo rising bubbles for an instant light-hearted, nostalgic cue.'},
+        {title:'Sundae Sordet — Dreamy Indulgence', desc:'A flowing figure leans toward a whipped sundae and cherry. A visual wink to sweet, indulgent moments — dreamy, optimistic, and a little starry-eyed.'},
+        {title:'Moodboard — Creative Direction', desc:'The visual inspiration and mood direction behind the Mood Spritz colour stories, character concepts, and label design system.'}
+      ]
     }
   };
 
@@ -1188,8 +1254,13 @@ window.addEventListener('DOMContentLoaded', function(){
     gifList = gifsEnc.split('|').map(function(s){ return window._decUrl(s.trim()); }).filter(Boolean);
     lbTitle.textContent = (card.dataset.client || '') + ' — ' + (card.dataset.title || '');
 
+    /* load captions from panelData if available */
+    var pd = panelData[card.dataset.title || ''];
+    gifCaps = (pd && pd.captions) ? pd.captions : [];
+
     lbTrack.innerHTML = '';
     lbDots.innerHTML  = '';
+    lbCapEl.classList.remove('visible');
 
     gifList.forEach(function(url, i){
       var item = document.createElement('div');
