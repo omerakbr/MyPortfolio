@@ -167,10 +167,11 @@ header{
 .pd{font-size:13px;color:var(--sub);line-height:1.55}
 .parr{position:absolute;top:14px;right:16px;font-size:13px;color:var(--sub);opacity:0;transition:opacity .2s}
 .pc:hover .parr{opacity:1}
-/* slider */
-.pg-wrap{position:relative;padding-bottom:28px}
-.pg{display:flex;gap:14px;overflow:hidden;padding:4px 2px 8px}
-.pg .pc{flex:0 0 320px;width:320px}
+.pg-wrap{position:relative;padding-bottom:28px;overflow:hidden}
+.pg{display:flex;gap:14px;overflow:visible;padding:4px 0 8px;will-change:transform}
+.pg .pc{flex:0 0 calc((100% - 28px) / 3);width:calc((100% - 28px) / 3)}
+@media(max-width:800px){.pg .pc{flex:0 0 calc((100% - 14px) / 2);width:calc((100% - 14px) / 2)}}
+@media(max-width:500px){.pg .pc{flex:0 0 100%;width:100%}}
 .slider-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
 .slider-dots{display:flex;gap:6px}
 .sdot{width:6px;height:6px;border-radius:50%;background:var(--line);border:none;cursor:none;transition:all .2s;padding:0}
@@ -674,6 +675,7 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       <span class="parr">↗</span>
     </div>
 
+  </div><!-- /proj-grid -->
   <div class="slider-nav">
     <div class="slider-dots" id="slider-dots"></div>
     <div class="slider-arrows">
@@ -942,7 +944,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
   function goTo(idx){
     var cards = visCards();
-    if(!cards.length){ track.style.transform = ''; return; }
+    if(!cards.length){ track.style.transform = 'translateX(0)'; return; }
     var pp  = perPage();
     var max = Math.max(0, cards.length - pp);
     current = Math.max(0, Math.min(idx, max));
