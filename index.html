@@ -76,6 +76,14 @@ body.ch #cursor{width:20px;height:20px;background:#fff}
 body.ch #cursor-ring{width:54px;height:54px;border-color:rgba(var(--neon-rgb),.9)}
 .trail{position:fixed;width:5px;height:5px;border-radius:50%;background:var(--neon);pointer-events:none;z-index:9997;transform:translate(-50%,-50%)}
 
+/* hide custom cursor on touch devices */
+@media(hover:none),(pointer:coarse){
+  #cursor,#cursor-ring,.trail{display:none!important}
+  body{cursor:auto!important}
+  a,button,.pc,.tool-card,.sc,.ar,.nbtn,.fbtn,.sarr,.sdot,.lb-dot,
+  #gif-lb-close,#gif-lb-info,#gif-lb-panel-close,.modal-close,
+  .btn,.tgl,.cf-send{cursor:pointer!important}
+}
 /* ── NAV ── */
 header{
   position:sticky;top:0;z-index:50;
@@ -297,8 +305,29 @@ header{
 }
 .lb-dot.active{width:22px;border-radius:3px;background:rgba(255,255,255,.7)}
 
-/* per-image caption bar */
-#gif-lb-caption{
+/* mobile project details pull-tab — hidden on desktop */
+#gif-lb-mob-details{display:none}
+@media(max-width:600px),(hover:none) and (pointer:coarse){
+  #gif-lb-mob-details{
+    display:block;
+    flex-shrink:0;
+    padding:0 0 6px;
+  }
+  #gif-lb-mob-tab{
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    padding:8px 20px 10px;
+    cursor:pointer;
+  }
+  #gif-lb-mob-tab-line{
+    display:block;
+    width:36px;height:4px;border-radius:2px;
+    background:rgba(255,255,255,.2);
+  }
+  #gif-lb-mob-tab-label{
+    font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+    color:rgba(255,255,255,.45);
+  }
+}
   flex-shrink:0;
   padding:0 32px 6px;
   text-align:center;
@@ -636,6 +665,14 @@ img{
   </div>
   <div id="gif-lb-dots"></div>
 
+  <!-- mobile project details pull-tab (visible only on touch) -->
+  <div id="gif-lb-mob-details">
+    <div id="gif-lb-mob-tab" onclick="document.getElementById('gif-lb-panel').classList.toggle('open')">
+      <span id="gif-lb-mob-tab-line"></span>
+      <span id="gif-lb-mob-tab-label">Project Details</span>
+    </div>
+  </div>
+
   <!-- Project Details side panel (content injected by JS) -->
   <div id="gif-lb-panel">
     <div id="gif-lb-panel-inner">
@@ -834,6 +871,32 @@ img{
       <span class="parr">↗</span>
     </div>
 
+    <div class="pc sa" data-cat="social-media"
+      data-title="Pasokin – Social Media Design"
+      data-client="Pasokin"
+      data-desc="Social media content design for Pasokin — a health-focused peanut butter brand. Posts span seasonal campaigns, product benefits, nutritional callouts, and lifestyle content."
+      data-tags="Social Media,Graphic Design,Food Brand,Health,Product,Photoshop,Illustrator,Campaign Design"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSpGc1B+CCFCAlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXgNjRFFYSAhCAVxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDTRfZlxXI1lCcD8FRQhEFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzgKB1EERjlCcBpGAhFAH1NDHwReBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXgNjRFFYFz1CcBpGAhFAH1NDHwZeBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcgFmXQdWKFhCYxdVBRdAX3BFRkEVHUB7E1gHDUMXV14fAV4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBkoCXWBDPhtCYxdVBRdAX3BFRkEVHUB7E1gHDUMXV14fAF4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRzZYSXxYSBtCdRtaDhFAX2NFU1kZGxQeIlEKDEEGQR5YRRc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXCJ2VwdGRjtCdB5BHw1aX3RCV1BeBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTkESHQAPj1CdAddBxYZNEBVVxsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRT94AAdCI11CexNCDk9VX3BRXlQeDAhXX2cFA1cZHFpCUg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTipKBWhiKS1CexdVGRYZNFtCV1sUQQdDFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTURqQ1hBFglCcR1VGBYZK11FQBg2BhldF0cYTwZcWEBV|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkR+RFFSODxCcR1VGBYZK11FQBg4CgxBBhkjB1UeRlgcXwAI|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTipKBWhiKT9CYwBbHwddHB9iW1YYQj5dE18YT1IdQB13QxUdFFwcUUUIRBU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQyZFeAp/KTVCYgddCAkZN1xVQFIJQi9cHUcfTF4CVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUCNfRwRFJyFCZxNHHxsZE1xUH30VDgFHGk1FCEQV"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a100a"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSpGc1B+CCFCAlxEBQU=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Pasokin" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Pasokin</div><div class="pn">Pasokin – Social Media Design</div><div class="pd">Health brand social media — seasonal campaigns, product callouts &amp; lifestyle content.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="social-media"
+      data-title="Student Biryani – Social Media"
+      data-client="Student Biryani"
+      data-desc="Social media content design for Student Biryani — a multi-brand portfolio of posts spanning real estate, food, product, and security categories, all designed for high engagement on Instagram and Facebook."
+      data-tags="Social Media,Graphic Design,Food,Real Estate,Product,Branding,Instagram,Photoshop,Illustrator"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOzxCA0AMD1JQQwsHBwdAWF0KXwJcBgcRCgIAVEQNWVZcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRSBfZmRjSRtCA0tWDlcNQwsHBwdAWF0KXwJcBgcRUwJRDEkNVAdcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNX0ZYAwEGGzdCABdXDgQMQwsHBwdAWF0KXwJcBgcRCgIAVENXDgpcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfAphdHZxFjhCB0MBWlQFQwsHBwdAWF0KXwJcBgcRUQIBVxVcXgpcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUzh/dnRzFhVCBRAAXldSQwsHBwdAWF0KXwJcBgcRUwJRDEgLXwZcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOxVCBRBRCABSQwsHBwdAWF0KXwJcBgcRCgIAVEBYWQdcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkF6enh/NB9CBRcEXgEBQwsHBwdAWF0KXwJcBgcRCgIAVEVZDFVcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzFAQVZeIyVCBEoDX1JRQwsHBwdAWF0KXwJcBgcRUQIBVxQKDgtcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNd0NEZGZhJxVCBBYMWVYAQwsHBwdAWF0KXwJcBgcRCgIAVEMKCwtcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNX0ZYAwEGGxtCC0BQCFBWQwsHBwdAWF0KXwJcBgcRCgIAVEFbWgtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXkB+ZmAGEl1CUkQCXFNSQwsHBwdAWF0KXwJcBgcRUwJRDElbCwtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzxWfQFTJD1CUkpWXAdSQwsHBwdAWF0KXwJcBgcRCgIAVENbDwFcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYENCCGZ7Rh9CURdQCFpRQwsHBwdAWF0KXwJcBgcRCgIAVEJWWQZcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzxWfQFTJBZCUENWU1ADQwsHBwdAWF0KXwJcBgcRCgIAVEEMXQJcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUgt4BH9EPjxCUBdXDVQCQwsHBwdAWF0KXwJcBgcRCgIAVEIJCwtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfxhgaF9FQghCVxQBWwMDQwsHBwdAWF0KXwJcBgcRCgIAVERZW1JcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXzVwQgVsHTxCVkMAXAYHQwsHBwdAWF0KXwJcBgcRUwJRDBFfCwNcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhid1ZjGiJCVhRSX1pVQwsHBwdAWF0KXwJcBgcRCgIAVEJdC1ZcQw4ARA=="
+      data-behance="https://www.behance.net/gallery/197520709/Social-Media">
+      <div class="pt" style="background:#120800"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOzxCA0AMD1JQQwsHBwdAWF0KXwJcBgcRCgIAVEQNWVZcXhsF" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Student Biryani Social Media" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Student Biryani</div><div class="pn">Student Biryani – Social Media</div><div class="pd">Multi-brand social media posts — food, real estate, product &amp; security content.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
   </div><!-- /proj-grid -->
   <div class="slider-nav">
     <div class="slider-dots" id="slider-dots"></div>
@@ -939,6 +1002,9 @@ window.addEventListener('DOMContentLoaded', function(){
 
 /* ── CURSOR ── */
 window.addEventListener('DOMContentLoaded', function(){
+  /* skip cursor entirely on touch devices */
+  if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+
   var dot  = document.getElementById('cursor');
   var ring = document.getElementById('cursor-ring');
   if(!dot || !ring) return;
@@ -1273,6 +1339,20 @@ window.addEventListener('DOMContentLoaded', function(){
       tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator &amp; Photoshop',
       body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">A comprehensive branding and print design project for Student Biryani — a food brand identity spanning packaging, car livery, campaign visuals, and social media. Every touchpoint was designed to feel bold, appetising, and street-smart.</p></div><div class="lbp-section"><div class="lbp-label">Scope of Work</div><div class="lbp-lot"><span class="lbp-lot-n">01</span><span class="lbp-lot-g">Packaging &amp; Delivery</span><p>Delivery box cutout, branded containers, and vehicle livery for the fleet.</p></div><div class="lbp-lot"><span class="lbp-lot-n">02</span><span class="lbp-lot-g">Print &amp; OOH</span><p>Menu boards, media wall, and Bolan vehicle branding for out-of-home visibility.</p></div><div class="lbp-lot"><span class="lbp-lot-n">03</span><span class="lbp-lot-g">Social &amp; Campaign</span><p>Instagram grid layouts (S1–S8), menu cards (M1–M2), and digital campaign assets.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Print Design</span><span>Packaging</span><span>Car Branding</span><span>Campaign Design</span><span>Food</span><span>Instagram Grids</span><span>Media Wall</span><span>Biryani</span></div></div>',
       link: 'https://www.behance.net/gallery/227888771/Student-Biryani-Branding'
+    },
+    'Pasokin – Social Media Design': {
+      meta: 'Pasokin · Social Media',
+      title: 'Pasokin – Social Media Design',
+      tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop &amp; Illustrator',
+      body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Social media content design for Pasokin — a health-focused peanut butter brand. The work spans seasonal holiday campaigns, product benefit callouts, and lifestyle wellness posts crafted to perform on Instagram and Facebook.</p></div><div class="lbp-section"><div class="lbp-label">Content Categories</div><div class="lbp-lot"><span class="lbp-lot-n">01</span><span class="lbp-lot-g">Seasonal Campaigns</span><p>Halloween, Christmas, and themed campaigns with on-brand visual storytelling.</p></div><div class="lbp-lot"><span class="lbp-lot-n">02</span><span class="lbp-lot-g">Product &amp; Nutrition</span><p>Finest Quality, Gluten Free, Guilt Free, Protein Rich, Quick Energy Boost posts.</p></div><div class="lbp-lot"><span class="lbp-lot-n">03</span><span class="lbp-lot-g">Lifestyle &amp; Wellness</span><p>Fitness, heart health, balanced snack, and tasty-healthy lifestyle content.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Graphic Design</span><span>Food Brand</span><span>Health</span><span>Product</span><span>Campaign Design</span><span>Instagram</span><span>Photoshop</span></div></div>',
+      link: 'https://www.behance.net/omi6910660'
+    },
+    'Student Biryani – Social Media': {
+      meta: 'Student Biryani · Published May 1, 2024',
+      title: 'Student Biryani – Social Media',
+      tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop &amp; Illustrator',
+      body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">A diverse social media design portfolio for Student Biryani — spanning food, real estate, product, and security categories. Each post was crafted for high engagement on Instagram and Facebook, with a consistent visual language across very different brand verticals.</p></div><div class="lbp-section"><div class="lbp-label">Content Verticals</div><div class="lbp-lot"><span class="lbp-lot-n">01</span><span class="lbp-lot-g">Food &amp; Restaurant</span><p>Promotional posts, menu highlights, and campaign content for the food brand.</p></div><div class="lbp-lot"><span class="lbp-lot-n">02</span><span class="lbp-lot-g">Real Estate</span><p>Property listing visuals and brand awareness posts for real estate clients.</p></div><div class="lbp-lot"><span class="lbp-lot-n">03</span><span class="lbp-lot-g">Product &amp; Security</span><p>Product showcase and security brand social media content.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Graphic Design</span><span>Food</span><span>Real Estate</span><span>Product</span><span>Branding</span><span>Instagram</span><span>Photoshop</span></div></div>',
+      link: 'https://www.behance.net/gallery/197520709/Social-Media'
     }
   };
 
