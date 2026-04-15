@@ -116,13 +116,16 @@ header{
 
 /* hero gif */
 .hero-gif-wrap{
-  flex:0 0 240px;
-  width:240px;height:240px;
+  flex:0 0 300px;
+  width:300px;height:300px;
   border-radius:28px;
   overflow:hidden;
   position:relative;
   flex-shrink:0;
-  box-shadow:0 0 0 1px rgba(255,255,255,.07), 0 24px 48px rgba(0,0,0,.45);
+  box-shadow:0 28px 56px rgba(0,0,0,.5);
+  transform-style:preserve-3d;
+  transition:transform .12s ease, box-shadow .12s ease;
+  will-change:transform;
 }
 .hero-gif-wrap img{
   width:100%;height:100%;
@@ -131,20 +134,12 @@ header{
   pointer-events:none;
   -webkit-user-drag:none;
 }
-/* neon edge glow */
-.hero-gif-wrap::after{
-  content:'';
-  position:absolute;inset:0;
-  border-radius:28px;
-  box-shadow:inset 0 0 0 1.5px rgba(59,130,246,.35);
-  pointer-events:none;
-}
 @media(max-width:768px){
   .hero{flex-direction:column-reverse;gap:28px;padding:40px 0 36px;align-items:flex-start}
-  .hero-gif-wrap{flex:none;width:100%;height:200px;border-radius:20px}
+  .hero-gif-wrap{flex:none;width:100%;height:220px;border-radius:20px;transform:none!important}
 }
 @media(max-width:480px){
-  .hero-gif-wrap{height:170px;border-radius:16px}
+  .hero-gif-wrap{height:180px;border-radius:16px}
 }
 
 /* typewriter cursor */
@@ -962,7 +957,7 @@ img{
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="animation branding"
+    <div class="pc sa" data-cat="animation"
       data-title="Live Life Learn – Logo Animation"
       data-client="Live Life Learn"
       data-desc="Logo animation for Live Life Learn — a smooth, branded motion sequence bringing the identity to life for digital use across intros, social media, and brand presentations."
@@ -1487,6 +1482,7 @@ window.addEventListener('DOMContentLoaded', function(){
       var img = document.createElement('img');
       img.src = url;
       img.alt = 'Image ' + (i + 1);
+      img.loading = 'lazy';
       img.setAttribute('draggable','false');
       item.appendChild(img);
       lbTrack.appendChild(item);
@@ -1670,7 +1666,32 @@ document.querySelectorAll('.sc,.tool-card,.ar,.pc').forEach(card=>{
     });
   });
 })();
-/* ── IMAGE PROTECTION + URL DECODE ENGINE ── */
+/* ── HERO GIF 3D TILT ── */
+(function(){
+  var wrap = document.querySelector('.hero-gif-wrap');
+  if(!wrap) return;
+  var isMobile = window.matchMedia('(max-width:768px)').matches;
+  if(isMobile) return;
+
+  wrap.addEventListener('mousemove', function(e){
+    var r  = wrap.getBoundingClientRect();
+    var x  = (e.clientX - r.left)  / r.width  - 0.5;   /* -0.5 → 0.5 */
+    var y  = (e.clientY - r.top)   / r.height - 0.5;
+    var rx = -y * 18;   /* tilt around X axis */
+    var ry =  x * 18;   /* tilt around Y axis */
+    wrap.style.transition = 'transform .08s ease, box-shadow .08s ease';
+    wrap.style.transform  = 'perspective(700px) rotateX('+rx+'deg) rotateY('+ry+'deg) scale(1.03)';
+    wrap.style.boxShadow  = (ry * -1.2) + 'px ' + (rx * 1.2) + 'px 56px rgba(0,0,0,.55)';
+  });
+
+  wrap.addEventListener('mouseleave', function(){
+    wrap.style.transition = 'transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease';
+    wrap.style.transform  = 'perspective(700px) rotateX(0deg) rotateY(0deg) scale(1)';
+    wrap.style.boxShadow  = '0 28px 56px rgba(0,0,0,.5)';
+  });
+})();
+
+</script>
 /* restore-key: [111,109,51,114,52,107,98,52,114,50,48,50,53,112] */
 (function(){
   /* internal key — do not remove */
@@ -1691,9 +1712,29 @@ document.querySelectorAll('.sc,.tool-card,.ar,.pc').forEach(card=>{
 
   /* decode all [data-enc] images on page */
   function loadEncImages(){
-    document.querySelectorAll('[data-enc]').forEach(function(el){
+    document.querySelectorAll('[data-enc]').forEach(function(el, i){
       var url = window._decUrl(el.getAttribute('data-enc'));
-      if(url) el.src = url;
+      if(!url) return;
+      /* hero gif loads immediately; card thumbnails lazy-load */
+      if(el.closest('.hero-gif-wrap')){
+        el.fetchPriority = 'high';
+        el.src = url;
+      } else {
+        /* Use IntersectionObserver for lazy loading card thumbnails */
+        if('IntersectionObserver' in window){
+          var obs = new IntersectionObserver(function(entries, o){
+            entries.forEach(function(entry){
+              if(entry.isIntersecting){
+                entry.target.src = url;
+                o.unobserve(entry.target);
+              }
+            });
+          }, {rootMargin:'200px'});
+          obs.observe(el);
+        } else {
+          el.src = url;
+        }
+      }
     });
   }
 
