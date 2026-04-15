@@ -484,35 +484,11 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
   </div>
   <div id="gif-lb-dots"></div>
 
-  <!-- Project Details side panel -->
+  <!-- Project Details side panel (content injected by JS) -->
   <div id="gif-lb-panel">
     <div id="gif-lb-panel-inner">
       <button id="gif-lb-panel-close">✕</button>
-      <div class="lbp-tag">MoFEPT · Published June 10, 2025</div>
-      <h2 class="lbp-title">Ministry of Federal Education Program</h2>
-      <div class="lbp-tool"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects</div>
-
-      <div class="lbp-section">
-        <div class="lbp-label">About</div>
-        <p class="lbp-body">The Environmental Literacy project is an initiative by the Ministry of Federal Education and Professional Training, designed to enhance students' understanding of the environment and its importance in everyday life. It supports both student learning and teacher development through structured, curriculum-aligned animated content.</p>
-        <p class="lbp-body">These animations depict the consequences of deforestation and harmful human activities on our ecosystem — and highlight positive actions we can take to protect, restore, and heal the environment.</p>
-      </div>
-
-      <div class="lbp-section">
-        <div class="lbp-label">Program Structure</div>
-        <div class="lbp-lot"><span class="lbp-lot-n">Lot 1</span><span class="lbp-lot-g">Grades 1–3</span><p>Introduces young learners to basic environmental concepts through simple, interactive content.</p></div>
-        <div class="lbp-lot"><span class="lbp-lot-n">Lot 2</span><span class="lbp-lot-g">Grades 4–6</span><p>Builds on foundational knowledge and encourages critical thinking about local and global environmental issues.</p></div>
-        <div class="lbp-lot"><span class="lbp-lot-n">Lot 3</span><span class="lbp-lot-g">Grades 7–8</span><p>Deepens understanding with complex topics such as sustainability, climate change, and ecosystem interdependence.</p></div>
-      </div>
-
-      <div class="lbp-section">
-        <div class="lbp-label">Tags</div>
-        <div class="lbp-tags">
-          <span>Environmental Animation</span><span>Green Future</span><span>Eco Awareness</span><span>2D Animation</span><span>Kids Learning</span><span>Animated Explainer</span><span>Nature Conservation</span><span>Visual Storytelling</span><span>Sustainability Design</span><span>Climate Change</span>
-        </div>
-      </div>
-
-      <a href="https://www.behance.net/gallery/227848989/Ministry-of-Federal-Education-Program" target="_blank" class="lbp-behance">View on Behance ↗</a>
+      <div id="lbp-dynamic"></div>
     </div>
   </div>
 </div>
@@ -571,7 +547,7 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
   <div class="filters sa">
     <button class="fbtn on" data-filter="all">All</button>
     <button class="fbtn" data-filter="animation">Animation</button>
-    <button class="fbtn" data-filter="logos">Logos</button>
+    <button class="fbtn" data-filter="branding">Branding</button>
     <button class="fbtn" data-filter="social-media">Social Media</button>
     <button class="fbtn" data-filter="print">Print</button>
   </div>
@@ -584,7 +560,7 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       data-desc="Animated educational content commissioned by the Ministry of Federal Education and Professional Training. Curriculum-aligned visual content covering climate change, green transport, water conservation and nature for federal schools across Pakistan."
       data-tags="2D Animation,Educational,Government,After Effects,Character Animator"
       data-gifs="https://i.postimg.cc/Bnv9tV4X/Intro-V6-ezgif-com-optimize.gif|https://i.postimg.cc/W14LtHT8/Natures-Gift-P2V4-ezgif-com-optimize.gif|https://i.postimg.cc/jjWp4nDF/Nested-Sequence01-ezgif-com-optimize.gif|https://i.postimg.cc/tgYjvmc7/Greenhouse-Effect-Part2V2-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/ryW8L3Fb/Global-Warmingand-Climate-Change-P2V3-mp4-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/pdqHsMCJ/Climate-Change-PT1V3-ezgif-com-optimize.gif|https://i.postimg.cc/PrynXjGB/Green-Transport-P1V3-ezgif-com-optimize.gif|https://i.postimg.cc/fTDhQbPr/Green-Transport-P2V3-ezgif-com-optimize.gif|https://i.postimg.cc/vHhwYsF8/Importanceand-Effects-V2-ezgif-com-optimize.gif|https://i.postimg.cc/7ZL8bWwH/Importanceof-Water-V7-2-ezgif-com-optimize.gif|https://i.postimg.cc/xdkw3NXF/Nature-Works-Part3V2-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/QMB2JKBh/Nested-Sequence02-ezgif-com-optimize.gif|https://i.postimg.cc/KvxyhYWL/Our-World-Outro-ezgif-com-optimize.gif">
-      <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#0b1a10"/><circle cx="160" cy="78" r="38" fill="none" stroke="rgba(100,220,120,.18)" stroke-width="1.5" stroke-dasharray="5,4"/><polygon points="148,62 148,94 180,78" fill="rgba(100,220,120,.3)"/><rect x="60" y="120" width="200" height="3" rx="1.5" fill="rgba(255,255,255,.06)"/><rect x="60" y="128" width="140" height="3" rx="1.5" fill="rgba(255,255,255,.04)"/></svg>
+      <div class="pt" style="background:#0b1a10"><img src="https://i.postimg.cc/Bnv9tV4X/Intro-V6-ezgif-com-optimize.gif" style="width:100%;height:100%;object-fit:cover;display:block;" alt="MoFEPT" />
       <div class="pt-overlay">▶</div></div>
       <div class="pi"><div class="pcl">MoFEPT</div><div class="pn">Government Educational Media</div><div class="pd">Curriculum-aligned animated content for federal schools — climate, nature &amp; sustainability.</div></div>
       <span class="parr">↗</span>
@@ -634,7 +610,7 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="logos"
+    <div class="pc sa" data-cat="branding"
       data-title="Bitvaley Logo Design"
       data-client="Bitvaley"
       data-desc="Complete logo identity design for Bitvaley — a modern brand mark crafted with precision. Includes primary mark, alternate layouts, and usage variations delivered across multiple formats."
@@ -646,7 +622,32 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       <span class="parr">↗</span>
     </div>
 
-  </div><!-- /proj-grid -->
+    <div class="pc sa" data-cat="branding"
+      data-title="Cedar Heights – Real Estate Logo &amp; Brand Identity"
+      data-client="Cedar Heights"
+      data-desc="Complete real estate brand identity for Cedar Heights — logo, visual system, and collateral inspired by the enduring Cedar tree. A symbol of strength, resilience, and natural elegance."
+      data-tags="Logo Design,Branding,Corporate Identity,Architecture Branding,Luxury Branding,Real Estate"
+      data-gifs="https://i.postimg.cc/R0fVqsxk/Cedar-01.jpg|https://i.postimg.cc/cLPLxq2m/Cedar-02.jpg|https://i.postimg.cc/fR1Rz4pv/Cedar-03.jpg|https://i.postimg.cc/nhNhF8gN/Cedar-04.jpg|https://i.postimg.cc/XvF7XH0q/Cedar-05.jpg|https://i.postimg.cc/k58XD1dq/Cedar-06.jpg|https://i.postimg.cc/BvDQtYG8/Cedar-07.jpg|https://i.postimg.cc/PxjfDWtK/Cedar-08.jpg|https://i.postimg.cc/sxn3bb59/Cedar-09.jpg|https://i.postimg.cc/NFGgJQ2Q/Cedar-10.jpg|https://i.postimg.cc/MHZWPzfW/2.jpg|https://i.postimg.cc/PJft3dvw/3.jpg|https://i.postimg.cc/tJr988F2/4.jpg|https://i.postimg.cc/05Z56Kh5/5.jpg|https://i.postimg.cc/8kwkFfxV/6.jpg"
+      data-behance="https://www.behance.net/gallery/228748633/Cedar-Heights-Real-Estate-Logo-Brand-Identity">
+      <div class="pt" style="background:#0c160f"><img src="https://i.postimg.cc/R0fVqsxk/Cedar-01.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Cedar Heights" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Cedar Heights</div><div class="pn">Cedar Heights – Real Estate Logo &amp; Brand Identity</div><div class="pd">Real estate brand identity rooted in nature — Cedar tree mark, typography &amp; visual system.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding"
+      data-title="Creamio – Ice Cream Logo Design &amp; Visual Brand Identity"
+      data-client="Creamio"
+      data-desc="Vibrant and playful ice cream brand identity — custom logo, fresh colour palette, typography system, and packaging applications for a delightful dessert brand."
+      data-tags="Logo Design,Branding,Visual Identity,Food Logo,Packaging Design,Modern Logo,Minimal Design"
+      data-gifs="https://i.postimg.cc/DZGS1fkv/Creamio-Branding-01.jpg|https://i.postimg.cc/wvN1Dx89/Creamio-Branding-02.jpg|https://i.postimg.cc/pTjmKVbX/Creamio-Branding-03.jpg|https://i.postimg.cc/mD9P7Zfb/Creamio-Branding-04.jpg|https://i.postimg.cc/gcvwJ0HS/Creamio-Branding-05.jpg|https://i.postimg.cc/c4LsS196/Creamio-Branding-06.jpg|https://i.postimg.cc/vmVYNPPr/Creamio-Branding-07.jpg|https://i.postimg.cc/QdPNSLqf/Creamio-Branding-08.jpg"
+      data-behance="https://www.behance.net/gallery/228340973/Creamio-Ice-Cream-Logo-Design-Visual-Brand-Identity">
+      <div class="pt" style="background:#1a060e"><img src="https://i.postimg.cc/DZGS1fkv/Creamio-Branding-01.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Creamio" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Creamio</div><div class="pn">Creamio – Ice Cream Brand Identity</div><div class="pd">Playful logo, colour palette, typography &amp; packaging for an ice cream brand.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
   <div class="slider-nav">
     <div class="slider-dots" id="slider-dots"></div>
     <div class="slider-arrows">
@@ -993,6 +994,50 @@ window.addEventListener('DOMContentLoaded', function(){
     });
   }
 
+  /* ---- project panel data ---- */
+  var panelData = {
+    'Government Educational Media': {
+      meta: 'MoFEPT · Published June 10, 2025',
+      title: 'Ministry of Federal Education Program',
+      tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',
+      body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">An initiative by the Ministry of Federal Education and Professional Training to enhance students\' understanding of the environment through curriculum-aligned animated content for federal schools across Pakistan.</p><p class="lbp-body">These animations depict the consequences of deforestation and harmful human activities on our ecosystem — and highlight positive actions we can take to protect, restore, and heal the environment.</p></div><div class="lbp-section"><div class="lbp-label">Program Structure</div><div class="lbp-lot"><span class="lbp-lot-n">Lot 1</span><span class="lbp-lot-g">Grades 1–3</span><p>Introduces young learners to basic environmental concepts through simple, interactive content.</p></div><div class="lbp-lot"><span class="lbp-lot-n">Lot 2</span><span class="lbp-lot-g">Grades 4–6</span><p>Builds on foundational knowledge and encourages critical thinking about local and global environmental issues.</p></div><div class="lbp-lot"><span class="lbp-lot-n">Lot 3</span><span class="lbp-lot-g">Grades 7–8</span><p>Deepens understanding with complex topics such as sustainability, climate change, and ecosystem interdependence.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Environmental Animation</span><span>Green Future</span><span>Eco Awareness</span><span>2D Animation</span><span>Kids Learning</span><span>Animated Explainer</span><span>Nature Conservation</span><span>Visual Storytelling</span><span>Sustainability Design</span><span>Climate Change</span></div></div>',
+      link: 'https://www.behance.net/gallery/227848989/Ministry-of-Federal-Education-Program'
+    },
+    'Cedar Heights – Real Estate Logo & Brand Identity': {
+      meta: 'Cedar Heights · Published June 23, 2025',
+      title: 'Cedar Heights – Real Estate Logo & Brand Identity',
+      tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator &amp; Photoshop',
+      body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">The Cedar Heights logo draws its inspiration from the enduring Cedar tree — a symbol of strength, resilience, and natural elegance. Native to Pakistan\'s majestic mountains, the Cedar represents growth, stability, and new beginnings.</p><p class="lbp-body">The minimalist typography reflects modern real estate sophistication, while the deep green colour echoes the evergreen presence of the Cedar tree, grounding the brand in trust, authenticity, and timeless quality.</p><p class="lbp-body">Each curve and line speaks to architectural balance and natural harmony — a visual reflection of what Cedar Heights offers: homes built on strong foundations, elevated living, and an enduring connection to nature.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Branding</span><span>Corporate Identity</span><span>Architecture Branding</span><span>Brand Identity Design</span><span>Modern Logo</span><span>Minimal Design</span><span>Luxury Branding</span><span>Visual Identity</span><span>Real Estate Branding</span></div></div>',
+      link: 'https://www.behance.net/gallery/228748633/Cedar-Heights-Real-Estate-Logo-Brand-Identity'
+    },
+    'Bitvaley Logo Design': {
+      meta: 'Bitvaley · Freelance',
+      title: 'Bitvaley Logo Design',
+      tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator',
+      body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Complete logo identity design for Bitvaley — a modern brand mark crafted with precision. Includes primary mark, alternate layouts, and usage variations delivered across multiple formats.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Brand Identity</span><span>Typography</span><span>Illustrator</span></div></div>',
+      link: 'https://www.behance.net/gallery/228874451/Bitvaley-Logo-Design'
+    },
+    'Creamio – Ice Cream Logo Design & Visual Brand Identity': {
+      meta: 'Creamio · Published June 17, 2025',
+      title: 'Creamio – Ice Cream Logo Design & Visual Brand Identity',
+      tool: '<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator &amp; Photoshop',
+      body: '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Creamio is a vibrant and playful ice cream brand brought to life through a clean, modern, and minimal visual identity. The goal was to create a brand that feels delightful, approachable, and youthful — while maintaining a professional and scalable identity across platforms.</p></div><div class="lbp-section"><div class="lbp-label">Scope of Work</div><div class="lbp-lot"><span class="lbp-lot-n">01</span><span class="lbp-lot-g">Logo Design</span><p>Custom-designed logo mark tailored for a dessert and sweets brand.</p></div><div class="lbp-lot"><span class="lbp-lot-n">02</span><span class="lbp-lot-g">Brand System</span><p>Colour palette, typography system, and brand guidelines for consistent application.</p></div><div class="lbp-lot"><span class="lbp-lot-n">03</span><span class="lbp-lot-g">Packaging &amp; Social</span><p>Packaging mockups and social media identity templates.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Branding</span><span>Visual Identity</span><span>Food Logo</span><span>Packaging Design</span><span>Modern Logo</span><span>Minimal Design</span><span>Creative Branding</span></div></div>',
+      link: 'https://www.behance.net/gallery/228340973/Creamio-Ice-Cream-Logo-Design-Visual-Brand-Identity'
+    }
+  };
+
+  function renderPanel(title){
+    var d = panelData[title];
+    var el = document.getElementById('lbp-dynamic');
+    if(!d){ el.innerHTML = ''; return; }
+    el.innerHTML =
+      '<div class="lbp-tag">' + d.meta + '</div>' +
+      '<h2 class="lbp-title">' + d.title + '</h2>' +
+      '<div class="lbp-tool">' + d.tool + '</div>' +
+      d.body +
+      '<a href="' + d.link + '" target="_blank" class="lbp-behance">View on Behance ↗</a>';
+  }
+
   /* ---- open / close ---- */
   function lbOpen(card){
     gifList = (card.dataset.gifs || '').split('|').map(function(s){ return s.trim(); });
@@ -1021,6 +1066,7 @@ window.addEventListener('DOMContentLoaded', function(){
     lbWrap.scrollTo({ left: 0, behavior: 'instant' });
     gifIdx = 0;
     syncUI();
+    renderPanel(card.dataset.title || '');
     lbPanel.classList.remove('open');
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
