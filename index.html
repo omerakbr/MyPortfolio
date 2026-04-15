@@ -218,10 +218,10 @@ header{
 /* ── GIF FULLSCREEN LIGHTBOX ── */
 #gif-lb{
   position:fixed;inset:0;z-index:500;
-  background:#000;
+  background:#0a0a0a;
   display:flex;flex-direction:column;
   opacity:0;pointer-events:none;
-  transition:opacity .3s ease;
+  transition:opacity .35s ease;
 }
 #gif-lb.open{opacity:1;pointer-events:all}
 
@@ -229,78 +229,82 @@ header{
 #gif-lb-bar{
   display:flex;align-items:center;justify-content:space-between;
   padding:0 28px;height:52px;flex-shrink:0;
-  border-bottom:1px solid rgba(255,255,255,.07);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:relative;z-index:2;
 }
 #gif-lb-title{
-  font-size:12px;letter-spacing:.06em;text-transform:uppercase;
-  color:rgba(255,255,255,.45);font-weight:400;
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.38);font-weight:400;
 }
-#gif-lb-right{display:flex;align-items:center;gap:18px}
+#gif-lb-right{display:flex;align-items:center;gap:16px}
 #gif-lb-count{
-  font-size:12px;color:rgba(255,255,255,.35);
-  font-variant-numeric:tabular-nums;letter-spacing:.04em;
+  font-size:11px;color:rgba(255,255,255,.28);
+  font-variant-numeric:tabular-nums;letter-spacing:.05em;
 }
 #gif-lb-close{
-  width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.15);
-  background:none;color:rgba(255,255,255,.6);cursor:none;font-size:15px;
+  width:30px;height:30px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+  background:none;color:rgba(255,255,255,.5);cursor:none;font-size:14px;
   display:flex;align-items:center;justify-content:center;
   transition:all .15s;
 }
-#gif-lb-close:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.35)}
+#gif-lb-close:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.3)}
 
-/* image area */
-#gif-lb-stage{
-  flex:1;position:relative;display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
+/* ── SCROLL TRACK ── */
+#gif-lb-track-wrap{
+  flex:1;
+  overflow-x:scroll;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  cursor:default;
 }
-#gif-lb-img{
-  max-width:90vw;max-height:calc(100vh - 52px - 60px);
+#gif-lb-track-wrap::-webkit-scrollbar{display:none}
+#gif-lb-track{
+  display:flex;
+  height:100%;
+}
+.lb-item{
+  flex:0 0 50%;
+  height:100%;
+  scroll-snap-align:start;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px 16px;
+  box-sizing:border-box;
+}
+.lb-item img{
+  max-width:100%;max-height:100%;
   object-fit:contain;display:block;
-  transition:opacity .22s ease;
   user-select:none;-webkit-user-drag:none;
+  border-radius:4px;
 }
-#gif-lb-img.fade{opacity:0}
 
-/* click zones – left half = prev, right half = next */
-#gif-lb-prev-zone,#gif-lb-next-zone{
-  position:absolute;top:0;bottom:0;width:50%;cursor:none;z-index:2;
-}
-#gif-lb-prev-zone{left:0}
-#gif-lb-next-zone{right:0}
-
-/* floating arrow hints */
-.lb-hint{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:44px;height:44px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);
-  color:#fff;font-size:18px;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;transition:opacity .2s;pointer-events:none;
-}
-#gif-lb-prev-zone:hover .lb-hint{opacity:1}
-#gif-lb-next-zone:hover .lb-hint{opacity:1}
-#gif-lb-prev-zone .lb-hint{left:20px}
-#gif-lb-next-zone .lb-hint{right:20px}
-
-/* dot strip at bottom */
+/* dot bar */
 #gif-lb-dots{
   display:flex;align-items:center;justify-content:center;gap:5px;
-  height:52px;flex-shrink:0;
+  height:44px;flex-shrink:0;
 }
 .lb-dot{
-  width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);
-  border:none;cursor:none;padding:0;transition:all .2s;
+  width:5px;height:5px;border-radius:50%;
+  background:rgba(255,255,255,.18);
+  border:none;cursor:none;padding:0;
+  transition:all .25s cubic-bezier(.22,1,.36,1);
+  flex-shrink:0;
 }
-.lb-dot.active{width:18px;border-radius:3px;background:#fff}
+.lb-dot.active{width:22px;border-radius:3px;background:rgba(255,255,255,.7)}
 
-/* info button in bar */
+/* info button */
 #gif-lb-info{
-  font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-  color:rgba(255,255,255,.4);background:none;border:1px solid rgba(255,255,255,.12);
-  border-radius:20px;padding:5px 12px;cursor:none;
+  font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);background:none;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:4px 11px;cursor:none;
   transition:all .18s;
 }
-#gif-lb-info:hover{color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.07)}
+#gif-lb-info:hover{color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06)}
 
 /* ── PROJECT DETAILS PANEL ── */
 #gif-lb-panel{
@@ -475,10 +479,8 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       <button id="gif-lb-close">✕</button>
     </div>
   </div>
-  <div id="gif-lb-stage">
-    <div id="gif-lb-prev-zone"><div class="lb-hint">&#8592;</div></div>
-    <img id="gif-lb-img" src="" alt="" />
-    <div id="gif-lb-next-zone"><div class="lb-hint">&#8594;</div></div>
+  <div id="gif-lb-track-wrap">
+    <div id="gif-lb-track"></div>
   </div>
   <div id="gif-lb-dots"></div>
 
@@ -894,44 +896,62 @@ window.addEventListener('DOMContentLoaded', function(){
 
 /* ── PROJECT MODALS + GIF LIGHTBOX ── */
 (function(){
-  var gifList = [], gifIdx = 0;
+  var gifList  = [];
+  var gifIdx   = 0;
+  var lb       = document.getElementById('gif-lb');
+  var lbWrap   = document.getElementById('gif-lb-track-wrap');
+  var lbTrack  = document.getElementById('gif-lb-track');
+  var lbCount  = document.getElementById('gif-lb-count');
+  var lbTitle  = document.getElementById('gif-lb-title');
+  var lbDots   = document.getElementById('gif-lb-dots');
+  var lbPanel  = document.getElementById('gif-lb-panel');
 
-  /* ---- GIF LIGHTBOX ---- */
-  var lb      = document.getElementById('gif-lb');
-  var lbImg   = document.getElementById('gif-lb-img');
-  var lbCount = document.getElementById('gif-lb-count');
-  var lbTitle = document.getElementById('gif-lb-title');
-  var lbDots  = document.getElementById('gif-lb-dots');
-  var lbPanel = document.getElementById('gif-lb-panel');
+  /* ---- helpers ---- */
+  function itemWidth(){ return lbWrap.clientWidth / 2; }
 
-  function lbSetImg(idx, instant){
-    gifIdx = Math.max(0, Math.min(idx, gifList.length - 1));
-    if(instant){
-      lbImg.src = gifList[gifIdx];
-    } else {
-      lbImg.classList.add('fade');
-      setTimeout(function(){
-        lbImg.src = gifList[gifIdx];
-        lbImg.classList.remove('fade');
-      }, 180);
-    }
+  function scrollToIdx(idx, smooth){
+    idx = Math.max(0, Math.min(idx, gifList.length - 1));
+    lbWrap.scrollTo({ left: idx * itemWidth(), behavior: smooth === false ? 'instant' : 'smooth' });
+  }
+
+  function syncUI(){
+    var iw  = itemWidth();
+    var idx = iw > 0 ? Math.round(lbWrap.scrollLeft / iw) : 0;
+    gifIdx  = Math.max(0, Math.min(idx, gifList.length - 1));
     lbCount.textContent = (gifIdx + 1) + ' / ' + gifList.length;
     lbDots.querySelectorAll('.lb-dot').forEach(function(d, i){
       d.classList.toggle('active', i === gifIdx);
     });
   }
 
+  /* ---- open / close ---- */
   function lbOpen(card){
     gifList = (card.dataset.gifs || '').split('|').map(function(s){ return s.trim(); });
     lbTitle.textContent = (card.dataset.client || '') + ' — ' + (card.dataset.title || '');
-    lbDots.innerHTML = '';
-    gifList.forEach(function(_, i){
+
+    lbTrack.innerHTML = '';
+    lbDots.innerHTML  = '';
+
+    gifList.forEach(function(url, i){
+      // track item
+      var item = document.createElement('div');
+      item.className = 'lb-item';
+      var img = document.createElement('img');
+      img.src = url;
+      img.alt = 'GIF ' + (i + 1);
+      item.appendChild(img);
+      lbTrack.appendChild(item);
+      // dot
       var d = document.createElement('button');
       d.className = 'lb-dot';
-      d.addEventListener('click', function(){ lbSetImg(i); });
+      d.addEventListener('click', function(){ scrollToIdx(i); });
       lbDots.appendChild(d);
     });
-    lbSetImg(0, true);
+
+    // reset scroll instantly then sync
+    lbWrap.scrollTo({ left: 0, behavior: 'instant' });
+    gifIdx = 0;
+    syncUI();
     lbPanel.classList.remove('open');
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -941,41 +961,42 @@ window.addEventListener('DOMContentLoaded', function(){
     lb.classList.remove('open');
     lbPanel.classList.remove('open');
     document.body.style.overflow = '';
-    setTimeout(function(){ lbImg.src = ''; }, 300);
+    setTimeout(function(){ lbTrack.innerHTML = ''; lbDots.innerHTML = ''; }, 350);
   }
 
-  document.getElementById('gif-lb-close').addEventListener('click', lbClose);
-  document.getElementById('gif-lb-prev-zone').addEventListener('click', function(){ lbSetImg(gifIdx - 1); });
-  document.getElementById('gif-lb-next-zone').addEventListener('click', function(){ lbSetImg(gifIdx + 1); });
+  /* ---- native scroll sync ---- */
+  var scrollTimer;
+  lbWrap.addEventListener('scroll', function(){
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(syncUI, 40);
+  }, { passive: true });
 
-  /* ---- SCROLL WHEEL NAVIGATION ---- */
-  var wheelLocked = false;
-  lb.addEventListener('wheel', function(e){
+  /* ---- wheel → smooth horizontal scroll ---- */
+  var wheelBusy = false;
+  lbWrap.addEventListener('wheel', function(e){
     e.preventDefault();
-    if(wheelLocked) return;
-    wheelLocked = true;
-    if(e.deltaY > 0 || e.deltaX > 0){
-      lbSetImg(gifIdx + 1);
-    } else {
-      lbSetImg(gifIdx - 1);
-    }
-    setTimeout(function(){ wheelLocked = false; }, 480);
+    if(wheelBusy) return;
+    wheelBusy = true;
+    var dir = (e.deltaY !== 0 ? e.deltaY : e.deltaX) > 0 ? 1 : -1;
+    scrollToIdx(gifIdx + dir);
+    setTimeout(function(){ wheelBusy = false; }, 520);
   }, { passive: false });
 
-  /* ---- TOUCH SWIPE ---- */
-  var touchStartX = 0, touchStartY = 0;
-  lb.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; }, { passive: true });
-  lb.addEventListener('touchend', function(e){
-    var dx = touchStartX - e.changedTouches[0].clientX;
-    var dy = touchStartY - e.changedTouches[0].clientY;
-    if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40){
-      lbSetImg(gifIdx + (dx > 0 ? 1 : -1));
-    } else if(Math.abs(dy) > 40){
-      lbSetImg(gifIdx + (dy > 0 ? 1 : -1));
+  /* ---- touch swipe ---- */
+  var tx = 0, ty = 0;
+  lbWrap.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+  lbWrap.addEventListener('touchend', function(e){
+    var dx = tx - e.changedTouches[0].clientX;
+    var dy = ty - e.changedTouches[0].clientY;
+    if(Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 30){
+      scrollToIdx(gifIdx + (dx > 0 ? 1 : -1));
+    } else if(Math.abs(dy) > 30){
+      scrollToIdx(gifIdx + (dy > 0 ? 1 : -1));
     }
   }, { passive: true });
 
-  /* ---- DETAILS PANEL ---- */
+  /* ---- buttons ---- */
+  document.getElementById('gif-lb-close').addEventListener('click', lbClose);
   document.getElementById('gif-lb-info').addEventListener('click', function(){
     lbPanel.classList.toggle('open');
   });
@@ -983,7 +1004,15 @@ window.addEventListener('DOMContentLoaded', function(){
     lbPanel.classList.remove('open');
   });
 
-  /* ---- STANDARD MODAL ---- */
+  /* ---- keyboard ---- */
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')){ if(e.key==='Escape') closeModal(null,true); return; }
+    if(e.key==='ArrowRight'||e.key==='ArrowDown')  scrollToIdx(gifIdx+1);
+    if(e.key==='ArrowLeft' ||e.key==='ArrowUp')    scrollToIdx(gifIdx-1);
+    if(e.key==='Escape') lbClose();
+  });
+
+  /* ---- standard project modal ---- */
   document.querySelectorAll('.pc').forEach(function(card){
     card.addEventListener('click', function(){
       if(card.dataset.gifs){ lbOpen(card); return; }
@@ -993,23 +1022,12 @@ window.addEventListener('DOMContentLoaded', function(){
       document.getElementById('modal-desc').textContent  = card.dataset.desc    || '';
       var tagsEl = document.getElementById('modal-tags');
       tagsEl.innerHTML = '';
-      (card.dataset.tags || '').split(',').forEach(function(t){
-        var s = document.createElement('span'); s.className = 'modal-tag'; s.textContent = t.trim(); tagsEl.appendChild(s);
+      (card.dataset.tags||'').split(',').forEach(function(t){
+        var s=document.createElement('span'); s.className='modal-tag'; s.textContent=t.trim(); tagsEl.appendChild(s);
       });
       document.getElementById('modal-overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow='hidden';
     });
-  });
-
-  /* ---- KEYBOARD ---- */
-  document.addEventListener('keydown', function(e){
-    if(lb.classList.contains('open')){
-      if(e.key === 'ArrowRight' || e.key === 'ArrowDown')  lbSetImg(gifIdx + 1);
-      if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    lbSetImg(gifIdx - 1);
-      if(e.key === 'Escape') lbClose();
-      return;
-    }
-    if(e.key === 'Escape') closeModal(null, true);
   });
 })();
 
