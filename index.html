@@ -297,15 +297,59 @@ header{
 }
 .lb-dot.active{width:22px;border-radius:3px;background:rgba(255,255,255,.7)}
 
-/* info button */
-#gif-lb-info{
-  font-size:10px;letter-spacing:.07em;text-transform:uppercase;
-  color:rgba(255,255,255,.35);background:none;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:20px;padding:4px 11px;cursor:none;
-  transition:all .18s;
+/* animated neon-blue border on Project Details button */
+@property --lba {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
 }
-#gif-lb-info:hover{color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06)}
+
+#gif-lb-info{
+  position:relative;
+  font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+  color:#3b82f6;
+  cursor:none;
+  border-radius:20px;
+  padding:5px 13px;
+  border:1.5px solid transparent;
+
+  background-image:
+    linear-gradient(rgba(10,10,12,.95), rgba(10,10,12,.95)),
+    conic-gradient(from var(--lba),
+      #3b82f6 0deg,
+      #60a5fa 35deg,
+      rgba(59,130,246,.18) 75deg,
+      rgba(8,12,22,1) 110deg,
+      rgba(8,12,22,1) 250deg,
+      rgba(59,130,246,.18) 285deg,
+      #60a5fa 325deg,
+      #3b82f6 360deg
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+
+  animation:
+    lbaSpin 2.2s linear infinite,
+    lbaGlow 2.6s ease-in-out infinite alternate;
+  transition: color .15s;
+}
+#gif-lb-info:hover{ color:#93c5fd }
+
+@keyframes lbaSpin { to { --lba: 360deg; } }
+
+@keyframes lbaGlow {
+  from {
+    box-shadow:
+      0 0 6px  rgba(59,130,246,.28),
+      0 0 14px rgba(59,130,246,.10);
+  }
+  to {
+    box-shadow:
+      0 0 10px rgba(59,130,246,.55),
+      0 0 24px rgba(59,130,246,.22),
+      0 0 42px rgba(59,130,246,.08);
+  }
+}
 
 /* ── PROJECT DETAILS PANEL ── */
 #gif-lb-panel{
@@ -411,7 +455,40 @@ header{
 .cf-sent.show{display:flex}
 
 /* ── FOOTER ── */
-footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--sub)}
+footer{
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:40;
+  height:88px;
+  padding:0 28px 16px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  font-size:12px;color:var(--sub);
+
+  /* frosted glass */
+  backdrop-filter:blur(22px) saturate(180%);
+  -webkit-backdrop-filter:blur(22px) saturate(180%);
+
+  /* gradient background — transparent at top, tinted at bottom */
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    rgba(10,10,12,0.55) 50%,
+    rgba(10,10,12,0.82) 100%
+  );
+
+  /* gradient mask — fades the whole element (blur + bg) from top */
+  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 40%);
+  mask-image:linear-gradient(to bottom, transparent 0%, black 40%);
+
+  border-top:none;
+}
+[data-theme="light"] footer{
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    rgba(245,244,240,0.55) 50%,
+    rgba(245,244,240,0.88) 100%
+  );
+}
+/* extra breathing room so last section isn't hidden */
+body{padding-bottom:72px}
 .fl{display:flex;gap:18px}
 .fl a{transition:color .15s}.fl a:hover{color:var(--text)}
 
@@ -455,7 +532,8 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
   #gif-lb-title{font-size:9px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   #gif-lb-info{display:none}
   #gif-lb-dots{height:36px}
-  footer{flex-direction:column;gap:10px;align-items:flex-start;padding:16px}
+  footer{flex-direction:column;gap:6px;padding:0 16px 14px;height:72px}
+  body{padding-bottom:80px}
   .modal-tags{gap:4px}
   #modal-body{padding:16px 18px 20px}
   #modal-title{font-size:17px}
