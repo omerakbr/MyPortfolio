@@ -157,7 +157,7 @@ header{
 .fbtn:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.5)}
 .fbtn.on{background:rgba(var(--neon-rgb),.12);border-color:rgba(var(--neon-rgb),.6);color:var(--neon)}
 .pc{background:var(--bg2);border-radius:var(--rl);overflow:hidden;cursor:none;position:relative;transition:border-color .22s,box-shadow .22s,transform .25s,opacity .3s,background .2s}
-.pc.hidden{opacity:0;pointer-events:none;transform:scale(.95)}
+.pc.hidden{display:none!important}
 .pt{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative}
 .pt-overlay{position:absolute;inset:0;background:rgba(var(--neon-rgb),.12);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s;font-size:22px}
 .pc:hover .pt-overlay{opacity:1}
@@ -571,9 +571,9 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
   <div class="filters sa">
     <button class="fbtn on" data-filter="all">All</button>
     <button class="fbtn" data-filter="animation">Animation</button>
-    <button class="fbtn" data-filter="education">Education</button>
-    <button class="fbtn" data-filter="brand">Brand</button>
-    <button class="fbtn" data-filter="government">Government</button>
+    <button class="fbtn" data-filter="logos">Logos</button>
+    <button class="fbtn" data-filter="social-media">Social Media</button>
+    <button class="fbtn" data-filter="print">Print</button>
   </div>
   <div class="pg-wrap">
   <div class="pg stagger" id="proj-grid">
@@ -583,14 +583,14 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       data-client="MoFEPT"
       data-desc="Animated educational content commissioned by the Ministry of Federal Education and Professional Training. Curriculum-aligned visual content covering climate change, green transport, water conservation and nature for federal schools across Pakistan."
       data-tags="2D Animation,Educational,Government,After Effects,Character Animator"
-      data-gifs="https://i.postimg.cc/pdqHsMCJ/Climate-Change-PT1V3-ezgif-com-optimize.gif|https://i.postimg.cc/ryW8L3Fb/Global-Warmingand-Climate-Change-P2V3-mp4-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/tgYjvmc7/Greenhouse-Effect-Part2V2-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/PrynXjGB/Green-Transport-P1V3-ezgif-com-optimize.gif|https://i.postimg.cc/fTDhQbPr/Green-Transport-P2V3-ezgif-com-optimize.gif|https://i.postimg.cc/vHhwYsF8/Importanceand-Effects-V2-ezgif-com-optimize.gif|https://i.postimg.cc/7ZL8bWwH/Importanceof-Water-V7-2-ezgif-com-optimize.gif|https://i.postimg.cc/Bnv9tV4X/Intro-V6-ezgif-com-optimize.gif|https://i.postimg.cc/xdkw3NXF/Nature-Works-Part3V2-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/W14LtHT8/Natures-Gift-P2V4-ezgif-com-optimize.gif|https://i.postimg.cc/jjWp4nDF/Nested-Sequence01-ezgif-com-optimize.gif|https://i.postimg.cc/QMB2JKBh/Nested-Sequence02-ezgif-com-optimize.gif|https://i.postimg.cc/KvxyhYWL/Our-World-Outro-ezgif-com-optimize.gif">
+      data-gifs="https://i.postimg.cc/Bnv9tV4X/Intro-V6-ezgif-com-optimize.gif|https://i.postimg.cc/W14LtHT8/Natures-Gift-P2V4-ezgif-com-optimize.gif|https://i.postimg.cc/jjWp4nDF/Nested-Sequence01-ezgif-com-optimize.gif|https://i.postimg.cc/tgYjvmc7/Greenhouse-Effect-Part2V2-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/ryW8L3Fb/Global-Warmingand-Climate-Change-P2V3-mp4-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/pdqHsMCJ/Climate-Change-PT1V3-ezgif-com-optimize.gif|https://i.postimg.cc/PrynXjGB/Green-Transport-P1V3-ezgif-com-optimize.gif|https://i.postimg.cc/fTDhQbPr/Green-Transport-P2V3-ezgif-com-optimize.gif|https://i.postimg.cc/vHhwYsF8/Importanceand-Effects-V2-ezgif-com-optimize.gif|https://i.postimg.cc/7ZL8bWwH/Importanceof-Water-V7-2-ezgif-com-optimize.gif|https://i.postimg.cc/xdkw3NXF/Nature-Works-Part3V2-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/QMB2JKBh/Nested-Sequence02-ezgif-com-optimize.gif|https://i.postimg.cc/KvxyhYWL/Our-World-Outro-ezgif-com-optimize.gif">
       <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#0b1a10"/><circle cx="160" cy="78" r="38" fill="none" stroke="rgba(100,220,120,.18)" stroke-width="1.5" stroke-dasharray="5,4"/><polygon points="148,62 148,94 180,78" fill="rgba(100,220,120,.3)"/><rect x="60" y="120" width="200" height="3" rx="1.5" fill="rgba(255,255,255,.06)"/><rect x="60" y="128" width="140" height="3" rx="1.5" fill="rgba(255,255,255,.04)"/></svg>
       <div class="pt-overlay">▶</div></div>
       <div class="pi"><div class="pcl">MoFEPT</div><div class="pn">Government Educational Media</div><div class="pd">Curriculum-aligned animated content for federal schools — climate, nature &amp; sustainability.</div></div>
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="education"
+    <div class="pc sa" data-cat="animation"
       data-title="National TV Educational Series"
       data-client="PTV Teleschool"
       data-desc="Produced animated and motion graphics content for Pakistan's national broadcast education programme during the COVID-19 school closures, helping millions of students continue learning from home."
@@ -601,7 +601,7 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="animation education"
+    <div class="pc sa" data-cat="animation"
       data-title="National E-Learning Modules"
       data-client="Knowledge Platform"
       data-desc="Over 100 interactive learning animations built for an e-learning platform serving 50,000+ active learners. Covered STEM, language, and social sciences for grades 1–12 across Pakistan."
@@ -612,7 +612,7 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="brand"
+    <div class="pc sa" data-cat="social-media"
       data-title="Brand Motion Graphics"
       data-client="PTCL"
       data-desc="Created a suite of motion graphics and branded visual content for Pakistan's leading telecom operator. Work included promotional videos, infographics, and social media content that boosted campaign engagement significantly."
@@ -623,25 +623,26 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="government education"
-      data-title="Government Educational Media"
-      data-client="MoFEPT"
-      data-desc="Animated educational content commissioned by the Ministry of Federal Education and Professional Training. The project focused on curriculum-aligned visual content for federal schools across Pakistan."
-      data-tags="Government,Educational,Animation,Curriculum Design">
-      <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#0e0e1e"/><circle cx="160" cy="90" r="42" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="5,4"/><circle cx="160" cy="90" r="22" fill="rgba(255,255,255,.05)"/><line x1="55" y1="90" x2="118" y2="90" stroke="rgba(255,255,255,.14)" stroke-width="1"/><line x1="202" y1="90" x2="265" y2="90" stroke="rgba(255,255,255,.14)" stroke-width="1"/><line x1="160" y1="28" x2="160" y2="68" stroke="rgba(255,255,255,.14)" stroke-width="1"/><line x1="160" y1="112" x2="160" y2="152" stroke="rgba(255,255,255,.14)" stroke-width="1"/></svg>
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">MoFEPT</div><div class="pn">Government Educational Media</div><div class="pd">Animated content for the Ministry of Federal Education and Professional Training.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="animation brand"
-      data-title="NGO & Academic Animations"
+    <div class="pc sa" data-cat="animation"
+      data-title="NGO &amp; Academic Animations"
       data-client="Freelance 2015–2020"
       data-desc="30+ animated videos for NGOs and academic institutions including IQRA University, Open Source Summit, Innomedia, and Kopykats. Managed full production cycles from concept and storyboard through to final render."
       data-tags="Freelance,NGO,2D Animation,Full Production">
       <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#111"/><rect x="88" y="54" width="60" height="72" rx="6" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width="1"/><rect x="172" y="68" width="60" height="58" rx="6" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width="1"/><circle cx="118" cy="74" r="10" fill="rgba(255,255,255,.1)"/><circle cx="202" cy="84" r="10" fill="rgba(255,255,255,.1)"/></svg>
       <div class="pt-overlay">▶</div></div>
       <div class="pi"><div class="pcl">Freelance · 2015–2020</div><div class="pn">NGO &amp; Academic Animations</div><div class="pd">30+ animated videos across IQRA University, Open Source Summit, Innomedia, and Kopykats.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="logos"
+      data-title="Bitvaley Logo Design"
+      data-client="Bitvaley"
+      data-desc="Complete logo identity design for Bitvaley — a modern brand mark crafted with precision. Includes primary mark, alternate layouts, and usage variations delivered across multiple formats."
+      data-tags="Logo Design,Brand Identity,Typography,Illustrator"
+      data-gifs="https://i.postimg.cc/59DNJWzB/Bitvaley-Logo-01.jpg|https://i.postimg.cc/FscFsCb7/Bitvaley-Logo-02.jpg|https://i.postimg.cc/X7FN71Kf/Bitvaley-Logo-03.jpg|https://i.postimg.cc/J4J74Y3t/Bitvaley-Logo-04.jpg">
+      <div class="pt" style="background:#0d0d14"><img src="https://i.postimg.cc/59DNJWzB/Bitvaley-Logo-01.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Bitvaley Logo" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Bitvaley</div><div class="pn">Bitvaley Logo Design</div><div class="pd">Brand identity — logo mark, alternates &amp; usage variations.</div></div>
       <span class="parr">↗</span>
     </div>
 
@@ -878,20 +879,88 @@ window.addEventListener('DOMContentLoaded', function(){
   });
 })();
 
-/* ── WORK FILTERS ── */
+/* ── WORK FILTERS + SLIDER (unified) ── */
 (function(){
-  document.querySelectorAll('.fbtn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  var track    = document.getElementById('proj-grid');
+  var prevBtn  = document.getElementById('sarr-prev');
+  var nextBtn  = document.getElementById('sarr-next');
+  var dotsWrap = document.getElementById('slider-dots');
+  if(!track) return;
+
+  var allCards = Array.from(track.querySelectorAll('.pc'));
+  var current  = 0;
+
+  function visCards(){
+    return allCards.filter(function(c){ return c.style.display !== 'none'; });
+  }
+
+  function perPage(){
+    var w = track.parentElement.offsetWidth;
+    if(w < 500) return 1;
+    if(w < 800) return 2;
+    return 3;
+  }
+
+  function rebuildDots(){
+    dotsWrap.innerHTML = '';
+    var cards = visCards();
+    var max   = Math.max(0, cards.length - perPage());
+    for(var i = 0; i <= max; i++){
+      var d = document.createElement('button');
+      d.className = 'sdot' + (i === current ? ' active' : '');
+      (function(idx){ d.addEventListener('click', function(){ goTo(idx); }); })(i);
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function goTo(idx){
+    var cards = visCards();
+    if(!cards.length){ track.style.transform = ''; return; }
+    var pp  = perPage();
+    var max = Math.max(0, cards.length - pp);
+    current = Math.max(0, Math.min(idx, max));
+    var cardW = cards[0].offsetWidth + 14;
+    track.style.transition = 'transform .45s cubic-bezier(.22,1,.36,1)';
+    track.style.transform  = 'translateX(-' + (current * cardW) + 'px)';
+    dotsWrap.querySelectorAll('.sdot').forEach(function(d, i){ d.classList.toggle('active', i === current); });
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= max;
+  }
+
+  function applyFilter(f){
+    allCards.forEach(function(card){
+      var cats = (card.dataset.cat || '').split(' ');
+      card.style.display = (f === 'all' || cats.indexOf(f) !== -1) ? '' : 'none';
+    });
+    current = 0;
+    track.style.transition = 'none';
+    track.style.transform  = 'translateX(0)';
+    rebuildDots();
+    setTimeout(function(){ goTo(0); }, 30);
+  }
+
+  /* filter buttons */
+  document.querySelectorAll('.fbtn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.fbtn').forEach(function(b){ b.classList.remove('on'); });
       btn.classList.add('on');
-      const f=btn.dataset.filter;
-      document.querySelectorAll('.pc').forEach(card=>{
-        const cats=card.dataset.cat||'';
-        const show=f==='all'||cats.includes(f);
-        card.classList.toggle('hidden',!show);
-      });
+      applyFilter(btn.dataset.filter);
     });
   });
+
+  prevBtn.addEventListener('click', function(){ goTo(current - 1); });
+  nextBtn.addEventListener('click', function(){ goTo(current + 1); });
+  window.addEventListener('resize', function(){ goTo(current); });
+
+  var tx = 0;
+  track.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend',   function(e){
+    var dx = tx - e.changedTouches[0].clientX;
+    if(Math.abs(dx) > 40){ goTo(current + (dx > 0 ? 1 : -1)); }
+  }, {passive:true});
+
+  rebuildDots();
+  goTo(0);
 })();
 
 /* ── PROJECT MODALS + GIF LIGHTBOX ── */
@@ -1121,55 +1190,6 @@ document.querySelectorAll('.sc,.tool-card,.ar,.pc').forEach(card=>{
   });
 })();
 
-/* ── PROJECT SLIDER ── */
-(function(){
-  const track = document.getElementById('proj-grid');
-  const prevBtn = document.getElementById('sarr-prev');
-  const nextBtn = document.getElementById('sarr-next');
-  const dotsWrap = document.getElementById('slider-dots');
-  if(!track) return;
-
-  const cards = Array.from(track.querySelectorAll('.pc'));
-  let current = 0;
-
-  cards.forEach(function(_, i){
-    const d = document.createElement('button');
-    d.className = 'sdot' + (i===0?' active':'');
-    d.addEventListener('click', function(){ goTo(i); });
-    dotsWrap.appendChild(d);
-  });
-
-  function getVisible(){
-    const w = track.parentElement.offsetWidth;
-    if(w < 500) return 1;
-    if(w < 800) return 2;
-    return 3;
-  }
-
-  function goTo(idx){
-    const vis = getVisible();
-    const max = Math.max(0, cards.length - vis);
-    current = Math.max(0, Math.min(idx, max));
-    const cardW = cards[0].offsetWidth + 14;
-    track.style.transition = 'transform .45s cubic-bezier(.22,1,.36,1)';
-    track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
-    dotsWrap.querySelectorAll('.sdot').forEach(function(d,i){ d.classList.toggle('active', i===current); });
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current >= max;
-  }
-
-  prevBtn.addEventListener('click', function(){ goTo(current - 1); });
-  nextBtn.addEventListener('click', function(){ goTo(current + 1); });
-  window.addEventListener('resize', function(){ goTo(current); });
-  goTo(0);
-
-  let tx = 0;
-  track.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
-  track.addEventListener('touchend',   function(e){
-    const dx = tx - e.changedTouches[0].clientX;
-    if(Math.abs(dx) > 40){ goTo(current + (dx > 0 ? 1 : -1)); }
-  }, {passive:true});
-})();
 
 </script>
 </body>
