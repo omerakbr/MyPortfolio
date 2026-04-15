@@ -1424,6 +1424,112 @@ document.querySelectorAll('.sc,.tool-card,.ar,.pc').forEach(card=>{
     if(ctrl && (e.key==='s'||e.key==='S'||e.key==='u'||e.key==='U')) e.preventDefault();
   });
 })();
+/* ── ANIMATED FAVICON ── */
+(function(){
+  var S   = 64;
+  var cv  = document.createElement('canvas');
+  cv.width = cv.height = S;
+  var ctx = cv.getContext('2d');
+
+  /* inject link tag */
+  var lnk = document.createElement('link');
+  lnk.rel = 'icon'; lnk.type = 'image/png';
+  document.head.appendChild(lnk);
+
+  var ang   = 0;   /* comet angle */
+  var frame = 0;   /* frame counter for pulse */
+  var R     = S / 2;
+  var ringR = 24;  /* orbit radius */
+
+  function roundRect(x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.lineTo(x+w-r,y);
+    ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r);
+    ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    ctx.lineTo(x+r,y+h);
+    ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+    ctx.lineTo(x,y+r);
+    ctx.quadraticCurveTo(x,y,x+r,y);
+    ctx.closePath();
+  }
+
+  function tick(){
+    ctx.clearRect(0, 0, S, S);
+
+    /* ── dark rounded background ── */
+    ctx.fillStyle = '#0a0a0c';
+    roundRect(0, 0, S, S, 14);
+    ctx.fill();
+
+    /* ── pulsing inner radial glow ── */
+    var pulse = 0.5 + 0.5 * Math.sin(frame * 0.055);
+    var ig = ctx.createRadialGradient(R, R, 0, R, R, ringR * 0.75);
+    ig.addColorStop(0, 'rgba(59,130,246,' + (0.18 + pulse * 0.14) + ')');
+    ig.addColorStop(1, 'rgba(59,130,246,0)');
+    ctx.fillStyle = ig;
+    ctx.beginPath();
+    ctx.arc(R, R, ringR * 0.75, 0, Math.PI * 2);
+    ctx.fill();
+
+    /* ── dark orbit ring ── */
+    ctx.beginPath();
+    ctx.arc(R, R, ringR, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(59,130,246,0.12)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    /* ── comet tail (fading arc segments) ── */
+    var TAIL = 48;
+    for(var i = TAIL; i >= 0; i--){
+      var a     = ang - i * 0.075;
+      var alpha = Math.pow(1 - i / TAIL, 2.2);
+      var lw    = (1 - i / TAIL) * 3.5 + 0.4;
+      var aEnd  = a + 0.12;
+      ctx.beginPath();
+      ctx.arc(R, R, ringR, a, aEnd);
+      ctx.strokeStyle = 'rgba(59,130,246,' + alpha + ')';
+      ctx.lineWidth   = lw;
+      ctx.lineCap     = 'round';
+      ctx.stroke();
+    }
+
+    /* ── comet head bright glow ── */
+    var hx  = R + ringR * Math.cos(ang);
+    var hy  = R + ringR * Math.sin(ang);
+    var hg  = ctx.createRadialGradient(hx, hy, 0, hx, hy, 7);
+    hg.addColorStop(0,   'rgba(255,255,255,0.95)');
+    hg.addColorStop(0.3, 'rgba(147,197,253,0.80)');
+    hg.addColorStop(0.7, 'rgba(59,130,246,0.40)');
+    hg.addColorStop(1,   'rgba(59,130,246,0)');
+    ctx.fillStyle = hg;
+    ctx.beginPath();
+    ctx.arc(hx, hy, 7, 0, Math.PI * 2);
+    ctx.fill();
+
+    /* ── center "O" letter with glow ── */
+    ctx.save();
+    ctx.shadowColor = '#3b82f6';
+    ctx.shadowBlur  = 8 + pulse * 8;
+    ctx.fillStyle   = '#ffffff';
+    ctx.font        = 'bold 22px system-ui,sans-serif';
+    ctx.textAlign   = 'center';
+    ctx.textBaseline= 'middle';
+    ctx.fillText('O', R, R + 1);
+    ctx.restore();
+
+    lnk.href = cv.toDataURL('image/png');
+    ang   += 0.055;
+    frame += 1;
+    requestAnimationFrame(tick);
+  }
+
+  /* start after page load so it doesn't block render */
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', tick);
+  } else { tick(); }
+})();
 
 </script>
 </body>
