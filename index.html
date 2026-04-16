@@ -146,8 +146,8 @@ header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-
 #gif-lb-close:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.3)}
 #gif-lb-track-wrap{flex:1;overflow-x:scroll;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:default}
 #gif-lb-track-wrap::-webkit-scrollbar{display:none}
-#gif-lb-track{display:flex;height:100%}
-.lb-item{flex:0 0 50%;height:100%;scroll-snap-align:start;display:flex;align-items:center;justify-content:center;padding:24px 16px;box-sizing:border-box}
+#gif-lb-track{display:flex;height:100%;gap:0}
+.lb-item{flex:0 0 100%;height:100%;scroll-snap-align:start;display:flex;align-items:center;justify-content:center;padding:20px 32px;box-sizing:border-box}
 .lb-item img{max-width:100%;max-height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none;border-radius:4px}
 #gif-lb-dots{display:flex;align-items:center;justify-content:center;gap:5px;height:44px;flex-shrink:0}
 .lb-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);border:none;cursor:none;padding:0;transition:all .25s cubic-bezier(.22,1,.36,1);flex-shrink:0}
@@ -719,7 +719,7 @@ window.addEventListener('DOMContentLoaded',function(){
   var lbCapTit=document.getElementById('gif-lb-cap-title');
   var lbCapDesc=document.getElementById('gif-lb-cap-desc');
 
-  function itemWidth(){return lbWrap.clientWidth/2;}
+  function itemWidth(){return lbWrap.clientWidth;}
   function syncUI(){
     var iw=itemWidth();
     var idx=iw>0?Math.round(lbWrap.scrollLeft/iw):0;
