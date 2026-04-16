@@ -1,940 +1,279 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Omer Akbar — Senior 2D Animator</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accordion Slider</title>
 <style>
-:root{
-  --bg:#0a0a0c;--bg2:#101014;--bg3:#18181e;
-  --line:rgba(255,255,255,0.07);--text:#f2f0eb;--sub:#888580;
-  --tag-bg:rgba(255,255,255,0.05);--tag-text:#aaa9a4;
-  --r:12px;--rl:18px;
-  --neon:#3b82f6;--neon-rgb:59,130,246;--neon-glow:rgba(59,130,246,0.4);
-}
-[data-theme="light"]{
-  --bg:#f5f4f0;--bg2:#eceae4;--bg3:#e0ddd6;
-  --line:rgba(0,0,0,0.08);--text:#18181a;--sub:#76746f;
-  --tag-bg:rgba(0,0,0,0.05);--tag-text:#5a5956;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+*{box-sizing:border-box;margin:0;padding:0}
 body{
+  background:#0d0d14;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   font-family:'Geist',system-ui,sans-serif;
-  font-size:15px;line-height:1.55;color:var(--text);
-  -webkit-font-smoothing:antialiased;
-  transition:background .3s,color .3s;
-  cursor:none;overflow-x:hidden;
-  background:var(--bg);
+  gap:32px;
+  padding:40px 20px;
 }
-a{color:inherit;text-decoration:none}
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse 80% 50% at 10% 0%,rgba(59,130,246,0.13) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 20%,rgba(99,102,241,0.10) 0%,transparent 55%),
-    radial-gradient(ellipse 70% 50% at 50% 100%,rgba(139,92,246,0.08) 0%,transparent 60%),
-    radial-gradient(ellipse 50% 60% at 80% 80%,rgba(59,130,246,0.07) 0%,transparent 55%);
-  animation:gradShift 14s ease-in-out infinite alternate;pointer-events:none;
+
+h1{
+  font-size:clamp(18px,2.5vw,28px);
+  font-weight:500;
+  color:rgba(255,255,255,.85);
+  letter-spacing:-.02em;
 }
-@keyframes gradShift{0%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}100%{opacity:.8;transform:scale(1.01)}}
-[data-theme="light"] body::before{background:radial-gradient(ellipse 80% 50% at 10% 0%,rgba(59,130,246,0.07) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 90% 20%,rgba(99,102,241,0.05) 0%,transparent 55%),radial-gradient(ellipse 70% 50% at 50% 100%,rgba(139,92,246,0.04) 0%,transparent 60%)}
-header,section,.w,.hr,footer,#modal-overlay{position:relative;z-index:2}
-#cursor{position:fixed;width:12px;height:12px;border-radius:50%;background:#3b82f6;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px #3b82f6,0 0 22px rgba(59,130,246,0.5);transition:width .18s,height .18s,background .18s}
-#cursor-ring{position:fixed;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(var(--neon-rgb),.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s cubic-bezier(.16,1,.3,1),height .3s cubic-bezier(.16,1,.3,1),border-color .25s}
-body.ch #cursor{width:20px;height:20px;background:#fff}
-body.ch #cursor-ring{width:54px;height:54px;border-color:rgba(var(--neon-rgb),.9)}
-.trail{position:fixed;width:5px;height:5px;border-radius:50%;background:var(--neon);pointer-events:none;z-index:9997;transform:translate(-50%,-50%)}
-@media(hover:none),(pointer:coarse){#cursor,#cursor-ring,.trail{display:none!important}body{cursor:auto!important}a,button,.pc,.tool-card,.sc,.ar,.nbtn,.fbtn,.sarr,.sdot,.lb-dot,#gif-lb-close,#gif-lb-info,#gif-lb-panel-close,.modal-close,.btn,.tgl,.cf-send{cursor:pointer!important}}
-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;border-bottom:1px solid var(--line);background:var(--bg)}
-.logo{font-size:14px;font-weight:500;letter-spacing:-.01em}
-.nav-r{display:flex;align-items:center;gap:4px}
-.nbtn{padding:5px 12px;border-radius:40px;font-size:13px;color:var(--sub);border:1px solid transparent;background:none;cursor:none;transition:all .15s}
-.nbtn:hover,.nbtn.active{color:var(--text);border-color:var(--line);background:var(--bg2)}
-.nbtn.active{color:var(--neon);border-color:rgba(var(--neon-rgb),.3)}
-.tgl{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--sub);cursor:none;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s}
-.tgl:hover{color:var(--text);background:var(--bg2)}
-.w{max-width:1040px;margin:0 auto;padding:0 28px}
-.hr{height:1px;background:var(--line)}
-.hero{padding:76px 0 64px;display:flex;align-items:center;justify-content:space-between;gap:40px}
-.hero-text{flex:1;min-width:0}
-.hero h1{font-size:clamp(26px,3.5vw,38px);font-weight:500;letter-spacing:-.03em;line-height:1.2;margin-bottom:18px}
-.hero h1 .dim{color:var(--sub)}
-.hero p{font-size:15px;color:var(--sub);max-width:440px;line-height:1.7;margin-bottom:28px}
-.avail{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--sub);margin-bottom:20px}
-.dot{width:6px;height:6px;border-radius:50%;background:#4caf82;animation:blink 2.4s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.actions{display:flex;gap:9px;flex-wrap:wrap}
-.hero-gif-wrap{flex:0 0 300px;width:300px;height:300px;border-radius:28px;overflow:hidden;position:relative;flex-shrink:0;box-shadow:0 28px 56px rgba(0,0,0,.5);transform-style:preserve-3d;transition:transform .12s ease,box-shadow .12s ease;will-change:transform}
-.hero-gif-wrap img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
-@media(max-width:768px){.hero{flex-direction:column-reverse;gap:28px;padding:40px 0 36px;align-items:flex-start}.hero-gif-wrap{flex:none;width:100%;height:220px;border-radius:20px;transform:none!important}}
-@media(max-width:480px){.hero-gif-wrap{height:180px;border-radius:16px}}
-.tw-cursor{display:inline-block;width:2px;height:.9em;background:var(--neon);vertical-align:middle;margin-left:2px;animation:twBlink .7s steps(1) infinite}
-@keyframes twBlink{0%,100%{opacity:1}50%{opacity:0}}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:40px;font-size:13px;font-weight:500;cursor:none;border:1px solid var(--line);background:var(--bg2);color:var(--text);transition:all .2s}
-.btn:hover{background:var(--bg3);transform:translateY(-1px);border-color:rgba(var(--neon-rgb),.7);box-shadow:0 0 14px rgba(var(--neon-rgb),.25)}
-.btn.p{background:var(--text);color:var(--bg);border-color:transparent}
-.btn.p:hover{opacity:.88;transform:translateY(-1px);box-shadow:0 0 18px rgba(var(--neon-rgb),.35)}
-.sc,.tool-card,.pc,.ar{border:1px solid var(--line);transition:border-color .22s,box-shadow .22s,transform .22s,background .2s}
-.sc:hover,.tool-card:hover,.pc:hover,.ar:hover{border-color:rgba(var(--neon-rgb),.75)!important;box-shadow:0 0 0 1px rgba(var(--neon-rgb),.15),0 0 22px rgba(var(--neon-rgb),.18),inset 0 0 20px rgba(var(--neon-rgb),.04)}
-.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:28px 0}
-.sc{background:var(--bg2);border-radius:var(--rl);padding:24px}
-.sn{font-size:44px;font-weight:500;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#60a5fa;text-shadow:0 0 20px rgba(59,130,246,.7),0 0 50px rgba(59,130,246,.25)}
-.sl{font-size:13px;color:var(--sub);line-height:1.5}
-.ct{font-size:14px;font-weight:500;margin-bottom:8px}
-.cb{font-size:13px;color:var(--sub);line-height:1.6}
-.sec-hdr{display:flex;align-items:baseline;justify-content:space-between;padding:24px 0 16px}
-.sec-lbl{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
-.sec-link{font-size:13px;color:var(--sub);transition:color .15s}
-.sec-link:hover{color:var(--text)}
-.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;padding-bottom:28px;border-bottom:1px solid var(--line)}
-.tool-card{background:var(--bg2);border-radius:var(--r);padding:16px 12px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:none}
-.tool-card:hover{background:var(--bg3);transform:translateY(-2px)}
-.tool-icon{width:40px;height:40px;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.tool-icon img{width:40px;height:40px;object-fit:contain;display:block}
-.tool-name{font-size:12px;font-weight:500;color:var(--text);text-align:center;line-height:1.3}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.fbtn{padding:5px 14px;border-radius:40px;font-size:12px;font-weight:500;cursor:none;border:1px solid var(--line);background:var(--bg2);color:var(--sub);transition:all .18s}
-.fbtn:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.5)}
-.fbtn.on{background:rgba(var(--neon-rgb),.12);border-color:rgba(var(--neon-rgb),.6);color:var(--neon)}
-.pc{background:var(--bg2);border-radius:var(--rl);overflow:hidden;cursor:none;position:relative;transition:border-color .22s,box-shadow .22s,transform .25s,opacity .3s,background .2s}
-.pc.hidden{display:none!important}
-.pt{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative}
-.pt-overlay{position:absolute;inset:0;background:rgba(var(--neon-rgb),.12);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s;font-size:22px}
-.pc:hover .pt-overlay{opacity:1}
-.pi{padding:16px 18px 18px}
-.pcl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin-bottom:5px}
-.pn{font-size:15px;font-weight:500;letter-spacing:-.01em;margin-bottom:6px}
-.pd{font-size:13px;color:var(--sub);line-height:1.55}
-.parr{position:absolute;top:14px;right:16px;font-size:13px;color:var(--sub);opacity:0;transition:opacity .2s}
-.pc:hover .parr{opacity:1}
-.pg-wrap{position:relative;padding-bottom:28px;overflow:hidden}
-.pg{display:flex;gap:8px;overflow-x:scroll;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:4px 0 8px}
-.pg::-webkit-scrollbar{display:none}
-.pg .pc{scroll-snap-align:start;flex:0 0 calc((100% - 24px) / 4);width:calc((100% - 24px) / 4)}
-@media(max-width:1300px){.pg .pc{flex:0 0 calc((100% - 16px) / 3);width:calc((100% - 16px) / 3)}}
-@media(max-width:800px){.pg .pc{flex:0 0 calc((100% - 8px) / 2);width:calc((100% - 8px) / 2)}}
-@media(max-width:480px){.pg .pc{flex:0 0 100%;width:100%}}
-.slider-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
-.slider-dots{display:flex;gap:6px}
-.sdot{width:6px;height:6px;border-radius:50%;background:var(--line);border:none;cursor:none;transition:all .2s;padding:0}
-.sdot.active{width:20px;border-radius:3px;background:var(--neon)}
-.sarr{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--sub);cursor:none;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.sarr:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.6);background:var(--bg3)}
-.sarr:disabled{opacity:.3;pointer-events:none}
-#modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;padding:20px}
-#modal-overlay.open{opacity:1;pointer-events:all}
-#modal-box{background:var(--bg2);border:1px solid rgba(var(--neon-rgb),.35);border-radius:20px;max-width:580px;width:100%;box-shadow:0 0 60px rgba(var(--neon-rgb),.18),0 30px 60px rgba(0,0,0,.5);transform:scale(.93) translateY(16px);transition:transform .28s cubic-bezier(.16,1,.3,1);overflow:hidden;position:relative}
-#modal-overlay.open #modal-box{transform:scale(1) translateY(0)}
-#modal-thumb{width:100%;aspect-ratio:16/9;overflow:hidden}
-#modal-body{padding:24px 28px 28px}
-#modal-cat{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin-bottom:6px}
-#modal-title{font-size:22px;font-weight:500;letter-spacing:-.02em;margin-bottom:10px}
-#modal-desc{font-size:14px;color:var(--sub);line-height:1.7;margin-bottom:20px}
-.modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
-.modal-tag{background:rgba(var(--neon-rgb),.1);color:var(--neon);border:1px solid rgba(var(--neon-rgb),.25);border-radius:6px;padding:4px 10px;font-size:12px}
-.modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--sub);cursor:none;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;z-index:10}
-.modal-close:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.5);background:var(--bg3)}
-#gif-lb{position:fixed;inset:0;z-index:500;background:#0a0a0a;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .35s ease}
-#gif-lb.open{opacity:1;pointer-events:all}
-#gif-lb-bar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06);position:relative;z-index:2}
-#gif-lb-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.38);font-weight:400}
-#gif-lb-right{display:flex;align-items:center;gap:16px}
-#gif-lb-count{font-size:11px;color:rgba(255,255,255,.28);font-variant-numeric:tabular-nums;letter-spacing:.05em}
-#gif-lb-close{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:none;color:rgba(255,255,255,.5);cursor:none;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-#gif-lb-close:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.3)}
-#gif-lb-collage{flex:1;overflow:hidden;padding:40px;display:flex;align-items:center;justify-content:center;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
-#gif-lb-collage::-webkit-scrollbar{width:4px}
-#gif-lb-collage::-webkit-scrollbar-track{background:transparent}
-#gif-lb-collage::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px}
-.lb-col-grid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0;max-width:900px;padding:60px}
-.lb-col-item{background:none;border:2px solid rgba(var(--neon-rgb),.7);border-radius:10px;overflow:hidden;width:200px;flex-shrink:0;cursor:pointer;position:relative;transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .25s,opacity .25s;will-change:transform;box-shadow:0 6px 24px rgba(0,0,0,.5)}
-.lb-col-item.faded{opacity:.4}
-.lb-col-item img{width:100%;height:auto;display:block;pointer-events:none;-webkit-user-drag:none}
-#lb-zoom{position:absolute;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .22s ease;background:rgba(0,0,0,.45);backdrop-filter:blur(3px)}
-#lb-zoom.active{opacity:1}
-#lb-zoom img{max-width:72vw;max-height:78vh;width:auto;height:auto;border-radius:12px;border:2px solid rgba(var(--neon-rgb),.9);box-shadow:0 32px 96px rgba(0,0,0,.95),0 0 60px rgba(var(--neon-rgb),.35);transform:scale(.88);transition:transform .32s cubic-bezier(.22,1,.36,1);pointer-events:none}
-#lb-zoom.active img{transform:scale(1)}
-#gif-lb-panel{position:absolute;top:0;right:0;bottom:0;width:360px;max-width:90vw;background:rgba(10,10,12,.96);border-left:1px solid rgba(255,255,255,.07);transform:translateX(100%);transition:transform .38s cubic-bezier(.22,1,.36,1);z-index:300;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
-#gif-lb-mob-details{display:none}
-@media(max-width:600px),(hover:none) and (pointer:coarse){#gif-lb-mob-details{display:block;flex-shrink:0;padding:0 0 6px}#gif-lb-mob-tab{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 20px 10px;cursor:pointer}#gif-lb-mob-tab-line{display:block;width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.2)}#gif-lb-mob-tab-label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.45)}}
-#gif-lb-caption{flex-shrink:0;padding:0 32px 6px;text-align:center;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1),opacity .3s ease;max-height:0;opacity:0}
-#gif-lb-caption.visible{max-height:80px;opacity:1}
-#gif-lb-cap-title{font-size:12px;font-weight:500;color:rgba(255,255,255,.82);letter-spacing:.01em;margin-bottom:3px;line-height:1.4}
-#gif-lb-cap-desc{font-size:11px;color:rgba(255,255,255,.38);line-height:1.55;max-width:640px;margin:0 auto}
-@property --lba{syntax:'<angle>';initial-value:0deg;inherits:false}
-#gif-lb-info{position:relative;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#3b82f6;cursor:none;border-radius:20px;padding:5px 13px;border:1.5px solid transparent;background-image:linear-gradient(rgba(10,10,12,.95),rgba(10,10,12,.95)),conic-gradient(from var(--lba),#3b82f6 0deg,#60a5fa 35deg,rgba(59,130,246,.18) 75deg,rgba(8,12,22,1) 110deg,rgba(8,12,22,1) 250deg,rgba(59,130,246,.18) 285deg,#60a5fa 325deg,#3b82f6 360deg);background-origin:border-box;background-clip:padding-box,border-box;animation:lbaSpin 2.2s linear infinite,lbaGlow 2.6s ease-in-out infinite alternate;transition:color .15s}
-#gif-lb-info:hover{color:#93c5fd}
-@keyframes lbaSpin{to{--lba:360deg}}
-@keyframes lbaGlow{from{box-shadow:0 0 6px rgba(59,130,246,.28),0 0 14px rgba(59,130,246,.10)}to{box-shadow:0 0 10px rgba(59,130,246,.55),0 0 24px rgba(59,130,246,.22),0 0 42px rgba(59,130,246,.08)}}
-#gif-lb-panel.open{transform:translateX(0)}
-#gif-lb-panel-inner{padding:28px 28px 48px}
-#gif-lb-panel-close{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:none;color:rgba(255,255,255,.5);cursor:none;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-#gif-lb-panel-close:hover{color:#fff;border-color:rgba(255,255,255,.35)}
-.lbp-tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
-.lbp-title{font-size:18px;font-weight:500;color:#fff;letter-spacing:-.02em;line-height:1.3;margin-bottom:12px}
-.lbp-tool{display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:28px}
-.lbp-section{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.06)}
-.lbp-section:last-of-type{border-bottom:none}
-.lbp-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px}
-.lbp-body{font-size:13px;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:10px}
-.lbp-lot{padding:12px 14px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);margin-bottom:8px}
-.lbp-lot p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6;margin:5px 0 0}
-.lbp-lot-n{font-size:11px;font-weight:600;color:rgba(var(--neon-rgb),.8);letter-spacing:.04em;margin-right:8px}
-.lbp-lot-g{font-size:11px;color:rgba(255,255,255,.35)}
-.lbp-tags{display:flex;flex-wrap:wrap;gap:6px}
-.lbp-tags span{font-size:11px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
-.lbp-behance{display:inline-flex;align-items:center;gap:6px;margin-top:24px;padding:9px 18px;border-radius:40px;background:rgba(var(--neon-rgb),.15);border:1px solid rgba(var(--neon-rgb),.4);color:rgba(var(--neon-rgb),1);font-size:12px;font-weight:500;transition:all .18s}
-.lbp-behance:hover{background:rgba(var(--neon-rgb),.25);border-color:rgba(var(--neon-rgb),.7)}
-.el{padding-bottom:20px}
-.er{display:grid;grid-template-columns:180px 1fr;gap:32px;padding:22px 0;border-top:1px solid var(--line)}
-.er:last-child{border-bottom:1px solid var(--line)}
-.em{font-size:13px;color:var(--sub);padding-top:2px}
-.ep{margin-bottom:4px}
-.eco{font-weight:500}
-.ero{font-size:15px;font-weight:500;letter-spacing:-.01em;margin-bottom:8px}
-.edc{font-size:13px;color:var(--sub);line-height:1.65}
-.etg{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.tag{background:var(--tag-bg);color:var(--tag-text);border-radius:6px;padding:5px 10px;font-size:12px;border:1px solid var(--line);transition:all .15s}
-.tag:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.5)}
-.ag{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:28px}
-.ar{background:var(--bg2);border-radius:var(--r);padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:none;position:relative;overflow:visible}
-#confetti-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9990}
-.ai{font-size:22px;flex-shrink:0}
-.an{font-size:14px;font-weight:500;margin-bottom:2px}
-.ao{font-size:12px;color:var(--sub)}
-.cct{padding:60px 0 80px;border-top:1px solid var(--line)}
-.cct h2{font-size:clamp(28px,4vw,48px);font-weight:500;letter-spacing:-.03em;margin-bottom:14px;white-space:nowrap}
-.cct h2 .dim{color:var(--sub)}
-.cct>p{font-size:15px;color:var(--sub);margin-bottom:32px;max-width:400px;line-height:1.65}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
-.cl{display:flex;flex-direction:column;gap:10px}
-.cl .btn{justify-content:flex-start}
-footer{position:fixed;bottom:0;left:0;right:0;z-index:40;height:88px;padding:0 28px 16px;display:flex;align-items:flex-end;justify-content:space-between;font-size:12px;color:var(--sub);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);background:linear-gradient(to bottom,transparent 0%,rgba(10,10,12,0.55) 50%,rgba(10,10,12,0.82) 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 40%);mask-image:linear-gradient(to bottom,transparent 0%,black 40%);border-top:none}
-[data-theme="light"] footer{background:linear-gradient(to bottom,transparent 0%,rgba(245,244,240,0.55) 50%,rgba(245,244,240,0.88) 100%)}
-body{padding-bottom:72px}
-.fl{display:flex;gap:18px}
-.fl a{transition:color .15s}.fl a:hover{color:var(--text)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-@keyframes fadeLeft{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
-@keyframes fadeRight{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
-@keyframes scaleFade{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
-.sa{opacity:0;transform:translateY(26px)}
-.sa.from-left{opacity:0;transform:translateX(-28px)}
-.sa.from-right{opacity:0;transform:translateX(28px)}
-.sa.scale-in{opacity:0;transform:scale(.94)}
-.sa.vis{animation:fadeUp .6s cubic-bezier(.22,1,.36,1) both}
-.sa.from-left.vis{animation:fadeLeft .6s cubic-bezier(.22,1,.36,1) both}
-.sa.from-right.vis{animation:fadeRight .6s cubic-bezier(.22,1,.36,1) both}
-.sa.scale-in.vis{animation:scaleFade .6s cubic-bezier(.22,1,.36,1) both}
-@media(max-width:768px){.sg{grid-template-columns:1fr 1fr}.ag{grid-template-columns:1fr 1fr}.er{grid-template-columns:1fr;gap:6px}.tool-grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr))}.contact-grid{grid-template-columns:1fr}.cct h2{white-space:normal;font-size:clamp(22px,5vw,36px)}.cct{padding:40px 0 60px}.hero{padding:48px 0 40px}#gif-lb-panel{z-index:300;width:100%;max-width:100%;top:auto;height:65vh;border-left:none;border-top:1px solid rgba(255,255,255,.07)}#gif-lb-panel.open{transform:translateY(0)}#gif-lb-panel{transform:translateY(100%)}.lbp-behance{margin-top:16px}}
-@media(max-width:600px){#gif-lb-bar{padding:0 14px;height:46px}#gif-lb-title{font-size:9px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#gif-lb-info{display:none}#gif-lb-collage{padding:28px 16px 40px}.lb-col-item{width:130px;padding:6px 6px 22px;margin:-6px}footer{flex-direction:column;gap:6px;padding:0 16px 14px;height:72px}body{padding-bottom:80px}.modal-tags{gap:4px}#modal-body{padding:16px 18px 20px}#modal-title{font-size:17px}}
-@media(max-width:480px){.sg{grid-template-columns:1fr}.ag{grid-template-columns:1fr}header{padding:0 16px}.w{padding:0 16px}.nbtn{padding:5px 8px;font-size:12px}.logo{font-size:13px}.tool-grid{grid-template-columns:repeat(4,1fr)}.cct h2{white-space:normal}.hero h1{font-size:clamp(22px,7vw,32px)}.actions{gap:7px}.btn{padding:7px 13px;font-size:12px}.sg .sn{font-size:36px}.er{padding:16px 0}.slider-nav{flex-direction:row;gap:8px}#gif-lb-count{font-size:10px}}
-@media(max-width:360px){.nbtn{padding:4px 6px;font-size:11px}.tool-grid{grid-template-columns:repeat(3,1fr)}}
-img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:none;pointer-events:none}
-.pc .pt img,#gif-lb-img,.lb-item img{pointer-events:none;-webkit-user-drag:none}
-#gif-lb-track-wrap{touch-action:pan-x}
+
+.slider{
+  display:flex;
+  gap:12px;
+  height:clamp(280px,45vw,520px);
+  width:100%;
+  max-width:1160px;
+  align-items:stretch;
+  user-select:none;
+}
+
+.panel{
+  position:relative;
+  overflow:hidden;
+  border-radius:999px;
+  cursor:pointer;
+  flex:1;
+  min-width:72px;
+  transition:
+    flex .65s cubic-bezier(.25,1,.5,1),
+    border-radius .65s cubic-bezier(.25,1,.5,1),
+    box-shadow .4s ease;
+  box-shadow:0 4px 20px rgba(0,0,0,.5);
+}
+
+.panel.active{
+  flex:8;
+  border-radius:28px;
+  box-shadow:0 16px 60px rgba(59,130,246,.3),0 8px 30px rgba(0,0,0,.6);
+}
+
+.panel img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  pointer-events:none;
+  transition:transform .65s cubic-bezier(.25,1,.5,1),filter .4s ease;
+  filter:brightness(.75) saturate(.9);
+  will-change:transform;
+}
+
+.panel.active img{
+  filter:brightness(1) saturate(1.05);
+  transform:scale(1.02);
+}
+
+.panel .border-ring{
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  border:1.5px solid rgba(255,255,255,0);
+  transition:border-color .4s ease;
+  pointer-events:none;
+  z-index:3;
+}
+.panel.active .border-ring{
+  border-color:rgba(59,130,246,.55);
+}
+
+.panel .badge{
+  position:absolute;
+  bottom:16px;
+  left:50%;
+  transform:translateX(-50%) scale(.6);
+  background:rgba(255,255,255,.95);
+  border-radius:50%;
+  width:44px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:4;
+  opacity:0;
+  transition:opacity .4s ease,transform .45s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 4px 14px rgba(0,0,0,.3);
+  font-size:20px;
+  backdrop-filter:blur(6px);
+}
+.panel.active .badge{
+  opacity:1;
+  transform:translateX(-50%) scale(1);
+}
+
+.panel .label{
+  position:absolute;
+  top:20px;
+  left:22px;
+  z-index:4;
+  color:#fff;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  opacity:0;
+  transform:translateY(6px);
+  transition:opacity .4s .1s ease,transform .4s .1s ease;
+  text-shadow:0 2px 8px rgba(0,0,0,.6);
+  white-space:nowrap;
+}
+.panel.active .label{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.panel .overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.15) 0%,transparent 40%,rgba(0,0,0,.45) 100%);
+  z-index:2;
+  opacity:0;
+  transition:opacity .4s ease;
+}
+.panel.active .overlay{opacity:1}
+
+.hint{
+  font-size:12px;
+  color:rgba(255,255,255,.3);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+@media(max-width:600px){
+  .slider{height:220px;gap:7px}
+  .panel{min-width:50px;border-radius:999px}
+  .panel.active{border-radius:18px}
+  .badge{width:34px;height:34px;font-size:15px;bottom:10px}
+  .label{font-size:11px;top:12px;left:14px}
+}
 </style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<h1>Hover to explore</h1>
 
-<div id="modal-overlay" onclick="closeModal(event)">
-  <div id="modal-box">
-    <button class="modal-close" onclick="closeModal(null,true)">✕</button>
-    <div id="modal-thumb"></div>
-    <div id="modal-body">
-      <div id="modal-cat"></div>
-      <div id="modal-title"></div>
-      <div id="modal-desc"></div>
-      <div class="modal-tags" id="modal-tags"></div>
-      <a id="modal-link" href="https://www.behance.net/omi6910660" target="_blank" class="btn p" style="width:fit-content">View on Behance ↗</a>
-    </div>
+<div class="slider" id="slider">
+
+  <div class="panel" data-label="Cascades" data-icon="🌊">
+    <img src="https://picsum.photos/id/137/1200/800" alt="Waterfall">
+    <div class="overlay"></div>
+    <div class="border-ring"></div>
+    <span class="label">Cascades</span>
+    <div class="badge">🌊</div>
   </div>
+
+  <div class="panel" data-label="Highlands" data-icon="🏔">
+    <img src="https://picsum.photos/id/29/1200/800" alt="Mountains">
+    <div class="overlay"></div>
+    <div class="border-ring"></div>
+    <span class="label">Highlands</span>
+    <div class="badge">🏔</div>
+  </div>
+
+  <div class="panel" data-label="Canopy" data-icon="🌿">
+    <img src="https://picsum.photos/id/15/1200/800" alt="Forest">
+    <div class="overlay"></div>
+    <div class="border-ring"></div>
+    <span class="label">Canopy</span>
+    <div class="badge">🌿</div>
+  </div>
+
+  <div class="panel" data-label="Shoreline" data-icon="🏖">
+    <img src="https://picsum.photos/id/96/1200/800" alt="Beach">
+    <div class="overlay"></div>
+    <div class="border-ring"></div>
+    <span class="label">Shoreline</span>
+    <div class="badge">🏖</div>
+  </div>
+
+  <div class="panel" data-label="Sundown" data-icon="🌅">
+    <img src="https://picsum.photos/id/110/1200/800" alt="Sunset">
+    <div class="overlay"></div>
+    <div class="border-ring"></div>
+    <span class="label">Sundown</span>
+    <div class="badge">🌅</div>
+  </div>
+
+  <div class="panel" data-label="Structure" data-icon="🏛">
+    <img src="https://picsum.photos/id/58/1200/800" alt="Architecture">
+    <div class="overlay"></div>
+    <div class="border-ring"></div>
+    <span class="label">Structure</span>
+    <div class="badge">🏛</div>
+  </div>
+
 </div>
 
-<div id="gif-lb">
-  <div id="gif-lb-bar">
-    <span id="gif-lb-title"></span>
-    <div id="gif-lb-right">
-      <button id="gif-lb-info">Project Details</button>
-      <span id="gif-lb-count"></span>
-      <button id="gif-lb-close">✕</button>
-    </div>
-  </div>
-  <div id="gif-lb-collage"></div>
-  <div id="lb-zoom"><img id="lb-zoom-img" src="" alt=""></div>
-  <div id="gif-lb-panel">
-    <div id="gif-lb-panel-inner">
-      <button id="gif-lb-panel-close">✕</button>
-      <div id="lbp-dynamic"></div>
-    </div>
-  </div>
-</div>
-
-<header>
-  <span class="logo">Omer Akbar</span>
-  <div class="nav-r">
-    <a href="#work" class="nbtn" data-nav>Work</a>
-    <a href="#experience" class="nbtn" data-nav>Experience</a>
-    <a href="#contact" class="nbtn" data-nav>Contact</a>
-    <button class="tgl" onclick="toggleTheme()" title="Toggle theme"><span id="ti">☀</span></button>
-  </div>
-</header>
-
-<div class="w">
-  <section class="hero sa">
-    <div class="hero-text">
-      <div class="avail"><span class="dot"></span> Available for freelance</div>
-      <h1 id="hero-h1">I AM<br><span class="dim"><span id="tw-target"></span><span class="tw-cursor"></span></span></h1>
-      <p>10+ years producing educational animations, motion graphics, and brand visuals for UNICEF, PTV, PTCL, and millions of learners across Pakistan.</p>
-      <div class="actions">
-        <a href="https://www.behance.net/omi6910660" target="_blank" class="btn p">View Portfolio ↗</a>
-        <a href="#contact" class="btn">Get in touch</a>
-      </div>
-    </div>
-    <div class="hero-gif-wrap">
-      <img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNQCBWA0YGPBxCYBpVGwcZJkBRUV4ZAQoBX1ERBV0UH1NdWF0AHUcbWQIYUVxVWVQ=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Motion showcase" />
-    </div>
-  </section>
-</div>
-
-<div class="hr"></div>
-
-<div class="w">
-  <div class="sg stagger">
-    <div class="sc sa from-left"><div class="sn" data-count="100" data-suffix="+">0</div><div class="sl">Animations produced for national e-learning platforms</div></div>
-    <div class="sc sa scale-in"><div class="sn" data-count="10" data-suffix="+">0</div><div class="sl">Years of experience in animation &amp; graphic design</div></div>
-    <div class="sc sa from-right"><div class="ct">Currently</div><div class="cb">Team Lead — Graphic Design at <strong>Knowledge Platform</strong>, Islamabad. Leading a team of 4 designers.</div></div>
-  </div>
-
-  <div class="sec-hdr sa"><span class="sec-lbl">Tools</span></div>
-  <div class="tool-grid stagger">
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-after-effects-cc.svg" alt="After Effects" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#00005b\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#9999ff\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Ae</text></svg>'"></div><div class="tool-name">After Effects</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-character-animator-cc-2019-.svg" alt="Character Animator" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#1e0030\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#c278ff\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Ch</text></svg>'"></div><div class="tool-name">Character Animator</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-photoshop-2.svg" alt="Photoshop" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#001e36\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#31a8ff\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Ps</text></svg>'"></div><div class="tool-name">Photoshop</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-illustrator-cc-3.svg" alt="Illustrator" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#330000\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#ff9a00\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Ai</text></svg>'"></div><div class="tool-name">Illustrator</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-premiere-pro-cc-1430-vector-svg-.svg" alt="Premiere Pro" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#00005b\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#9999ff\' font-size=\'11\' font-weight=\'700\' font-family=\'sans-serif\'>Pr</text></svg>'"></div><div class="tool-name">Premiere Pro</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-indesign-cc-icon.svg" alt="InDesign" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#49021f\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#ff3366\' font-size=\'11\' font-weight=\'700\' font-family=\'sans-serif\'>Id</text></svg>'"></div><div class="tool-name">InDesign</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-xd-2.svg" alt="Adobe XD" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#2e001e\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#ff61f6\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Xd</text></svg>'"></div><div class="tool-name">Adobe XD</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#1e1e1e"/><rect x="13" y="7" width="7" height="7" rx="3.5" fill="#f24e1e"/><rect x="20" y="7" width="7" height="7" rx="3.5" fill="#ff7262"/><rect x="13" y="14" width="7" height="7" rx="3.5" fill="#a259ff"/><rect x="13" y="21" width="7" height="7" rx="3.5" fill="#0acf83"/><circle cx="23.5" cy="24.5" r="3.5" fill="#1abcfe"/></svg></div><div class="tool-name">Figma</div></div>
-  </div>
-</div>
-
-<div class="hr"></div>
-
-<div id="work" class="w">
-  <div class="sec-hdr sa">
-    <span class="sec-lbl">Work</span>
-    <a href="https://www.behance.net/omi6910660" target="_blank" class="sec-link">All projects ↗</a>
-  </div>
-  <div class="filters sa">
-    <button class="fbtn on" data-filter="all">All</button>
-    <button class="fbtn" data-filter="animation">Animation</button>
-    <button class="fbtn" data-filter="branding">Branding</button>
-    <button class="fbtn" data-filter="social-media">Social Media</button>
-    <button class="fbtn" data-filter="print">Print</button>
-  </div>
-  <div class="pg-wrap">
-  <div class="pg stagger" id="proj-grid">
-
-    <div class="pc sa" data-cat="animation"
-      data-title="Government Educational Media"
-      data-client="MoFEPT"
-      data-desc="Animated educational content commissioned by the Ministry of Federal Education and Professional Training. Curriculum-aligned visual content covering climate change, green transport, water conservation and nature for federal schools across Pakistan."
-      data-tags="2D Animation,Educational,Government,After Effects,Character Animator"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNdhxECUZjRDdCehxAGQ0ZJAQdV08XBgseEVsGT1sCRllfXAoKQ1QbUg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0MGfEZ9JFdCfRNAHhBRAR93W1MEQj0BJABGB04VW1YfVh8CQFwCQAIPXQhXHlVcFg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhhlQAZbNClCfRdHHwdQX2FVQ0AVAQ5WQgVGB04VW1YfVh8CQFwCQAIPXQhXHlVcFg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQBVrWkRYE1hCdABRDgwZJkBRUV4ZAQoBX1ERBV0UH1NdWF0AHUcbWQIYUVxVWVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRgtlCH4GNg1CdB5bCQNYX2VRQFgZAQpSHFBGIVgbX1FGUF0sBVIcUw5PZEBkAx9YAFtAVghTAgQZEV1dH0MZCwhcX0AET1MbVB1RWh4ZCEEGURlMUxtU|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRBZDeEF4MyVCcB5dBgNAFx9zWlQeCAgeImBaNAdfV0pVXBZCDlwfGQQSQBtfWUhQXggEVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZABLXmpfNy1CdABRDgwZJkBRXEYAAB9HX2RaNAdfV0pVXBZCDlwfGQQSQBtfWUhQXggEVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUiZ2WGNXIB1CdABRDgwZJkBRXEYAAB9HX2RZNAdfV0pVXBZCDlwfGQQSQBtfWUhQXggEVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQjpaR2tGNldCeh9EBBBAE1xTV1QeC0B2FFIOAUABH2YAGBUVCloUGQgNWV9dQEZcHQYXVlxTAgQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAyh+CFBiBydCeh9EBBBAE1xTV1oWQjpSBlEZT2JFHwIfUAoIBFVfVwQPGR1CRFtYGRUIHRVdDQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTBZZRwF7KClCfRNAHhBRX2VfQF4DQj1SAEBYNAZfV0pVXBZCDlwfGR0LUBddHUZaXQgEVV9XBAxCF0BEV0deCARV|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZT9wAnh+MgdCfRdHHwdQX2FVQ0AVAQ5WQgZGB04VW1YfVh8CQFwCQAIPXQhXHlVcFg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfwRKSVpsJyNCfAdGRjVbAF5UH3oFGx9cX1ERBV0UH1NdWF0AHUcbWQIYUVxVWVQ=">
-      <div class="pt" style="background:#0b1a10"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNdhxECUZjRDdCehxAGQ0ZJAQdV08XBgseEVsGT1sCRllfXAoKQ1QbUg==" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="MoFEPT" />
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">MoFEPT</div><div class="pn">Government Educational Media</div><div class="pd">Curriculum-aligned animated content for federal schools — climate, nature &amp; sustainability.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="branding"
-      data-title="Bitvaley Logo Design"
-      data-client="Bitvaley"
-      data-desc="Complete logo identity design for Bitvaley — a modern brand mark crafted with precision. Includes primary mark, alternate layouts, and usage variations delivered across multiple formats."
-      data-tags="Logo Design,Brand Identity,Typography,Illustrator"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNAUt2fnhiCi1CcRtAHQNYF0sdfloXAEADQxoBElM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcgFRdkF2ElhCcRtAHQNYF0sdfloXAEADQBoBElM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbEV0fgUEOwlCcRtAHQNYF0sdfloXAEADQRoBElM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfkZ4BwZsQxtCcRtAHQNYF0sdfloXAEADRhoBElM=">
-      <div class="pt" style="background:#0d0d14"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNAUt2fnhiCi1CcRtAHQNYF0sdfloXAEADQxoBElM=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Bitvaley Logo" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Bitvaley</div><div class="pn">Bitvaley Logo Design</div><div class="pd">Brand identity — logo mark, alternates &amp; usage variations.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="branding"
-      data-title="Cedar Heights – Real Estate Logo &amp; Brand Identity"
-      data-client="Cedar Heights"
-      data-desc="Complete real estate brand identity for Cedar Heights — logo, visual system, and collateral inspired by the enduring Cedar tree. A symbol of strength, resilience, and natural elegance."
-      data-tags="Logo Design,Branding,Corporate Identity,Architecture Branding,Luxury Branding,Real Estate"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZkJUZkNGCARCcBdQChAZQgMeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVz5ifEpEQgJCcBdQChAZQgAeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUiADYkgBABlCcBdQChAZQgEeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWhp8WHQNFyFCcBdQChAZQgYeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbAR0B2p9QB5CcBdQChAZQgceWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNX0cKaHYEFB5CcBdQChAZQgQeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNdgR2YUZsN1dCcBdQChAZQgUeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZApYVnZiBCRCcBdQChAZQgoeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRwpcA1BXRVZCcBdQChAZQgseWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNejR1V3hkQj5CcBdQChAZQwIeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTpoZ2JPFjhCAVxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhURAFRBhhCAFxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQDhACQoNNl1CB1xeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBEdoBQR+GFpCBlxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDBlFW3RTCDlCBVxeGwU="
-      data-behance="https://www.behance.net/gallery/228748633/Cedar-Heights-Real-Estate-Logo-Brand-Identity">
-      <div class="pt" style="background:#0c160f"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZkJUZkNGCARCcBdQChAZQgMeWEUX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Cedar Heights" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Cedar Heights</div><div class="pn">Cedar Heights – Real Estate Logo &amp; Brand Identity</div><div class="pd">Real estate brand identity rooted in nature — Cedar tree mark, typography &amp; visual system.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="branding"
-      data-title="Creamio – Ice Cream Logo Design &amp; Visual Brand Identity"
-      data-client="Creamio"
-      data-desc="Vibrant and playful ice cream brand identity — custom logo, fresh colour palette, typography system, and packaging applications for a delightful dessert brand."
-      data-tags="Logo Design,Branding,Visual Identity,Food Logo,Packaging Design,Modern Logo,Minimal Design"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNcCh1YwNTGxlCcABRCg9dHR9yQFQeCwRdFRlbUxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQwR8AXZNSFZCcABRCg9dHR9yQFQeCwRdFRlbUBoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRCZYXXljEjdCcABRCg9dHR9yQFQeCwRdFRlbURoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWTYLYAVvFg1CcABRCg9dHR9yQFQeCwRdFRlbVhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUxFER3gFODxCcABRCg9dHR9yQFQeCwRdFRlbVxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNV0Z+Q2EESVlCcABRCg9dHR9yQFQeCwRdFRlbVBoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQh9kaXxlIB1CcABRCg9dHR9yQFQeCwRdFRlbVRoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZRYifmF5AQlCcABRCg9dHR9yQFQeCwRdFRlbWhoYQlc="
-      data-behance="https://www.behance.net/gallery/228340973/Creamio-Ice-Cream-Logo-Design-Visual-Brand-Identity">
-      <div class="pt" style="background:#1a060e"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNcCh1YwNTGxlCcABRCg9dHR9yQFQeCwRdFRlbUxoYQlc=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Creamio" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Creamio</div><div class="pn">Creamio – Ice Cream Brand Identity</div><div class="pd">Playful logo, colour palette, typography &amp; packaging for an ice cream brand.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="branding"
-      data-title="Moreway Logistic Solution Logo and Branding"
-      data-client="Moreway"
-      data-desc="Full brand identity for Moreway Logistic Solution — logo design, brand guidelines, vehicle mockups, and complete visual system for a modern logistics company."
-      data-tags="Modern Logo Design,Branding,Brand Identity,Logo Design,Visual Identity,Minimal Logo,Logistics Logo"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNfhpiQWFENylCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fXB0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfD5wAnQHJllCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fXx0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZAp4BHpCB1tCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fXh0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNA0RaZgYHCgRCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fWR0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNej90BEZ9KBhCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fWB0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVgQBZAZhAy1CcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fWx0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZAAHCGBfQRZCA0MaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZzxKSkRdEwlCA0AaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXz9RUkEBIjlCA0EaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQDEGZn9fGCdCA0YaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZjRmflVGGCFCA0caARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfhwKQ1FjQT5CRwBBCAkZH11TWUAAQl0CXF4bBQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTkBWllzNFdCRwBBCAkZH11TWUAAQl0BXF4bBQ=="
-      data-behance="https://www.behance.net/gallery/231115757/Moreway-Logistic-Solution-Logo-and-Branding">
-      <div class="pt" style="background:#0e1218"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNQDEGZn9fGCdCA0YaARJT" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Moreway" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Moreway</div><div class="pn">Moreway Logistic Solution Branding</div><div class="pd">Logo, brand guidelines, vehicle mockups &amp; full visual identity for a logistics brand.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="branding"
-      data-title="N7 Real Estate"
-      data-client="N7 Real Estate"
-      data-desc="Premium real estate brand identity for N7 — covering print, merchandise, coins, trophy, perfume, and car branding. A complete luxury visual system for a Dubai-based real estate brand."
-      data-tags="Branding,Print,Merchandise,Coins,Trophy,Car Branding,Premium,Real Estate,Dubai"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNAxpZYwRGBDVCYx1GHwRbHltfHxAzLkhxN1kJBVxcQl5V|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTjBlXkNvGltCAVxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNciBRWloAKh5CAFxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWTZ/YWZTByVCB1xEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbhxhBmACA19CBlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQiZBBXBEQihCej9zRlAEQAAABQdGQjpyQgRYUxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbQNwaGReRz9CchZdB08FXEJeVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZABcBlFdGAtCchZdB08GXEJeVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNf0poAHV7IllCej9zRlAEQAAABQdBQjpyQgRfUhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbCtkQ1gNAlxCej9zRlAEQAAABQdHQjpyQgRYWxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRxRaBkVNG19Cej9zRlAEQAAABQdHQjpyQgRfUhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAyIAQ19dNjhCej9zRlAEQAAACgVFQjpyQgRfUhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYCtEW2FyNz9Cej9zRlAEQAAABwdFQjpyQgRaUBoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNdz5CRkZsQBtCej9zRlAEQAAABwdFQjpyQgRcWhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTCZ1Q2QCJChCej9zRlAEQAAABwZBQjpyQgRdWxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTStaVnEAKSlCej9zRlAEQAAABwZBQjpyQgRcVxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzhYfGMDOjdCej9zRlAEQAAABARIQjpyQgRZUBoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZih/V2FnPg1Cej9zRlAEQAAABAdAQjpyQgRbUxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcAUASERSIzlCej9zRlAEQAAABQRJQjpyQgRcURoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDAgDakJ9GgdCej9zRlAEQAAABAVBQjpyQgRaVxoYQlc="
-      data-behance="https://www.behance.net/gallery/227912897/N7-Real-Estate">
-      <div class="pt" style="background:#0a0a10"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNTjBlXkNvGltCAVxEBQU=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="N7 Real Estate" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">N7 Real Estate</div><div class="pn">N7 Real Estate</div><div class="pd">Premium luxury brand identity — print, merchandise, coins, trophy &amp; car branding for Dubai real estate.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="branding"
-      data-title="Nussa Ferrero Brand Identity"
-      data-client="Nussa Ferrero"
-      data-desc="Complete brand identity for Nussa Ferrero — a dessert and ice cream brand. Includes logo, mascot design, brand guidelines, product design, social media posts, and pattern development."
-      data-tags="Brand Identity,Logo Design,Mascot,Branding,Brand Guidelines,Dessert,Ice Cream,Product Design,Social Media,Pattern"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNRgJWdnkCHQdCcR1MRRJaFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzpceAdlNyRCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CBF4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBDwBWlxlQydCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CB14FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeAEFBXYHB1dCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CBl4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRwpxaHR+QzVCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CAV4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBBgDYVVvSSlCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CAF4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRxV6V1QGJiRCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CA14FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBDwEAlBdIStCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CAl4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTVAfX5MPTxCAlxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcjlcVARfFh9CBFxeGwU="
-      data-behance="https://www.behance.net/gallery/228269755/Nussa-Ferrero-Brand-Identity">
-      <div class="pt" style="background:#1a0a06"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzpceAdlNyRCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CBF4FHVQ=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Nussa Ferrero" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Nussa Ferrero</div><div class="pn">Nussa Ferrero Brand Identity</div><div class="pd">Logo, mascot, brand guidelines, product &amp; social media identity for a dessert brand.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="branding print"
-      data-title="Mood Spritz Label Design"
-      data-client="Mood Spritz"
-      data-desc="Pocket-sized spritz label design — four bold colour-story variants capturing distinct moods: calming blue, sunny orange, playful pink, and dreamy purple."
-      data-tags="Label Design,Branding,Print,Packaging,Visual Identity,Product Design,Spritz"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXAZiQ1lnRBhCcB1CDhAaAlxX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQih6WHhCSCFCcR5BDkxeAlU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQih6WHhCSDxCfABVBQVRXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXxVqQwJlPSdCYxtaAExeAlU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRgVcWlFvOwxCYwdGGw5RXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZRYGXUFsOCtCfh1bDwBbE0BUHF8ACA=="
-      data-behance="https://www.behance.net/gallery/238425459/Mood-Spritz-Label-Design">
-      <div class="pt" style="background:#0d0a14"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXAZiQ1lnRBhCcB1CDhAaAlxX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Mood Spritz" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Mood Spritz</div><div class="pn">Mood Spritz Label Design</div><div class="pd">Four bold colour-story label variants — calming, sunny, playful, and dreamy.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="branding"
-      data-title="Accelerec ATS System"
-      data-client="Accelerec"
-      data-desc="Complete brand identity and UI design system for Accelerec — an AI-powered Applicant Tracking System. Covers logo design, brand guidelines, product UI screens, and motion graphics showcasing the platform's smart recruitment workflow."
-      data-tags="Branding,UI Design,Logo Design,ATS,SaaS,Motion Graphics,Brand Identity"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhaU0ZiMghCYEMaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAQsDd0p3GA1CYEAaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBgtfekhkAyxCYEEaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTgRYYQF5PihCYEYaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQiZ/WmNHOlZCYEcaDAtS|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBgtfekhkAzVCYEQaDAtS"
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#080e1a"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhaU0ZiMghCYEMaGwxT" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Accelerec ATS" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Accelerec</div><div class="pn">Accelerec ATS System</div><div class="pd">Brand identity &amp; UI design system for an AI-powered Applicant Tracking System.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="animation"
-      data-title="Unity – Motion Banner Design"
-      data-client="Unity"
-      data-desc="Animated banner series for Unity — bold motion graphics and looping GIF banners designed for digital campaigns and brand presence across platforms."
-      data-tags="Motion Graphics,Animation,Banner Design,GIF,Digital Campaign,After Effects"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTpGR3V/MzlCcRNaBQdGXwMeVVwW|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZyN1W1ZWHl1CZhxdHxsZMFNeXFACQjsCXFMCBA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYgF0XVVtOixCZhxdHxsZJAcdV08XBgseEVsGT1sCRllfXAoKQ1QbUg=="
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#080a12"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTpGR3V/MzlCcRNaBQdGXwMeVVwW" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Unity" />
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">Unity</div><div class="pn">Unity – Motion Banner Design</div><div class="pd">Animated banner series — looping motion graphics for digital campaigns.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="print branding"
-      data-title="Student Biryani Branding"
-      data-client="Student Biryani"
-      data-desc="Full branding and print design for Student Biryani — covering delivery packaging, car branding, menu boards, media wall, social media grids, and campaign design for a food brand."
-      data-tags="Branding,Print Design,Packaging,Car Branding,Campaign Design,Food,Instagram Grids,Media Wall"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNQihUYAVBMidCd0MaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfghoZAEAHhhCcR1MRiFBBl1FRhhAXkNZAlM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAUB+YAdmQClCd0EaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAgJceGRTQyFCcR1YCgwZRh8AAxsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQihUYAVBMl5CcR1YCgwZRh8AABsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfwRWQVV9HSdCcR1VGQYZQxxaQlI=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcxpwV0Z2HltCAVxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkcFUkNtCDlCAFxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAytxRFpeAgFCB1xeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcjlEZGZeFB9CfhdQAgMZJVNcXhsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYwJrVkEBOydCYEMaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQkoAY3VYGiRCYEAaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWShCBmZHAR5CYEEaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBwBUUgFCRiNCYEYaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkRQAXBkFxtCYEcaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTBhCdgtRGAlCYEQaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhZlAwBXKT1CYEUaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQDEDRnhfNzdCYEoaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfhoKQEJ9NBtCfkMaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAEF1Z2V9RwxCfkAaARJT"
-      data-behance="https://www.behance.net/gallery/227888771/Student-Biryani-Branding">
-      <div class="pt" style="background:#120800"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNQihUYAVBMidCd0MaARJT" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Student Biryani" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Student Biryani</div><div class="pn">Student Biryani Branding</div><div class="pd">Full print &amp; brand system — packaging, car branding, boards, media wall &amp; social grids.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="social-media"
-      data-title="Pasokin – Social Media Design"
-      data-client="Pasokin"
-      data-desc="Social media content design for Pasokin — a health-focused peanut butter brand. Posts span seasonal campaigns, product benefits, nutritional callouts, and lifestyle content."
-      data-tags="Social Media,Graphic Design,Food Brand,Health,Product,Photoshop,Illustrator,Campaign Design"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSpGc1B+CCFCAlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXgNjRFFYSAhCAVxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDTRfZlxXI1lCcD8FRQhEFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzgKB1EERjlCcBpGAhFAH1NDHwReBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXgNjRFFYFz1CcBpGAhFAH1NDHwZeBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcgFmXQdWKFhCYxdVBRdAX3BFRkEVHUB7E1gHDUMXV14fAV4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBkoCXWBDPhtCYxdVBRdAX3BFRkEVHUB7E1gHDUMXV14fAF4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRzZYSXxYSBtCdRtaDhFAX2NFU1kZGxQeIlEKDEEGQR5YRRc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXCJ2VwdGRjtCdB5BHw1aX3RCV1BeBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTkESHQAPj1CdAddBxYZNEBVVxsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRT94AAdCI11CexNCDk9VX3BRXlQeDAhXX2cFA1cZHFpCUg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTipKBWhiKS1CexdVGRYZNFtCV1sUQQdDFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTURqQ1hBFglCcR1VGBYZK11FQBg2BhldF0cYTwZcWEBV|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkR+RFFSODxCcR1VGBYZK11FQBg4CgxBBhkjB1UeRlgcXwAI|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTipKBWhiKT9CYwBbHwddHB9iW1YYQj5dE18YT1IdQB13QxUdFFwcUUUIRBU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQyZFeAp/KTVCYgddCAkZN1xVQFIJQi9cHUcfTF4CVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUCNfRwRFJyFCZxNHHxsZE1xUH30VDgFHGk1FCEQV"
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#0a100a"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSpGc1B+CCFCAlxEBQU=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Pasokin" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Pasokin</div><div class="pn">Pasokin – Social Media Design</div><div class="pd">Health brand social media — seasonal campaigns, product callouts &amp; lifestyle content.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="social-media"
-      data-title="Student Biryani – Social Media"
-      data-client="Student Biryani"
-      data-desc="Social media content design for Student Biryani — a multi-brand portfolio of posts spanning real estate, food, product, and security categories, all designed for high engagement on Instagram and Facebook."
-      data-tags="Social Media,Graphic Design,Food,Real Estate,Product,Branding,Instagram,Photoshop,Illustrator"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOzxCA0AMD1JQQwsHBwdAWF0KXwJcBgcRCgIAVEQNWVZcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRSBfZmRjSRtCA0tWDlcNQwsHBwdAWF0KXwJcBgcRUwJRDEkNVAdcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNX0ZYAwEGGzdCABdXDgQMQwsHBwdAWF0KXwJcBgcRCgIAVENXDgpcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfAphdHZxFjhCB0MBWlQFQwsHBwdAWF0KXwJcBgcRUQIBVxVcXgpcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUzh/dnRzFhVCBRAAXldSQwsHBwdAWF0KXwJcBgcRUwJRDEgLXwZcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOxVCBRBRCABSQwsHBwdAWF0KXwJcBgcRCgIAVEBYWQdcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkF6enh/NB9CBRcEXgEBQwsHBwdAWF0KXwJcBgcRCgIAVEVZDFVcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzFAQVZeIyVCBEoDX1JRQwsHBwdAWF0KXwJcBgcRUQIBVxQKDgtcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNd0NEZGZhJxVCBBYMWVYAQwsHBwdAWF0KXwJcBgcRCgIAVEMKCwtcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNX0ZYAwEGGxtCC0BQCFBWQwsHBwdAWF0KXwJcBgcRCgIAVEFbWgtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXkB+ZmAGEl1CUkQCXFNSQwsHBwdAWF0KXwJcBgcRUwJRDElbCwtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzxWfQFTJD1CUkpWXAdSQwsHBwdAWF0KXwJcBgcRCgIAVENbDwFcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYENCCGZ7Rh9CURdQCFpRQwsHBwdAWF0KXwJcBgcRCgIAVEJWWQZcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzxWfQFTJBZCUENWU1ADQwsHBwdAWF0KXwJcBgcRCgIAVEEMXQJcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUgt4BH9EPjxCUBdXDVQCQwsHBwdAWF0KXwJcBgcRCgIAVEIJCwtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfxhgaF9FQghCVxQBWwMDQwsHBwdAWF0KXwJcBgcRCgIAVERZW1JcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXzVwQgVsHTxCVkMAXAYHQwsHBwdAWF0KXwJcBgcRUwJRDBFfCwNcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhid1ZjGiJCVhRSX1pVQwsHBwdAWF0KXwJcBgcRCgIAVEJdC1ZcQw4ARA=="
-      data-behance="https://www.behance.net/gallery/197520709/Social-Media">
-      <div class="pt" style="background:#120800"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOzxCA0AMD1JQQwsHBwdAWF0KXwJcBgcRCgIAVEQNWVZcXhsF" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Student Biryani Social Media" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Student Biryani</div><div class="pn">Student Biryani – Social Media</div><div class="pd">Multi-brand social media posts — food, real estate, product &amp; security content.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="print branding"
-      data-title="Japan Electronics Pakistan – Print &amp; Branding"
-      data-client="Japan Electronics"
-      data-desc="Print and branding design for Japan Electronics Pakistan — a comprehensive set of retail signage, product display boards, shelf labels, and branded print materials across multiple product categories."
-      data-tags="Print Design,Branding,Retail Signage,Display Boards,Electronics,Packaging,Photoshop,Illustrator"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0ZIUlYNJAVCAkIEE1MGQBxaQlI=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDRQCdnZXMxVCAkIME1sAXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhgAVHZWBCtCAkECE1MGQhxaQlI=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQh9meAZdEl5CAkYCE1UFXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzhxBERdQFxCAkUDE1AGXwQddVQDQQdDFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRUVDfXxCRAFCAkUDE1AGXwQdeVwEDAVWHBoBElM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZihqanFMRVZCAkUNE1sAXEJeVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSN4YWp+QwFCAkVMUlcaGEJX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDAhGSlkMITlCAUEDE1QGXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNdwpfSH9tCVxCB0pMUlYaGEJX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBiEAY1h4IgRCBUAZXhoGQB8GH2ERDQFWXF4bBQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBQhqBQp3Az1CBURMWlIEXEJeVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBDxYAkhbIFZCBENMXlMaGEJX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfD5cQ0BPFB9CC0IZXhoNSx9kZBgyKENZAlM="
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#0a0c12"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0ZIUlYNJAVCAkIEE1MGQBxaQlI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Japan Electronics" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">Japan Electronics Pakistan</div><div class="pn">Japan Electronics – Print &amp; Branding</div><div class="pd">Retail signage, display boards &amp; branded print across multiple product lines.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="social-media"
-      data-title="ERA – Social Media Design"
-      data-client="ERA"
-      data-desc="Social media design for ERA — a curated set of branded posts designed for consistent visual identity and engagement across digital platforms."
-      data-tags="Social Media,Graphic Design,Brand Identity,Digital,Instagram,Photoshop,Illustrator"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNfCVwagBBFwVCAlxDDgBE|BxlHAkdRTRsbHEBdRgQGAFRcVwhNdih/aVV2QFlCAVxDDgBE|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYwJqZ1wCBhVCAFxDDgBE|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQCAAYwdPGjZCB1xDDgBE|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYCsDW3piFD9CBlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRzZKXgJvGhdCBVxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUxlYfXADCh1CBFxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcgFIYFx/AlhCC1xEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYCsDW3piFAJCClxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNV0ZxdAcNCAFCAkIaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkdDeANyJzVCAkMaARJT"
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#0a0a0e"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNfCVwagBBFwVCAlxDDgBE" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="ERA Social Media" />
-      <div class="pt-overlay">↗</div></div>
-      <div class="pi"><div class="pcl">ERA</div><div class="pn">ERA – Social Media Design</div><div class="pd">Branded social media posts with consistent visual identity for digital platforms.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="animation"
-      data-title="Live Life Learn – Logo Animation"
-      data-client="Live Life Learn"
-      data-desc="Logo animation for Live Life Learn — a smooth, branded motion sequence bringing the identity to life for digital use across intros, social media, and brand presentations."
-      data-tags="Logo Animation,Motion Graphics,Brand Identity,After Effects,2D Animation"
-      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZhpwYmBtIxxCfz54KgxdH1NEW1oeXEBWCFMCBBkRXV0fQxkLCFxfQARPUxtUHVFaHhkIQQZRGUxTG1Q="
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#060a12"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZhpwYmBtIxxCfz54KgxdH1NEW1oeXEBWCFMCBBkRXV0fQxkLCFxfQARPUxtUHVFaHhkIQQZRGUxTG1Q=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Live Life Learn" />
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">Live Life Learn</div><div class="pn">Live Life Learn – Logo Animation</div><div class="pd">Branded logo motion sequence for digital &amp; social media use.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-  </div><!-- /proj-grid -->
-  <div class="slider-nav">
-    <div class="slider-dots" id="slider-dots"></div>
-    <div class="slider-arrows">
-      <button class="sarr" id="sarr-prev">←</button>
-      <button class="sarr" id="sarr-next">→</button>
-    </div>
-  </div>
-  </div><!-- /pg-wrap -->
-</div>
-
-<div class="hr"></div>
-
-<div id="experience" class="w">
-  <div class="sec-hdr sa"><span class="sec-lbl">Experience</span></div>
-  <div class="el">
-    <div class="er sa from-left"><div class="em"><div class="ep">Aug 2025 – Present</div><div class="eco">Knowledge Platform</div></div><div><div class="ero">Team Lead — Graphic Design</div><div class="edc">Lead a team of 4 designers across all visual projects. Overseeing end-to-end production for e-learning platforms serving 50,000+ learners. Established design standards and asset libraries, cutting production time by ~20%.</div><div class="etg"><span class="tag">Team Leadership</span><span class="tag">Creative Direction</span><span class="tag">E-learning</span></div></div></div>
-    <div class="er sa from-left"><div class="em"><div class="ep">2020 – Aug 2025</div><div class="eco">Knowledge Platform</div></div><div><div class="ero">Senior 2D Animator</div><div class="edc">Developed 100+ educational animations using After Effects and Character Animator. Created content for PTV Teleschool, UNICEF, NIBAF, MoFEPT and PTCL, improving user engagement by 25%.</div><div class="etg"><span class="tag">After Effects</span><span class="tag">Character Animator</span><span class="tag">2D Animation</span></div></div></div>
-    <div class="er sa from-left"><div class="em"><div class="ep">2016 – 2020</div><div class="eco">JTelemarketing · Limecom · Admark</div></div><div><div class="ero">Graphics &amp; 2D Animator</div><div class="edc">Developed motion graphics for digital marketing campaigns. Produced UI prototypes using Figma and Adobe XD. Delivered brand assets across web, social, and print.</div><div class="etg"><span class="tag">Motion Graphics</span><span class="tag">Figma</span><span class="tag">Branding</span></div></div></div>
-    <div class="er sa from-left"><div class="em"><div class="ep">2015 – 2020</div><div class="eco">Freelance</div></div><div><div class="ero">Freelance Animator</div><div class="edc">Produced 30+ animated videos for educational and social awareness initiatives. Managed full production cycles independently — concept, storyboard, animation, final render — for 5+ repeat clients.</div><div class="etg"><span class="tag">UNICEF</span><span class="tag">IQRA University</span><span class="tag">Full-cycle Production</span></div></div></div>
-    <div class="er sa from-left"><div class="em"><div class="ep">2012 – 2016</div><div class="eco">Iqra University, Islamabad</div></div><div><div class="ero">BSc Computer Science</div><div class="edc">Bachelor of Science in Computer Science — foundation for interactive and digital design work.</div></div></div>
-  </div>
-</div>
-
-<div class="hr"></div>
-
-<div class="w">
-  <div class="sec-hdr sa"><span class="sec-lbl">Awards</span></div>
-  <div class="ag stagger">
-    <div class="ar sa"><span class="ai">🏆</span><div><div class="an">LUMS Music Video Competition</div><div class="ao">Winner</div></div></div>
-    <div class="ar sa"><span class="ai">🥇</span><div><div class="an">NASCOM Ad Making Competition</div><div class="ao">Winner</div></div></div>
-    <div class="ar sa"><span class="ai">🥈</span><div><div class="an">Ad Making Competition</div><div class="ao">Runner-Up — 2013 &amp; 2014</div></div></div>
-    <div class="ar sa"><span class="ai">🎖️</span><div><div class="an">Logo &amp; UI Design Competitions</div><div class="ao">Multiple Wins — DesignCrowd</div></div></div>
-  </div>
-</div>
-
-<div class="hr"></div>
-
-<div id="contact" class="w">
-  <div class="cct sa scale-in">
-    <h2>Let's work <span class="dim">together.</span></h2>
-    <p>Open to freelance projects, collabs, and full-time roles in animation and motion design.</p>
-    <div class="cl">
-      <a href="mailto:omerakbr@hotmail.com" class="btn p">✉ omerakbr@hotmail.com</a>
-      <a href="https://www.behance.net/omi6910660" target="_blank" class="btn">Behance ↗</a>
-      <a href="https://www.instagram.com/omer.akbar" target="_blank" class="btn">Instagram ↗</a>
-      <a href="tel:+923465325080" class="btn">📞 +92 346 532 5080</a>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <span>© 2025 Omer Akbar · Rawalpindi, Pakistan</span>
-  <div class="fl">
-    <a href="mailto:omerakbr@hotmail.com">Email</a>
-    <a href="https://www.behance.net/omi6910660" target="_blank">Behance</a>
-    <a href="https://www.instagram.com/omer.akbar" target="_blank">Instagram</a>
-  </div>
-</footer>
-
-<canvas id="confetti-canvas"></canvas>
+<p class="hint">hover any panel</p>
 
 <script>
-function toggleTheme(){
-  const h=document.documentElement,d=h.getAttribute('data-theme')==='dark';
-  h.setAttribute('data-theme',d?'light':'dark');
-  document.getElementById('ti').textContent=d?'☾':'☀';
-}
-
-window.addEventListener('DOMContentLoaded',function(){
-  var el=document.getElementById('tw-target');
-  if(!el)return;
-  var words=['Graphic Designer.','Motion Artist.','Visual Storyteller.'];
-  var wi=0,ci=0,deleting=false;
-  function run(){
-    var word=words[wi];
-    if(deleting){ci--;}else{ci++;}
-    el.textContent=word.substring(0,ci);
-    var wait=deleting?60:110;
-    if(!deleting&&ci===word.length){wait=2200;deleting=true;}
-    else if(deleting&&ci===0){deleting=false;wi=(wi+1)%words.length;wait=350;}
-    setTimeout(run,wait);
-  }
-  setTimeout(run,1000);
-});
-
-window.addEventListener('DOMContentLoaded',function(){
-  if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
-  var dot=document.getElementById('cursor');
-  var ring=document.getElementById('cursor-ring');
-  if(!dot||!ring)return;
-  var mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-  function lagRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lagRing);}
-  lagRing();
-  document.querySelectorAll('a,button,.pc,.tool-card,.sc,.ar').forEach(function(el){el.addEventListener('mouseenter',function(){document.body.classList.add('ch');});el.addEventListener('mouseleave',function(){document.body.classList.remove('ch');});});
-  var TN=8,trails=[];
-  for(var i=0;i<TN;i++){var t=document.createElement('div');t.className='trail';document.body.appendChild(t);trails.push({el:t,x:0,y:0});}
-  var hist=[];
-  document.addEventListener('mousemove',function(e){hist.push({x:e.clientX,y:e.clientY});if(hist.length>TN*4)hist.shift();});
-  function animTrail(){trails.forEach(function(tr,i){var idx=hist.length-1-i*3;if(idx>=0){var p=hist[idx];tr.x+=(p.x-tr.x)*0.25;tr.y+=(p.y-tr.y)*0.25;tr.el.style.left=tr.x+'px';tr.el.style.top=tr.y+'px';var f=1-i/TN;tr.el.style.opacity=f*0.3;tr.el.style.transform='translate(-50%,-50%) scale('+(f*0.7+0.3)+')';}});requestAnimationFrame(animTrail);}
-  animTrail();
-});
-
-function animCount(el){
-  var target=parseInt(el.dataset.count),suf=el.dataset.suffix||'',n=0,step=Math.ceil(target/45);
-  var t=setInterval(function(){n=Math.min(n+step,target);el.textContent=n+suf;if(n>=target)clearInterval(t);},28);
-}
-
-window.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.stagger').forEach(function(g){var kids=g.querySelectorAll('.sa');kids.forEach(function(c,i){c.dataset.delay=i*70;});});
-  var allSa=Array.prototype.slice.call(document.querySelectorAll('.sa'));
-  var countersAnimated=false;
-  function reveal(){
-    var winH=window.innerHeight||document.documentElement.clientHeight;
-    allSa.forEach(function(el){if(el.classList.contains('vis'))return;var rect=el.getBoundingClientRect();if(rect.top<winH-50){var delay=parseInt(el.dataset.delay||0);setTimeout(function(){el.classList.add('vis');},delay);}});
-    if(!countersAnimated){var cnts=document.querySelectorAll('[data-count]');cnts.forEach(function(el){var r=el.getBoundingClientRect();if(r.top<winH-30){countersAnimated=true;cnts.forEach(animCount);}});}
-  }
-  window.addEventListener('scroll',reveal,{passive:true});
-  setTimeout(reveal,80);
-});
-
 (function(){
-  const secs=['work','experience','contact'];
-  const btns=document.querySelectorAll('[data-nav]');
-  window.addEventListener('scroll',()=>{
-    let cur='';
-    secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<200)cur=id;});
-    btns.forEach(b=>{b.classList.toggle('active',b.getAttribute('href')==='#'+cur);});
-  });
-})();
+  var slider=document.getElementById('slider');
+  var panels=Array.from(slider.querySelectorAll('.panel'));
+  var ratios={};
+  var activePanel=null;
 
-(function(){
-  var pg=document.getElementById('proj-grid');
-  var prevBtn=document.getElementById('sarr-prev');
-  var nextBtn=document.getElementById('sarr-next');
-  var dotsWrap=document.getElementById('slider-dots');
-  if(!pg)return;
-  var allCards=Array.from(pg.querySelectorAll('.pc'));
-  var current=0;
-  var GAP=8;
-  function visCards(){return allCards.filter(function(c){return c.style.display!=='none';});}
-  function perPage(){
-    var vw=window.innerWidth;
-    if(vw>1300)return 4;
-    if(vw>800)return 3;
-    if(vw>480)return 2;
-    return 1;
-  }
-  function updateUI(){
-    var cards=visCards();
-    var max=Math.max(0,cards.length-perPage());
-    dotsWrap.querySelectorAll('.sdot').forEach(function(d,i){d.classList.toggle('active',i===current);});
-    prevBtn.disabled=current===0;
-    nextBtn.disabled=current>=max;
-  }
-  function rebuildDots(){
-    dotsWrap.innerHTML='';
-    var cards=visCards();
-    var max=Math.max(0,cards.length-perPage());
-    for(var i=0;i<=max;i++){
-      var d=document.createElement('button');
-      d.className='sdot'+(i===current?' active':'');
-      (function(idx){d.addEventListener('click',function(){goTo(idx);});})(i);
-      dotsWrap.appendChild(d);
+  panels.forEach(function(panel,i){
+    var img=panel.querySelector('img');
+    img.addEventListener('load',function(){
+      if(img.naturalWidth&&img.naturalHeight){
+        ratios[i]=img.naturalWidth/img.naturalHeight;
+      }
+    });
+    if(img.complete&&img.naturalWidth){
+      ratios[i]=img.naturalWidth/img.naturalHeight;
     }
-  }
-  function goTo(idx,instant){
-    var cards=visCards();
-    if(!cards.length){pg.scrollLeft=0;return;}
-    var max=Math.max(0,cards.length-perPage());
-    current=Math.max(0,Math.min(idx,max));
-    var cardW=cards[0].offsetWidth+GAP;
-    pg.scrollTo({left:current*cardW,behavior:instant?'instant':'smooth'});
-    updateUI();
-  }
-  function applyFilter(f){
-    allCards.forEach(function(card){
-      var cats=(card.dataset.cat||'').split(' ');
-      card.style.display=(f==='all'||cats.indexOf(f)!==-1)?'':'none';
-    });
-    current=0;
-    pg.scrollTo({left:0,behavior:'instant'});
-    rebuildDots();
-    setTimeout(function(){updateUI();},30);
-  }
-  var scrollTimer;
-  pg.addEventListener('scroll',function(){
-    clearTimeout(scrollTimer);
-    scrollTimer=setTimeout(function(){
-      var cards=visCards();
-      if(!cards.length)return;
-      var cardW=cards[0].offsetWidth+GAP;
-      current=Math.round(pg.scrollLeft/cardW);
-      updateUI();
-    },50);
-  },{passive:true});
-  document.querySelectorAll('.fbtn').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('on');});
-      btn.classList.add('on');
-      applyFilter(btn.dataset.filter);
-    });
-  });
-  prevBtn.addEventListener('click',function(){goTo(current-1);});
-  nextBtn.addEventListener('click',function(){goTo(current+1);});
-  window.addEventListener('resize',function(){rebuildDots();goTo(current,true);});
-  rebuildDots();
-  goTo(0,true);
-})();
-
-(function(){
-  var gifList=[];
-  var lb=document.getElementById('gif-lb');
-  var lbCollage=document.getElementById('gif-lb-collage');
-  var lbCount=document.getElementById('gif-lb-count');
-  var lbTitle=document.getElementById('gif-lb-title');
-  var lbPanel=document.getElementById('gif-lb-panel');
-
-  var panelData={
-    'Government Educational Media':{meta:'MoFEPT · Published June 10, 2025',title:'Ministry of Federal Education Program',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Curriculum-aligned animated content for the Ministry of Federal Education and Professional Training. These animations cover climate change, green transport, water conservation and nature for federal schools across Pakistan.</p><div class="lbp-lot"><span class="lbp-lot-n">Lot 1</span><span class="lbp-lot-g">Grades 1–3</span><p>Basic environmental concepts through simple, interactive content.</p></div><div class="lbp-lot"><span class="lbp-lot-n">Lot 2</span><span class="lbp-lot-g">Grades 4–6</span><p>Critical thinking about local and global environmental issues.</p></div><div class="lbp-lot"><span class="lbp-lot-n">Lot 3</span><span class="lbp-lot-g">Grades 7–8</span><p>Complex topics: sustainability, climate change, ecosystem interdependence.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>2D Animation</span><span>Educational</span><span>Government</span><span>After Effects</span><span>Character Animator</span></div></div>',link:'https://www.behance.net/gallery/227848989/Ministry-of-Federal-Education-Program'},
-    'Accelerec ATS System':{meta:'Accelerec · Branding & UI Design',title:'Accelerec ATS System',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Accelerec is an AI-powered Applicant Tracking System built to streamline recruitment workflows. This project covers the complete brand identity — logo design, colour system, typography, and brand guidelines — alongside UI screen design for the SaaS platform.</p><p class="lbp-body">The visual direction balances professional credibility with modern tech aesthetics, using a bold primary mark, clean UI components, and motion to communicate the platform\'s intelligent automation capabilities.</p></div><div class="lbp-section"><div class="lbp-label">Scope of Work</div><div class="lbp-lot"><span class="lbp-lot-n">01</span><span class="lbp-lot-g">Brand Identity</span><p>Logo design, colour palette, typography system, and brand guidelines.</p></div><div class="lbp-lot"><span class="lbp-lot-n">02</span><span class="lbp-lot-g">UI Design</span><p>Product UI screens for the ATS dashboard, candidate pipeline, and recruitment workflow.</p></div><div class="lbp-lot"><span class="lbp-lot-n">03</span><span class="lbp-lot-g">Motion Graphics</span><p>Animated GIF showcases for platform features and social media use.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>UI Design</span><span>Logo Design</span><span>ATS</span><span>SaaS</span><span>Motion Graphics</span><span>Brand Identity</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Bitvaley Logo Design':{meta:'Bitvaley · Freelance',title:'Bitvaley Logo Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Complete logo identity design for Bitvaley — a modern brand mark with primary mark, alternates, and usage variations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Brand Identity</span><span>Typography</span><span>Illustrator</span></div></div>',link:'https://www.behance.net/gallery/228874451/Bitvaley-Logo-Design'},
-    'Cedar Heights – Real Estate Logo & Brand Identity':{meta:'Cedar Heights · Published June 23, 2025',title:'Cedar Heights – Real Estate Logo & Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">The Cedar Heights logo draws inspiration from the enduring Cedar tree — a symbol of strength, resilience, and natural elegance native to Pakistan\'s mountains. Minimalist typography reflects modern real estate sophistication while deep green echoes the evergreen Cedar.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Branding</span><span>Architecture Branding</span><span>Luxury Branding</span><span>Real Estate</span></div></div>',link:'https://www.behance.net/gallery/228748633/Cedar-Heights-Real-Estate-Logo-Brand-Identity'},
-    'Creamio – Ice Cream Logo Design & Visual Brand Identity':{meta:'Creamio · Published June 17, 2025',title:'Creamio – Ice Cream Logo Design & Visual Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Creamio is a vibrant and playful ice cream brand — clean, modern, minimal visual identity with logo, colour palette, typography, packaging, and social media templates.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Branding</span><span>Food Logo</span><span>Packaging Design</span><span>Modern Logo</span></div></div>',link:'https://www.behance.net/gallery/228340973/Creamio-Ice-Cream-Logo-Design-Visual-Brand-Identity'},
-    'Moreway Logistic Solution Logo and Branding':{meta:'Moreway · Published July 25, 2025',title:'Moreway Logistic Solution Logo and Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Moreway Logistic Solution — logo, brand guidelines, vehicle mockups and full visual system for a modern logistics company. Clean minimal design with strong visual recognition across all brand touchpoints.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Modern Logo Design</span><span>Branding</span><span>Logistics Logo</span><span>Vehicle Mockups</span></div></div>',link:'https://www.behance.net/gallery/231115757/Moreway-Logistic-Solution-Logo-and-Branding'},
-    'N7 Real Estate':{meta:'N7 Real Estate · Published June 12, 2025',title:'N7 Real Estate',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Premium brand identity for N7 Real Estate — a luxury Dubai-based real estate developer. Spans print, merchandise, custom coins, diamond ball trophy, branded perfume, and car livery.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Print</span><span>Merchandise</span><span>Car Branding</span><span>Premium</span><span>Real Estate</span><span>Dubai</span></div></div>',link:'https://www.behance.net/gallery/227912897/N7-Real-Estate'},
-    'Nussa Ferrero Brand Identity':{meta:'Nussa Ferrero · Published June 16, 2025',title:'Nussa Ferrero Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Complete brand identity for Nussa Ferrero — logo, mascot character, brand guidelines, product packaging, social media templates, and pattern system for a dessert brand.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Brand Identity</span><span>Logo Design</span><span>Mascot</span><span>Product Design</span><span>Social Media</span></div></div>',link:'https://www.behance.net/gallery/228269755/Nussa-Ferrero-Brand-Identity'},
-    'Mood Spritz Label Design':{meta:'Mood Spritz · Published November 12, 2025',title:'Mood Spritz Label Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Pocket-sized spritz label design with four bold colour-story variants: Blue (Calming Wave), Orange (Sunny Uplift), Pink (Playful Energy), Purple (Dreamy Indulgence).</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Label Design</span><span>Branding</span><span>Print</span><span>Packaging</span><span>Product Design</span></div></div>',link:'https://www.behance.net/gallery/238425459/Mood-Spritz-Label-Design'},
-    'Unity – Motion Banner Design':{meta:'Unity · Motion Graphics',title:'Unity – Motion Banner Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Animated banner series for Unity — bold looping motion graphics and GIF banners for digital campaigns.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Motion Graphics</span><span>Animation</span><span>Banner Design</span><span>GIF</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Student Biryani Branding':{meta:'Student Biryani · Published June 11, 2025',title:'Student Biryani Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Full branding and print design for Student Biryani — delivery packaging, car branding, menu boards, media wall, social grids, and campaign assets.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Print Design</span><span>Packaging</span><span>Car Branding</span><span>Food</span></div></div>',link:'https://www.behance.net/gallery/227888771/Student-Biryani-Branding'},
-    'Pasokin – Social Media Design':{meta:'Pasokin · Social Media',title:'Pasokin – Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Social media content for Pasokin — seasonal campaigns, product callouts, nutritional highlights, and lifestyle wellness posts.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Food Brand</span><span>Health</span><span>Campaign Design</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Student Biryani – Social Media':{meta:'Student Biryani · Published May 1, 2024',title:'Student Biryani – Social Media',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Multi-brand social media posts spanning food, real estate, product, and security categories.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Food</span><span>Real Estate</span><span>Instagram</span></div></div>',link:'https://www.behance.net/gallery/197520709/Social-Media'},
-    'Japan Electronics Pakistan – Print & Branding':{meta:'Japan Electronics Pakistan · Print',title:'Japan Electronics Pakistan – Print & Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Retail display boards, in-store signage, shelf labels, and branded print materials across product categories.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Print Design</span><span>Retail Signage</span><span>Display Boards</span><span>Electronics</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'ERA – Social Media Design':{meta:'ERA · Social Media',title:'ERA – Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="6" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">11 curated branded posts for ERA with consistent visual identity across digital platforms.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Brand Identity</span><span>Instagram</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Live Life Learn – Logo Animation':{meta:'Live Life Learn · Logo Animation',title:'Live Life Learn – Logo Animation',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Branded logo animation — smooth motion sequence for brand intros, social media, and presentations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Animation</span><span>Motion Graphics</span><span>Brand Identity</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'}
-  };
-
-  function renderPanel(title){
-    var d=panelData[title];
-    var el=document.getElementById('lbp-dynamic');
-    if(!d){el.innerHTML='';return;}
-    el.innerHTML='<div class="lbp-tag">'+d.meta+'</div><h2 class="lbp-title">'+d.title+'</h2><div class="lbp-tool">'+d.tool+'</div>'+d.body+'<a href="'+d.link+'" target="_blank" class="lbp-behance">View on Behance ↗</a>';
-  }
-
-  var zoomEl=document.getElementById('lb-zoom');
-  var zoomImg=document.getElementById('lb-zoom-img');
-
-  function lbOpen(card){
-    var gifsEnc=card.dataset.gifsEnc||'';
-    gifList=gifsEnc.split('|').map(function(s){return window._decUrl(s.trim());}).filter(Boolean);
-    lbTitle.textContent=(card.dataset.client||'')+' — '+(card.dataset.title||'');
-    lbCount.textContent=gifList.length+' image'+(gifList.length!==1?'s':'');
-
-    lbCollage.innerHTML='';
-    var grid=document.createElement('div');
-    grid.className='lb-col-grid';
-    var allItems=[];
-
-    gifList.forEach(function(url,i){
-      var rot=((Math.random()*32)-16).toFixed(2);
-      var nudgeX=((Math.random()*30)-15).toFixed(1);
-      var nudgeY=((Math.random()*30)-15).toFixed(1);
-      var baseTransform='rotate('+rot+'deg) translate('+nudgeX+'px,'+nudgeY+'px)';
-
-      var item=document.createElement('div');
-      item.className='lb-col-item';
-      item.style.transform=baseTransform;
-      item.style.zIndex=String(i+1);
-      item.style.margin=((Math.random()*16)-8).toFixed(0)+'px '+((Math.random()*16)-8).toFixed(0)+'px';
-      allItems.push(item);
-
-      var img=document.createElement('img');
-      img.src=url;
-      img.loading=i<8?'eager':'lazy';
-      img.alt='Image '+(i+1);
-      img.setAttribute('draggable','false');
-      item.appendChild(img);
-
-      item.addEventListener('mouseenter',function(){
-        zoomImg.src=url;
-        zoomEl.classList.add('active');
-        item.style.borderColor='rgba(var(--neon-rgb),1)';
-        allItems.forEach(function(it){if(it!==item)it.classList.add('faded');});
-      });
-      item.addEventListener('mouseleave',function(){
-        zoomEl.classList.remove('active');
-        item.style.borderColor='';
-        allItems.forEach(function(it){it.classList.remove('faded');});
-      });
-
-      grid.appendChild(item);
-    });
-
-    lbCollage.appendChild(grid);
-    lbCollage.scrollTop=0;
-    renderPanel(card.dataset.title||'');
-    lbPanel.classList.remove('open');
-    lb.classList.add('open');
-    document.body.style.overflow='hidden';
-  }
-
-  function lbClose(){
-    lb.classList.remove('open');
-    lbPanel.classList.remove('open');
-    zoomEl.classList.remove('active');
-    document.body.style.overflow='';
-    setTimeout(function(){lbCollage.innerHTML='';},350);
-  }
-
-  document.getElementById('gif-lb-close').addEventListener('click',lbClose);
-  document.getElementById('gif-lb-info').addEventListener('click',function(){lbPanel.classList.toggle('open');});
-  document.getElementById('gif-lb-panel-close').addEventListener('click',function(){lbPanel.classList.remove('open');});
-  document.addEventListener('keydown',function(e){
-    if(!lb.classList.contains('open')){if(e.key==='Escape')closeModal(null,true);return;}
-    if(e.key==='Escape')lbClose();
   });
 
-  document.querySelectorAll('.pc').forEach(function(card){
-    card.addEventListener('click',function(){
-      if(card.dataset.gifsEnc){lbOpen(card);return;}
-      document.getElementById('modal-thumb').innerHTML=card.querySelector('.pt').innerHTML;
-      document.getElementById('modal-cat').textContent=card.dataset.client||'';
-      document.getElementById('modal-title').textContent=card.dataset.title||'';
-      document.getElementById('modal-desc').textContent=card.dataset.desc||'';
-      var tagsEl=document.getElementById('modal-tags');tagsEl.innerHTML='';
-      (card.dataset.tags||'').split(',').forEach(function(t){var s=document.createElement('span');s.className='modal-tag';s.textContent=t.trim();tagsEl.appendChild(s);});
-      document.getElementById('modal-overlay').classList.add('open');document.body.style.overflow='hidden';
+  function activate(panel){
+    if(panel===activePanel)return;
+    activePanel=panel;
+    var idx=panels.indexOf(panel);
+    var ar=ratios[idx]||16/9;
+    var h=slider.offsetHeight;
+    var expandW=Math.round(h*ar);
+    panels.forEach(function(p){
+      if(p===panel){
+        p.style.flex='none';
+        p.style.width=expandW+'px';
+        p.classList.add('active');
+      }else{
+        p.style.flex='1';
+        p.style.width='';
+        p.classList.remove('active');
+      }
+    });
+  }
+
+  function reset(){
+    activePanel=null;
+    panels.forEach(function(p){
+      p.style.flex='1';
+      p.style.width='';
+      p.classList.remove('active');
+    });
+  }
+
+  panels.forEach(function(panel){
+    panel.addEventListener('mouseenter',function(){activate(panel);});
+  });
+  slider.addEventListener('mouseleave',reset);
+
+  /* touch support */
+  panels.forEach(function(panel){
+    panel.addEventListener('click',function(){
+      if(panel.classList.contains('active')){reset();}
+      else{activate(panel);}
     });
   });
-})();
-
-function closeModal(e,force){
-  if(force||e.target===document.getElementById('modal-overlay')){
-    document.getElementById('modal-overlay').classList.remove('open');document.body.style.overflow='';
-  }
-}
-
-document.querySelectorAll('.sc,.tool-card,.ar,.pc').forEach(card=>{
-  card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(600px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateZ(4px)`;});
-  card.addEventListener('mouseleave',()=>{card.style.transform='';});
-});
-
-(function(){
-  var canvas=document.getElementById('confetti-canvas');
-  var ctx=canvas.getContext('2d');
-  var pieces=[],running=false,W,H;
-  var COLORS=['#3b82f6','#60a5fa','#a78bfa','#f472b6','#34d399','#fbbf24','#f87171','#ffffff','#818cf8','#2dd4bf'];
-  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
-  window.addEventListener('resize',resize);resize();
-  function spawnBurst(ox,oy){for(var i=0;i<130;i++){var angle=Math.random()*Math.PI*2;var speed=Math.random()*10+3;var sz=Math.random()*9+4;var rect=Math.random()<0.6;pieces.push({x:ox,y:oy,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed-(Math.random()*7+3),w:sz,h:rect?sz*(Math.random()+0.5):sz,rot:Math.random()*Math.PI*2,rv:(Math.random()-0.5)*0.22,color:COLORS[Math.floor(Math.random()*COLORS.length)],rect:rect,alpha:1,grav:0.22+Math.random()*0.15,life:1});}if(!running){running=true;loop();}}
-  function loop(){ctx.clearRect(0,0,W,H);pieces=pieces.filter(function(p){return p.life>0;});if(!pieces.length){running=false;return;}pieces.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=p.grav;p.vx*=0.99;p.rot+=p.rv;p.life-=0.013;p.alpha=Math.max(0,p.life);ctx.save();ctx.globalAlpha=p.alpha;ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.color;if(p.rect){ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);}else{ctx.beginPath();ctx.arc(0,0,p.w/2,0,Math.PI*2);ctx.fill();}ctx.restore();});requestAnimationFrame(loop);}
-  document.querySelectorAll('.ar').forEach(function(card){card.addEventListener('click',function(){var r=card.getBoundingClientRect();spawnBurst(r.left+r.width/2,r.top+r.height/2);});});
-})();
-
-(function(){
-  var wrap=document.querySelector('.hero-gif-wrap');if(!wrap)return;
-  if(window.matchMedia('(max-width:768px)').matches)return;
-  wrap.addEventListener('mousemove',function(e){var r=wrap.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-0.5;var y=(e.clientY-r.top)/r.height-0.5;var rx=-y*18;var ry=x*18;wrap.style.transition='transform .08s ease,box-shadow .08s ease';wrap.style.transform='perspective(700px) rotateX('+rx+'deg) rotateY('+ry+'deg) scale(1.03)';wrap.style.boxShadow=(ry*-1.2)+'px '+(rx*1.2)+'px 56px rgba(0,0,0,.55)';});
-  wrap.addEventListener('mouseleave',function(){wrap.style.transition='transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease';wrap.style.transform='perspective(700px) rotateX(0deg) rotateY(0deg) scale(1)';wrap.style.boxShadow='0 28px 56px rgba(0,0,0,.5)';});
-})();
-
-(function(){
-  var _rk=[111,109,51,114,52,107,98,52,114,50,48,50,53,112];
-  var _k=String.fromCharCode.apply(null,_rk);
-  window._decUrl=function(s){try{var b=atob(s);var r='';for(var i=0;i<b.length;i++){r+=String.fromCharCode(b.charCodeAt(i)^_k.charCodeAt(i%_k.length));}return r;}catch(e){return '';}};
-  function loadEncImages(){
-    document.querySelectorAll('[data-enc]').forEach(function(el){
-      var url=window._decUrl(el.getAttribute('data-enc'));if(!url)return;
-      if(el.closest('.hero-gif-wrap')){el.fetchPriority='high';el.src=url;}
-      else if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.src=url;o.unobserve(entry.target);}});},{rootMargin:'200px'});obs.observe(el);}
-      else{el.src=url;}
-    });
-  }
-  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',loadEncImages);}else{loadEncImages();}
-  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
-  document.addEventListener('dragstart',function(e){if(e.target.tagName==='IMG')e.preventDefault();});
-  document.addEventListener('selectstart',function(e){if(e.target.tagName==='IMG')e.preventDefault();});
-  document.addEventListener('keydown',function(e){var ctrl=e.ctrlKey||e.metaKey;if(ctrl&&(e.key==='s'||e.key==='S'||e.key==='u'||e.key==='U'))e.preventDefault();});
-})();
-
-(function(){
-  var cv=document.createElement('canvas');cv.width=cv.height=64;var ctx=cv.getContext('2d');var lnk=document.createElement('link');lnk.rel='icon';lnk.type='image/png';document.head.appendChild(lnk);
-  var phase=0,STEP=1/48;
-  function draw(){var S=64,R=32;ctx.clearRect(0,0,S,S);ctx.beginPath();ctx.roundRect(0,0,S,S,13);ctx.fillStyle='#0a0a0c';ctx.fill();[0,0.33,0.66].forEach(function(off){var t=(phase+off)%1;var r=4+t*26;var a=Math.max(0,0.8*(1-t*1.25));ctx.beginPath();ctx.arc(R,R,r,0,Math.PI*2);ctx.strokeStyle='rgba(59,130,246,'+a+')';ctx.lineWidth=1.8*(1-t*0.6);ctx.stroke();});var pulse=0.5+0.5*Math.sin(phase*Math.PI*2);var ig=ctx.createRadialGradient(R,R,0,R,R,18);ig.addColorStop(0,'rgba(59,130,246,'+(0.1+pulse*0.15)+')');ig.addColorStop(1,'rgba(59,130,246,0)');ctx.fillStyle=ig;ctx.beginPath();ctx.arc(R,R,18,0,Math.PI*2);ctx.fill();ctx.shadowColor='#3b82f6';ctx.shadowBlur=6+pulse*8;ctx.fillStyle='#fff';ctx.font='bold 24px system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('O',R,R+1);ctx.shadowBlur=0;phase=(phase+STEP)%1;}
-  draw();lnk.href=cv.toDataURL('image/png');
-  setInterval(function(){draw();lnk.href=cv.toDataURL('image/png');},120);
 })();
 </script>
 </body>
