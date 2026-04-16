@@ -174,8 +174,8 @@ header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-
 #img-scroll-wrap{flex:1;position:relative;overflow:hidden;cursor:grab}
 #img-scroll-wrap.dragging{cursor:grabbing}
 #img-scroll-wrap::before,#img-scroll-wrap::after{content:'';position:absolute;top:0;bottom:0;width:140px;z-index:3;pointer-events:none}
-#img-scroll-wrap::before{left:0;background:linear-gradient(to right,#0a0a0c 0%,rgba(10,10,12,.9) 30%,transparent 100%)}
-#img-scroll-wrap::after{right:0;background:linear-gradient(to left,#0a0a0c 0%,rgba(10,10,12,.9) 30%,transparent 100%)}
+#img-scroll-wrap::before{left:0;background:transparent;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(to right,black 0%,black 40%,transparent 100%);mask-image:linear-gradient(to right,black 0%,black 40%,transparent 100%)}
+#img-scroll-wrap::after{right:0;background:transparent;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(to left,black 0%,black 40%,transparent 100%);mask-image:linear-gradient(to left,black 0%,black 40%,transparent 100%)}
 #img-scroll-track{display:flex;align-items:center;height:100%;padding:32px 80px;gap:16px;will-change:transform;transform:translateX(0)}
 .si{flex-shrink:0;height:100%;max-height:calc(100% - 64px);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08);transition:border-color .3s,box-shadow .3s}
 .si:hover{border-color:rgba(59,130,246,.5);box-shadow:0 0 28px rgba(59,130,246,.2)}
