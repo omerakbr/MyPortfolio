@@ -47,7 +47,7 @@ header,section,.w,.hr,footer,#modal-overlay{position:relative;z-index:2}
 body.ch #cursor{width:20px;height:20px;background:#fff}
 body.ch #cursor-ring{width:54px;height:54px;border-color:rgba(var(--neon-rgb),.9)}
 .trail{position:fixed;width:5px;height:5px;border-radius:50%;background:var(--neon);pointer-events:none;z-index:9997;transform:translate(-50%,-50%)}
-@media(hover:none),(pointer:coarse){#cursor,#cursor-ring,.trail{display:none!important}body{cursor:auto!important}a,button,.pc,.tool-card,.sc,.ar,.nbtn,.fbtn,.sarr,.sdot,.fan-nbtn,.fan-nd,.fan-cw,#gif-lb-close,#gif-lb-info,#gif-lb-panel-close,.modal-close,.btn,.tgl,.cf-send{cursor:pointer!important}}
+@media(hover:none),(pointer:coarse){#cursor,#cursor-ring,.trail{display:none!important}body{cursor:auto!important}a,button,.pc,.tool-card,.sc,.ar,.nbtn,.fbtn,.sarr,.sdot,.snbtn,#gif-lb-close,#gif-lb-info,#gif-lb-panel-close,.modal-close,.btn,.tgl,.cf-send{cursor:pointer!important}}
 header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;border-bottom:1px solid var(--line);background:var(--bg)}
 .logo{font-size:14px;font-weight:500;letter-spacing:-.01em}
 .nav-r{display:flex;align-items:center;gap:4px}
@@ -171,23 +171,20 @@ header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-
 #gif-lb-count{font-size:11px;color:rgba(255,255,255,.28);font-variant-numeric:tabular-nums;letter-spacing:.05em}
 #gif-lb-close{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:none;color:rgba(255,255,255,.5);cursor:none;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s}
 #gif-lb-close:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.3)}
-#fan-stage-wrap{flex:1;position:relative;overflow:hidden}
-#fan-stage{position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:0;height:0}
-.fan-cw{position:absolute;bottom:0;left:0;cursor:none;user-select:none;transform-origin:0 420px;transition:transform .8s cubic-bezier(.22,1,.36,1)}
-.fan-card{width:240px;height:346px;border-radius:16px;overflow:hidden;border:7px solid rgba(255,255,255,.06);position:absolute;bottom:0;left:-120px;transition:border-color .5s,box-shadow .5s,opacity .5s,filter .6s}
-.fan-card img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1) brightness(.45);transition:filter .6s ease;pointer-events:none;-webkit-user-drag:none;user-select:none}
-.fan-cw.fan-active .fan-card{border-color:rgba(59,130,246,.5);box-shadow:0 0 0 1px rgba(59,130,246,.18),0 36px 90px rgba(59,130,246,.26),0 16px 40px rgba(0,0,0,.65)}
-.fan-cw.fan-active .fan-card img{filter:grayscale(0) brightness(1)}
-.fan-cw:not(.fan-active):hover .fan-card{border-color:rgba(255,255,255,.18)}
-.fan-cw:not(.fan-active):hover .fan-card img{filter:grayscale(.5) brightness(.65)}
-#fan-nav{display:flex;align-items:center;justify-content:center;gap:14px;height:52px;flex-shrink:0;border-top:1px solid rgba(255,255,255,.06)}
-.fan-nbtn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:rgba(255,255,255,.6);cursor:none;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .18s}
-.fan-nbtn:hover:not(:disabled){background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.36);color:#fff}
-.fan-nbtn:disabled{opacity:.22;pointer-events:none}
-#fan-ndots{display:flex;gap:5px;align-items:center}
-.fan-nd{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);border:none;cursor:none;padding:0;transition:all .28s}
-.fan-nd.on{width:20px;border-radius:3px;background:rgba(59,130,246,.9)}
-@media(max-width:600px){.fan-card{width:170px;height:244px;left:-85px}.fan-cw{transform-origin:0 300px}}
+#img-scroll-wrap{flex:1;position:relative;overflow:hidden;cursor:grab}
+#img-scroll-wrap.dragging{cursor:grabbing}
+#img-scroll-track{display:flex;align-items:center;height:100%;padding:32px 80px;gap:16px;will-change:transform;transform:translateX(0)}
+.si{flex-shrink:0;height:100%;max-height:calc(100% - 64px);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08);transition:border-color .3s,box-shadow .3s}
+.si:hover{border-color:rgba(59,130,246,.5);box-shadow:0 0 28px rgba(59,130,246,.2)}
+.si img{height:100%;width:auto;display:block;pointer-events:none;-webkit-user-drag:none;user-select:none;max-width:none}
+#scroll-nav{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;flex-shrink:0;border-top:1px solid rgba(255,255,255,.06)}
+.snav-arrows{display:flex;gap:10px}
+.snbtn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:rgba(255,255,255,.6);cursor:none;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.snbtn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.36);color:#fff}
+#scroll-progress-wrap{flex:1;height:2px;background:rgba(255,255,255,.08);border-radius:1px;margin:0 20px}
+#scroll-progress-bar{height:100%;background:rgba(59,130,246,.8);border-radius:1px;width:0%;transition:width .1s linear}
+#scroll-count{font-size:11px;color:rgba(255,255,255,.28);font-variant-numeric:tabular-nums;letter-spacing:.05em;white-space:nowrap}
+@media(max-width:600px){#img-scroll-track{padding:20px 24px;gap:10px}#scroll-nav{padding:0 16px}}
 @property --lba{syntax:'<angle>';initial-value:0deg;inherits:false}
 #gif-lb-info{position:relative;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#3b82f6;cursor:none;border-radius:20px;padding:5px 13px;border:1.5px solid transparent;background-image:linear-gradient(rgba(10,10,12,.95),rgba(10,10,12,.95)),conic-gradient(from var(--lba),#3b82f6 0deg,#60a5fa 35deg,rgba(59,130,246,.18) 75deg,rgba(8,12,22,1) 110deg,rgba(8,12,22,1) 250deg,rgba(59,130,246,.18) 285deg,#60a5fa 325deg,#3b82f6 360deg);background-origin:border-box;background-clip:padding-box,border-box;animation:lbaSpin 2.2s linear infinite,lbaGlow 2.6s ease-in-out infinite alternate;transition:color .15s}
 #gif-lb-info:hover{color:#93c5fd}
@@ -291,13 +288,16 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       <button id="gif-lb-close">✕</button>
     </div>
   </div>
-  <div id="fan-stage-wrap">
-    <div id="fan-stage" id="fan-stage"></div>
+  <div id="img-scroll-wrap">
+    <div id="img-scroll-track"></div>
   </div>
-  <div id="fan-nav">
-    <button class="fan-nbtn" id="fan-prev">←</button>
-    <div id="fan-ndots"></div>
-    <button class="fan-nbtn" id="fan-next">→</button>
+  <div id="scroll-nav">
+    <div class="snav-arrows">
+      <button class="snbtn" id="snav-prev">←</button>
+      <button class="snbtn" id="snav-next">→</button>
+    </div>
+    <div id="scroll-progress-wrap"><div id="scroll-progress-bar"></div></div>
+    <span id="scroll-count"></span>
   </div>
   <div id="gif-lb-panel">
     <div id="gif-lb-panel-inner">
@@ -816,195 +816,216 @@ window.addEventListener('DOMContentLoaded',function(){
 /* ─────────────────────────────────────────────────────── */
 
 (function(){
-  var lb=document.getElementById('gif-lb');
-  var lbCount=document.getElementById('gif-lb-count');
-  var lbTitle=document.getElementById('gif-lb-title');
-  var lbPanel=document.getElementById('gif-lb-panel');
-  var fanStage=document.getElementById('fan-stage');
-  var fanNdots=document.getElementById('fan-ndots');
-  var fanPrev=document.getElementById('fan-prev');
-  var fanNext=document.getElementById('fan-next');
-  var fanStageWrap=document.getElementById('fan-stage-wrap');
+  var lb        = document.getElementById('gif-lb');
+  var lbCount   = document.getElementById('gif-lb-count');
+  var lbTitle   = document.getElementById('gif-lb-title');
+  var lbPanel   = document.getElementById('gif-lb-panel');
+  var wrap      = document.getElementById('img-scroll-wrap');
+  var track     = document.getElementById('img-scroll-track');
+  var progress  = document.getElementById('scroll-progress-bar');
+  var countEl   = document.getElementById('scroll-count');
+  var prevBtn   = document.getElementById('snav-prev');
+  var nextBtn   = document.getElementById('snav-next');
 
-  var gifList=[],current=0,wraps=[];
-  var isDragging=false,dragStartX=0,dragStartIdx=0;
-  var ANGLE_STEP=9; /* degrees between adjacent cards */
-  var scrollCooldown=false;
+  /* ── Smooth-scroll state ─────────────────────── */
+  var targetX  = 0;
+  var currentX = 0;
+  var raf      = null;
+  var maxX     = 0;
+  var LERP     = 0.082;   /* lower = more buttery */
 
-  /* ── Panel data ───────────────────────────────── */
-  var panelData={
+  function lerp(a, b, t){ return a + (b - a) * t; }
+
+  function clamp(v){ return Math.max(0, Math.min(maxX, v)); }
+
+  function tick(){
+    currentX = lerp(currentX, targetX, LERP);
+    track.style.transform = 'translateX(' + (-currentX) + 'px)';
+    updateProgress();
+    if(Math.abs(targetX - currentX) > 0.3){
+      raf = requestAnimationFrame(tick);
+    } else {
+      currentX = targetX;
+      track.style.transform = 'translateX(' + (-currentX) + 'px)';
+      updateProgress();
+      raf = null;
+    }
+  }
+
+  function startTick(){
+    if(!raf) raf = requestAnimationFrame(tick);
+  }
+
+  function scrollTo(x, instant){
+    targetX = clamp(x);
+    if(instant){ currentX = targetX; track.style.transform = 'translateX(' + (-currentX) + 'px)'; updateProgress(); }
+    else startTick();
+  }
+
+  function scrollBy(dx){ scrollTo(targetX + dx); }
+
+  function updateMax(){
+    maxX = Math.max(0, track.scrollWidth - wrap.clientWidth);
+  }
+
+  function updateProgress(){
+    var pct = maxX > 0 ? (currentX / maxX * 100) : 0;
+    progress.style.width = pct + '%';
+    if(countEl && lbCount) lbCount.textContent = countEl.textContent;
+  }
+
+  /* ── Mouse wheel ─────────────────────────────── */
+  wrap.addEventListener('wheel', function(e){
+    e.preventDefault();
+    var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    scrollBy(delta * 1.1);
+  }, { passive: false });
+
+  /* ── Drag ────────────────────────────────────── */
+  var dragActive = false, dragStartX = 0, dragStartScroll = 0, dragVel = 0, lastDragX = 0;
+  wrap.addEventListener('mousedown', function(e){
+    dragActive = true; dragStartX = e.clientX; dragStartScroll = targetX;
+    dragVel = 0; lastDragX = e.clientX;
+    wrap.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!dragActive) return;
+    dragVel = lastDragX - e.clientX;
+    lastDragX = e.clientX;
+    scrollTo(dragStartScroll + (dragStartX - e.clientX), true);
+  });
+  document.addEventListener('mouseup', function(){
+    if(!dragActive) return;
+    dragActive = false;
+    wrap.classList.remove('dragging');
+    /* Fling with momentum */
+    scrollBy(dragVel * 8);
+  });
+
+  /* ── Touch ───────────────────────────────────── */
+  var touchStartX = 0, touchScrollStart = 0;
+  wrap.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; touchScrollStart = targetX; }, { passive: true });
+  wrap.addEventListener('touchmove',  function(e){ scrollTo(touchScrollStart + (touchStartX - e.touches[0].clientX), true); e.preventDefault(); }, { passive: false });
+  wrap.addEventListener('touchend',   function(e){
+    var vel = touchStartX - e.changedTouches[0].clientX;
+    scrollBy(vel * 3);
+  }, { passive: true });
+
+  /* ── Arrow buttons ───────────────────────────── */
+  prevBtn.addEventListener('click', function(){ scrollBy(-wrap.clientWidth * 0.75); });
+  nextBtn.addEventListener('click', function(){ scrollBy(+wrap.clientWidth * 0.75); });
+
+  /* ── Keyboard ────────────────────────────────── */
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'ArrowLeft')  scrollBy(-360);
+    if(e.key === 'ArrowRight') scrollBy(+360);
+    if(e.key === 'Escape')     lbClose();
+  });
+
+  /* ── Panel data ──────────────────────────────── */
+  var panelData = {
     'Government Educational Media':{meta:'MoFEPT · Published June 10, 2025',title:'Ministry of Federal Education Program',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Curriculum-aligned animated content for the Ministry of Federal Education and Professional Training covering climate change, green transport, water conservation and nature for federal schools across Pakistan.</p><div class="lbp-lot"><span class="lbp-lot-n">Lot 1</span><span class="lbp-lot-g">Grades 1–3</span><p>Basic environmental concepts through simple, interactive content.</p></div><div class="lbp-lot"><span class="lbp-lot-n">Lot 2</span><span class="lbp-lot-g">Grades 4–6</span><p>Critical thinking about local and global environmental issues.</p></div><div class="lbp-lot"><span class="lbp-lot-n">Lot 3</span><span class="lbp-lot-g">Grades 7–8</span><p>Complex topics: sustainability, climate change, ecosystem interdependence.</p></div></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>2D Animation</span><span>Educational</span><span>Government</span><span>After Effects</span><span>Character Animator</span></div></div>',link:'https://www.behance.net/gallery/227848989/Ministry-of-Federal-Education-Program'},
-    'Accelerec ATS System':{meta:'Accelerec · Branding & UI Design',title:'Accelerec ATS System',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">AI-powered ATS — complete brand identity, logo design, colour system, typography, brand guidelines, and product UI screens.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>UI Design</span><span>Logo Design</span><span>ATS</span><span>SaaS</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Accelerec ATS System':{meta:'Accelerec · Branding & UI Design',title:'Accelerec ATS System',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">AI-powered ATS — complete brand identity, logo, colour system, typography, brand guidelines, and product UI screens.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>UI Design</span><span>Logo Design</span><span>ATS</span><span>SaaS</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'Bitvaley Logo Design':{meta:'Bitvaley · Freelance',title:'Bitvaley Logo Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Complete logo identity — primary mark, alternates, and usage variations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Brand Identity</span><span>Typography</span></div></div>',link:'https://www.behance.net/gallery/228874451/Bitvaley-Logo-Design'},
-    'Cedar Heights – Real Estate Logo & Brand Identity':{meta:'Cedar Heights · Published June 23, 2025',title:'Cedar Heights – Real Estate Logo & Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Logo, visual system, and collateral inspired by the enduring Cedar tree — strength, resilience, and natural elegance.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Branding</span><span>Real Estate</span></div></div>',link:'https://www.behance.net/gallery/228748633/Cedar-Heights-Real-Estate-Logo-Brand-Identity'},
-    'Creamio – Ice Cream Logo Design & Visual Brand Identity':{meta:'Creamio · Published June 17, 2025',title:'Creamio – Ice Cream Logo Design & Visual Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Vibrant ice cream brand identity — logo, colour palette, typography, packaging, and social templates.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Branding</span><span>Packaging</span></div></div>',link:'https://www.behance.net/gallery/228340973/Creamio-Ice-Cream-Logo-Design-Visual-Brand-Identity'},
-    'Moreway Logistic Solution Logo and Branding':{meta:'Moreway · Published July 25, 2025',title:'Moreway Logistic Solution Logo and Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Logo, brand guidelines, vehicle mockups, and full visual system for a modern logistics company.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Logistics Logo</span><span>Vehicle Mockups</span></div></div>',link:'https://www.behance.net/gallery/231115757/Moreway-Logistic-Solution-Logo-and-Branding'},
-    'N7 Real Estate':{meta:'N7 Real Estate · Published June 12, 2025',title:'N7 Real Estate',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Premium luxury brand identity — print, merchandise, coins, trophy, perfume, and car branding for a Dubai real estate developer.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Print</span><span>Luxury</span><span>Real Estate</span></div></div>',link:'https://www.behance.net/gallery/227912897/N7-Real-Estate'},
-    'Nussa Ferrero Brand Identity':{meta:'Nussa Ferrero · Published June 16, 2025',title:'Nussa Ferrero Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Logo, mascot, brand guidelines, product packaging, social media templates, and pattern system.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Brand Identity</span><span>Mascot</span><span>Packaging</span></div></div>',link:'https://www.behance.net/gallery/228269755/Nussa-Ferrero-Brand-Identity'},
-    'Mood Spritz Label Design':{meta:'Mood Spritz · Published November 12, 2025',title:'Mood Spritz Label Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Four bold colour-story label variants: Blue (Calming), Orange (Sunny), Pink (Playful), Purple (Dreamy).</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Label Design</span><span>Packaging</span><span>Print</span></div></div>',link:'https://www.behance.net/gallery/238425459/Mood-Spritz-Label-Design'},
-    'Unity – Motion Banner Design':{meta:'Unity · Motion Graphics',title:'Unity – Motion Banner Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Bold looping motion graphics and GIF banners for digital campaigns.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Motion Graphics</span><span>Animation</span><span>Banner Design</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Student Biryani Branding':{meta:'Student Biryani · Published June 11, 2025',title:'Student Biryani Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Full branding — delivery packaging, car branding, menu boards, media wall, social grids, and campaign assets.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Print</span><span>Packaging</span><span>Food</span></div></div>',link:'https://www.behance.net/gallery/227888771/Student-Biryani-Branding'},
-    'Pasokin – Social Media Design':{meta:'Pasokin · Social Media',title:'Pasokin – Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Seasonal campaigns, product callouts, nutritional highlights, and lifestyle posts for a health peanut butter brand.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Food Brand</span><span>Health</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Student Biryani – Social Media':{meta:'Student Biryani · Published May 1, 2024',title:'Student Biryani – Social Media',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Multi-brand social media posts spanning food, real estate, product, and security categories.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Food</span><span>Real Estate</span></div></div>',link:'https://www.behance.net/gallery/197520709/Social-Media'},
-    'Japan Electronics Pakistan – Print & Branding':{meta:'Japan Electronics Pakistan · Print',title:'Japan Electronics Pakistan – Print & Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Retail display boards, in-store signage, shelf labels, and branded print materials across product categories.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Print Design</span><span>Retail Signage</span><span>Electronics</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'ERA – Social Media Design':{meta:'ERA · Social Media',title:'ERA – Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Curated branded posts with consistent visual identity across digital platforms.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Brand Identity</span><span>Instagram</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Live Life Learn – Logo Animation':{meta:'Live Life Learn · Logo Animation',title:'Live Life Learn – Logo Animation',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Smooth branded logo animation for intros, social media, and presentations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Animation</span><span>Motion Graphics</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'}
+    'Cedar Heights \u2013 Real Estate Logo & Brand Identity':{meta:'Cedar Heights · Published June 23, 2025',title:'Cedar Heights \u2013 Real Estate Logo & Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Logo, visual system, and collateral inspired by the enduring Cedar tree.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Branding</span><span>Real Estate</span></div></div>',link:'https://www.behance.net/gallery/228748633/Cedar-Heights-Real-Estate-Logo-Brand-Identity'},
+    'Creamio \u2013 Ice Cream Logo Design & Visual Brand Identity':{meta:'Creamio · Published June 17, 2025',title:'Creamio \u2013 Ice Cream Logo Design & Visual Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Vibrant ice cream brand identity — logo, colour palette, typography, and packaging.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Design</span><span>Branding</span><span>Packaging</span></div></div>',link:'https://www.behance.net/gallery/228340973/Creamio-Ice-Cream-Logo-Design-Visual-Brand-Identity'},
+    'Moreway Logistic Solution Logo and Branding':{meta:'Moreway · Published July 25, 2025',title:'Moreway Logistic Solution Logo and Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Logo, brand guidelines, vehicle mockups, and full visual system.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Logistics</span><span>Vehicle Mockups</span></div></div>',link:'https://www.behance.net/gallery/231115757/Moreway-Logistic-Solution-Logo-and-Branding'},
+    'N7 Real Estate':{meta:'N7 Real Estate · Published June 12, 2025',title:'N7 Real Estate',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Premium luxury brand identity — print, merchandise, coins, trophy, perfume, and car branding.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Luxury</span><span>Real Estate</span></div></div>',link:'https://www.behance.net/gallery/227912897/N7-Real-Estate'},
+    'Nussa Ferrero Brand Identity':{meta:'Nussa Ferrero · Published June 16, 2025',title:'Nussa Ferrero Brand Identity',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Logo, mascot, brand guidelines, product packaging, social templates, and pattern system.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Brand Identity</span><span>Mascot</span><span>Packaging</span></div></div>',link:'https://www.behance.net/gallery/228269755/Nussa-Ferrero-Brand-Identity'},
+    'Mood Spritz Label Design':{meta:'Mood Spritz · Published November 12, 2025',title:'Mood Spritz Label Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Four bold colour-story label variants: Blue, Orange, Pink, Purple.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Label Design</span><span>Packaging</span><span>Print</span></div></div>',link:'https://www.behance.net/gallery/238425459/Mood-Spritz-Label-Design'},
+    'Unity \u2013 Motion Banner Design':{meta:'Unity · Motion Graphics',title:'Unity \u2013 Motion Banner Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Bold looping motion graphics and GIF banners for digital campaigns.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Motion Graphics</span><span>Animation</span><span>Banners</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Student Biryani Branding':{meta:'Student Biryani · Published June 11, 2025',title:'Student Biryani Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#ff9a00" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#ff9a00" font-family="sans-serif">Ai</text></svg> Adobe Illustrator & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Delivery packaging, car branding, menu boards, media wall, social grids, and campaign assets.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Branding</span><span>Print</span><span>Packaging</span><span>Food</span></div></div>',link:'https://www.behance.net/gallery/227888771/Student-Biryani-Branding'},
+    'Pasokin \u2013 Social Media Design':{meta:'Pasokin · Social Media',title:'Pasokin \u2013 Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Seasonal campaigns, product callouts, and lifestyle posts for a health peanut butter brand.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Food Brand</span><span>Health</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Student Biryani \u2013 Social Media':{meta:'Student Biryani · Published May 1, 2024',title:'Student Biryani \u2013 Social Media',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Multi-brand social media posts — food, real estate, product, and security categories.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Food</span><span>Real Estate</span></div></div>',link:'https://www.behance.net/gallery/197520709/Social-Media'},
+    'Japan Electronics Pakistan \u2013 Print & Branding':{meta:'Japan Electronics Pakistan · Print',title:'Japan Electronics Pakistan \u2013 Print & Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Retail display boards, signage, shelf labels, and branded print materials.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Print Design</span><span>Retail Signage</span><span>Electronics</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'ERA \u2013 Social Media Design':{meta:'ERA · Social Media',title:'ERA \u2013 Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Curated branded posts with consistent visual identity across platforms.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Brand Identity</span><span>Instagram</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Live Life Learn \u2013 Logo Animation':{meta:'Live Life Learn · Logo Animation',title:'Live Life Learn \u2013 Logo Animation',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Smooth branded logo animation for intros, social media, and presentations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Animation</span><span>Motion Graphics</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'}
   };
 
   function renderPanel(title){
-    var d=panelData[title];
-    var el=document.getElementById('lbp-dynamic');
-    if(!d){el.innerHTML='';return;}
-    el.innerHTML='<div class="lbp-tag">'+d.meta+'</div><h2 class="lbp-title">'+d.title+'</h2><div class="lbp-tool">'+d.tool+'</div>'+d.body+'<a href="'+d.link+'" target="_blank" class="lbp-behance">View on Behance ↗</a>';
+    var d = panelData[title];
+    var el = document.getElementById('lbp-dynamic');
+    if(!d){ el.innerHTML = ''; return; }
+    el.innerHTML = '<div class="lbp-tag">'+d.meta+'</div><h2 class="lbp-title">'+d.title+'</h2><div class="lbp-tool">'+d.tool+'</div>'+d.body+'<a href="'+d.link+'" target="_blank" class="lbp-behance">View on Behance \u2197</a>';
   }
 
-  /* ── Fan layout: "hand of cards" rotation ─────────
-     All wraps sit at the same base point (bottom-center of stage).
-     transform-origin is 420px below the top = ~bottom of each card.
-     Rotating each wrap by a different angle fans them out like playing cards.
-  ────────────────────────────────────────────────── */
-  function fanLayout(){
-    var N=gifList.length;
-    wraps.forEach(function(w,i){
-      var offset=i-current;
-      var angle=offset*ANGLE_STEP;
-      /* Clamp far cards: fade past ±5 */
-      var absOff=Math.abs(offset);
-      var scale=Math.max(0.72,1-absOff*0.06);
-      var opacity=absOff>6?0:Math.max(0.35,1-absOff*0.12);
-      /* Shift active card slightly upward so it stands out */
-      var extra=offset===0?'translateY(-18px)':'';
-      w.style.transform='rotate('+angle+'deg) '+extra;
-      w.style.zIndex=String(100-absOff);
-      w.classList.toggle('fan-active',i===current);
-      var card=w.querySelector('.fan-card');
-      card.style.opacity=opacity;
-      card.style.transform='scale('+scale+')';
-      card.style.transformOrigin='bottom center';
-    });
-    lbCount.textContent=(current+1)+' / '+N;
-    fanPrev.disabled=(current===0);
-    fanNext.disabled=(current===N-1);
-    document.querySelectorAll('.fan-nd').forEach(function(d,i){d.classList.toggle('on',i===current);});
-  }
-
-  /* ── Open ─────────────────────────────────────── */
+  /* ── Open ────────────────────────────────────── */
   function lbOpen(card){
-    var gifsEnc=card.dataset.gifsEnc||'';
-    gifList=gifsEnc.split('|').map(function(s){return window._decUrl(s.trim());}).filter(Boolean);
-    lbTitle.textContent=(card.dataset.client||'')+' — '+(card.dataset.title||'');
-    current=0;
-    fanStage.innerHTML='';
-    fanNdots.innerHTML='';
-    wraps=[];
-    gifList.forEach(function(url,i){
-      var w=document.createElement('div');
-      w.className='fan-cw';
-      var fc=document.createElement('div');
-      fc.className='fan-card';
-      var img=document.createElement('img');
-      img.src=url;
-      img.alt='Image '+(i+1);
-      img.loading=i<4?'eager':'lazy';
+    var gifsEnc = card.dataset.gifsEnc || '';
+    var urls = gifsEnc.split('|').map(function(s){ return window._decUrl(s.trim()); }).filter(Boolean);
+    lbTitle.textContent = (card.dataset.client||'') + ' \u2014 ' + (card.dataset.title||'');
+    lbCount.textContent = urls.length + ' images';
+    countEl.textContent = urls.length + ' images';
+
+    track.innerHTML = '';
+    urls.forEach(function(url, i){
+      var item = document.createElement('div');
+      item.className = 'si';
+      var img = document.createElement('img');
+      img.src = url;
+      img.alt = 'Image ' + (i+1);
+      img.loading = i < 5 ? 'eager' : 'lazy';
       img.setAttribute('draggable','false');
-      fc.appendChild(img);
-      w.appendChild(fc);
-      fanStage.appendChild(w);
-      wraps.push(w);
-      /* Click non-active to navigate */
-      w.addEventListener('click',function(){if(i!==current)goTo(i);});
-      /* Dot */
-      var dot=document.createElement('button');
-      dot.className='fan-nd';
-      dot.addEventListener('click',function(){goTo(i);});
-      fanNdots.appendChild(dot);
+      /* Natural aspect ratio: fixed height, auto width */
+      img.style.height = '100%';
+      img.style.width = 'auto';
+      item.appendChild(img);
+      track.appendChild(item);
     });
+
+    /* Reset scroll */
+    targetX = 0; currentX = 0;
+    track.style.transform = 'translateX(0)';
+    progress.style.width = '0%';
+
     renderPanel(card.dataset.title||'');
     lbPanel.classList.remove('open');
     lb.classList.add('open');
-    document.body.style.overflow='hidden';
-    requestAnimationFrame(fanLayout);
+    document.body.style.overflow = 'hidden';
+
+    /* Compute maxX after images begin to load */
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ updateMax(); });
+    });
+
+    /* Recompute on any image load */
+    track.querySelectorAll('img').forEach(function(img){
+      img.addEventListener('load', updateMax);
+    });
   }
 
-  /* ── Close ────────────────────────────────────── */
+  /* ── Close ───────────────────────────────────── */
   function lbClose(){
+    if(raf){ cancelAnimationFrame(raf); raf = null; }
     lb.classList.remove('open');
     lbPanel.classList.remove('open');
-    document.body.style.overflow='';
-    setTimeout(function(){fanStage.innerHTML='';fanNdots.innerHTML='';wraps=[];},400);
+    document.body.style.overflow = '';
+    setTimeout(function(){ track.innerHTML = ''; }, 400);
   }
 
-  /* ── Navigate ─────────────────────────────────── */
-  function goTo(idx){
-    current=Math.max(0,Math.min(idx,gifList.length-1));
-    fanLayout();
-  }
+  /* ── Controls ────────────────────────────────── */
+  document.getElementById('gif-lb-close').addEventListener('click', lbClose);
+  document.getElementById('gif-lb-info').addEventListener('click', function(){ lbPanel.classList.toggle('open'); });
+  document.getElementById('gif-lb-panel-close').addEventListener('click', function(){ lbPanel.classList.remove('open'); });
 
-  /* ── Arrows ───────────────────────────────────── */
-  fanPrev.addEventListener('click',function(){goTo(current-1);});
-  fanNext.addEventListener('click',function(){goTo(current+1);});
+  window.addEventListener('resize', updateMax);
 
-  /* ── Mouse wheel / trackpad scroll ───────────── */
-  fanStageWrap.addEventListener('wheel',function(e){
-    e.preventDefault();
-    if(scrollCooldown)return;
-    if(e.deltaY>0||e.deltaX>0)goTo(current+1);
-    else goTo(current-1);
-    scrollCooldown=true;
-    setTimeout(function(){scrollCooldown=false;},380);
-  },{passive:false});
-
-  /* ── Drag ─────────────────────────────────────── */
-  fanStageWrap.addEventListener('mousedown',function(e){
-    isDragging=true;dragStartX=e.clientX;dragStartIdx=current;
-    e.preventDefault();
-  });
-  document.addEventListener('mousemove',function(e){
-    if(!isDragging)return;
-    var dx=dragStartX-e.clientX;
-    var steps=Math.round(dx/70);
-    var n=Math.max(0,Math.min(gifList.length-1,dragStartIdx+steps));
-    if(n!==current){current=n;fanLayout();}
-  });
-  document.addEventListener('mouseup',function(){isDragging=false;});
-
-  /* ── Touch swipe ──────────────────────────────── */
-  var tx=0;
-  fanStageWrap.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
-  fanStageWrap.addEventListener('touchend',function(e){
-    var dx=tx-e.changedTouches[0].clientX;
-    if(Math.abs(dx)>40)goTo(current+(dx>0?1:-1));
-  },{passive:true});
-
-  /* ── Keyboard ─────────────────────────────────── */
-  document.addEventListener('keydown',function(e){
-    if(!lb.classList.contains('open'))return;
-    if(e.key==='ArrowLeft'||e.key==='ArrowUp')goTo(current-1);
-    if(e.key==='ArrowRight'||e.key==='ArrowDown')goTo(current+1);
-    if(e.key==='Escape')lbClose();
-  });
-
-  /* ── Buttons ──────────────────────────────────── */
-  document.getElementById('gif-lb-close').addEventListener('click',lbClose);
-  document.getElementById('gif-lb-info').addEventListener('click',function(){lbPanel.classList.toggle('open');});
-  document.getElementById('gif-lb-panel-close').addEventListener('click',function(){lbPanel.classList.remove('open');});
-
-  /* ── Project card click ───────────────────────── */
+  /* ── Project card click ──────────────────────── */
   document.querySelectorAll('.pc').forEach(function(card){
-    card.addEventListener('click',function(){
-      if(card.dataset.gifsEnc){lbOpen(card);return;}
-      document.getElementById('modal-thumb').innerHTML=card.querySelector('.pt').innerHTML;
-      document.getElementById('modal-cat').textContent=card.dataset.client||'';
-      document.getElementById('modal-title').textContent=card.dataset.title||'';
-      document.getElementById('modal-desc').textContent=card.dataset.desc||'';
-      var tagsEl=document.getElementById('modal-tags');tagsEl.innerHTML='';
-      (card.dataset.tags||'').split(',').forEach(function(t){var s=document.createElement('span');s.className='modal-tag';s.textContent=t.trim();tagsEl.appendChild(s);});
-      document.getElementById('modal-overlay').classList.add('open');document.body.style.overflow='hidden';
+    card.addEventListener('click', function(){
+      if(card.dataset.gifsEnc){ lbOpen(card); return; }
+      document.getElementById('modal-thumb').innerHTML = card.querySelector('.pt').innerHTML;
+      document.getElementById('modal-cat').textContent = card.dataset.client||'';
+      document.getElementById('modal-title').textContent = card.dataset.title||'';
+      document.getElementById('modal-desc').textContent = card.dataset.desc||'';
+      var tagsEl = document.getElementById('modal-tags'); tagsEl.innerHTML = '';
+      (card.dataset.tags||'').split(',').forEach(function(t){ var s=document.createElement('span'); s.className='modal-tag'; s.textContent=t.trim(); tagsEl.appendChild(s); });
+      document.getElementById('modal-overlay').classList.add('open'); document.body.style.overflow='hidden';
     });
   });
 })();
-
-
 
 (function(){
   var canvas=document.getElementById('confetti-canvas');
