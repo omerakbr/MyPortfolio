@@ -274,14 +274,47 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
    ═══════════════════════════════════════════════════════════════════ */
 #gif-lb.web-mode #img-scroll-wrap{
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:32px;
+  padding:20px 32px 32px;
+  gap:14px;
   cursor:auto;
   overflow:hidden;
 }
 #gif-lb.web-mode #img-scroll-wrap::before,
 #gif-lb.web-mode #img-scroll-wrap::after{display:none!important}
+#gif-lb.web-mode .web-tabs{
+  display:flex;
+  gap:4px;
+  padding:4px;
+  background:rgba(255,255,255,.04);
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.06);
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:100%;
+  flex-shrink:0;
+}
+#gif-lb.web-mode .web-tab{
+  font:inherit;
+  font-size:11px;
+  letter-spacing:.04em;
+  padding:6px 13px;
+  border-radius:20px;
+  border:none;
+  background:transparent;
+  color:rgba(255,255,255,.5);
+  cursor:none;
+  transition:background .18s,color .18s;
+  white-space:nowrap;
+}
+#gif-lb.web-mode .web-tab:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.06)}
+#gif-lb.web-mode .web-tab.active{
+  background:rgba(59,130,246,.18);
+  color:#60a5fa;
+  box-shadow:0 0 8px rgba(59,130,246,.25);
+}
 #gif-lb.web-mode #img-scroll-track{
   display:flex!important;
   flex-direction:row!important;
@@ -291,6 +324,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   padding:0!important;
   height:auto!important;
   width:auto!important;
+  max-width:100%;
   background:transparent!important;
   border:none!important;
   border-radius:0!important;
@@ -302,7 +336,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 #gif-lb.web-mode .web-frame{
   width:min(1080px,calc(100vw - 100px));
   aspect-ratio:16/9;
-  max-height:calc(100vh - 160px);
+  max-height:calc(100vh - 210px);
   background:#0a0a0a;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.1);
@@ -338,7 +372,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   position:relative;
   flex-shrink:0;
   align-self:stretch;
-  max-height:calc(100vh - 160px);
+  max-height:calc(100vh - 210px);
   border:1px solid rgba(255,255,255,.04);
 }
 #gif-lb.web-mode .web-scrollbar-thumb{
@@ -841,6 +875,19 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       <span class="parr">↗</span>
     </div>
 
+    <div class="pc sa" data-cat="web-design"
+      data-title="Sanctum"
+      data-client="Sanctum"
+      data-desc="Multi-page website design for Sanctum — a fitness and CrossFit box concept. Covers the full site: homepage, about, contact, couches, schedule, WOD board, leaderboard, login, and a couches detail page. Each page carries a bold, training-focused aesthetic."
+      data-tags="Web Design,UI Design,Multi-page,Fitness,CrossFit,Figma,Photoshop"
+      data-web-pages="Homepage::BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhZ4BFgBJwJCex1ZDhJVFVceWEUX|About Us::BxlHAkdRTRsbHEBdRgQGAFRcVwhNZzxlZkByCSVCchBbHhYZJ0EeWEUX|Contact Us::BxlHAkdRTRsbHEBdRgQGAFRcVwhNeEZVSENFBz9CcB1aHwNXBh9lQRsaHwo=|Couches::BxlHAkdRTRsbHEBdRgQGAFRcVwhNRh9wc3VxQyxCcB1BCApRARxaQlI=|Couches Page::BxlHAkdRTRsbHEBdRgQGAFRcVwhNbUt1Sl8DKDdCcB1BCApRAR9gU1IVQQdDFQ==|Leaderboard::BxlHAkdRTRsbHEBdRgQGAFRcVwhNd0dQc1FzACtCfxdVDwdGX3BfU0cUQQdDFQ==|Login::BxlHAkdRTRsbHEBdRgQGAFRcVwhNbhwEYEVhCh1Cfx1TAgwaGEJX|Schedule::BxlHAkdRTRsbHEBdRgQGAFRcVwhNAEZ6Z3lSAT9CYBFcDgZBHlceWEUX|WOD::BxlHAkdRTRsbHEBdRgQGAFRcVwhNYxBgaFVMEwlCZD1wRQhEFQ=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0808"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhZ4BFgBJwJCex1ZDhJVFVceWEUX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Sanctum" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Sanctum</div><div class="pn">Sanctum</div><div class="pd">Multi-page website for a CrossFit box — 9 screens covering training, schedule, leaderboard &amp; membership.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
   </div><!-- /proj-grid -->
   <div class="slider-nav">
     <div class="slider-dots" id="slider-dots"></div>
@@ -1224,7 +1271,8 @@ window.addEventListener('DOMContentLoaded',function(){
     'Japan Electronics Pakistan \u2013 Print & Branding':{meta:'Japan Electronics Pakistan · Print',title:'Japan Electronics Pakistan \u2013 Print & Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Retail display boards, signage, shelf labels, and branded print materials.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Print Design</span><span>Retail Signage</span><span>Electronics</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'ERA \u2013 Social Media Design':{meta:'ERA · Social Media',title:'ERA \u2013 Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Curated branded posts with consistent visual identity across platforms.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Brand Identity</span><span>Instagram</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'Live Life Learn \u2013 Logo Animation':{meta:'Live Life Learn · Logo Animation',title:'Live Life Learn \u2013 Logo Animation',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Smooth branded logo animation for intros, social media, and presentations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Animation</span><span>Motion Graphics</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Zaiwar':{meta:'Zaiwar · Web Design',title:'Zaiwar',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Full-length landing page design for Zaiwar — a cohesive visual system, structured content sections, and a distinctive brand aesthetic carried from hero to footer.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Landing Page</span><span>Figma</span></div></div>',link:'https://www.behance.net/omi6910660'}
+    'Zaiwar':{meta:'Zaiwar · Web Design',title:'Zaiwar',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Full-length landing page design for Zaiwar — a cohesive visual system, structured content sections, and a distinctive brand aesthetic carried from hero to footer.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Landing Page</span><span>Figma</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Sanctum':{meta:'Sanctum · Web Design',title:'Sanctum',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Multi-page website design for Sanctum — a fitness and CrossFit box concept. 9 full-length screens cover the homepage, about, contact, couches listing &amp; detail, schedule, workout of the day, leaderboard, and login. Bold, training-focused visual language across the entire site.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Multi-page</span><span>Fitness</span><span>CrossFit</span></div></div>',link:'https://www.behance.net/omi6910660'}
   };
 
   function renderPanel(title){
@@ -1236,9 +1284,21 @@ window.addEventListener('DOMContentLoaded',function(){
 
   /* ── Open ────────────────────────────────────── */
   function lbOpen(card){
-    /* Web-design mode: single long screenshot in a scrollable 16:9 frame */
-    if(card.dataset.webEnc){
-      var webUrl = window._decUrl(card.dataset.webEnc);
+    /* Web-design mode: scrollable 16:9 frame(s). Two variants:
+       - data-web-enc   (single page)
+       - data-web-pages (multiple pages — "Name::encodedUrl" joined by |) */
+    if(card.dataset.webEnc || card.dataset.webPages){
+      var pages;
+      if(card.dataset.webPages){
+        pages = card.dataset.webPages.split('|').map(function(s){
+          var idx = s.indexOf('::');
+          return { name: s.substring(0,idx), url: window._decUrl(s.substring(idx+2)) };
+        }).filter(function(p){return p.url;});
+      } else {
+        pages = [{ name: card.dataset.title||'', url: window._decUrl(card.dataset.webEnc) }];
+      }
+      if(!pages.length) return;
+
       lbTitle.textContent = (card.dataset.client||'') + ' \u2014 ' + (card.dataset.title||'');
       lbCount.textContent = '';
       countEl.textContent = '';
@@ -1246,10 +1306,16 @@ window.addEventListener('DOMContentLoaded',function(){
       track.innerHTML = '';
       track.style.transform = 'none';
 
+      var tabs = null;
+      if(pages.length > 1){
+        tabs = document.createElement('div');
+        tabs.className = 'web-tabs';
+        track.appendChild(tabs);
+      }
+
       var frame = document.createElement('div');
       frame.className = 'web-frame';
       var wimg = document.createElement('img');
-      wimg.src = webUrl;
       wimg.alt = card.dataset.title || '';
       wimg.setAttribute('draggable','false');
       frame.appendChild(wimg);
@@ -1260,8 +1326,12 @@ window.addEventListener('DOMContentLoaded',function(){
       thumb.className = 'web-scrollbar-thumb';
       sb.appendChild(thumb);
 
-      track.appendChild(frame);
-      track.appendChild(sb);
+      /* Row container holding frame + scrollbar side-by-side */
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;gap:14px;align-items:stretch;max-width:100%;';
+      row.appendChild(frame);
+      row.appendChild(sb);
+      track.appendChild(row);
 
       function updateThumb(){
         var visible = frame.clientHeight;
@@ -1320,13 +1390,34 @@ window.addEventListener('DOMContentLoaded',function(){
       }, {passive:false});
       document.addEventListener('touchend', dragEnd);
 
+      function showPage(idx){
+        wimg.src = pages[idx].url;
+        frame.scrollTop = 0;
+        if(tabs){
+          tabs.querySelectorAll('.web-tab').forEach(function(t,i){
+            t.classList.toggle('active', i===idx);
+          });
+        }
+        requestAnimationFrame(function(){ requestAnimationFrame(updateThumb); });
+      }
+
+      if(tabs){
+        pages.forEach(function(p,i){
+          var b = document.createElement('button');
+          b.className = 'web-tab' + (i===0?' active':'');
+          b.textContent = p.name;
+          b.addEventListener('click', function(){ showPage(i); });
+          tabs.appendChild(b);
+        });
+      }
+
+      showPage(0);
+
       renderPanel(card.dataset.title||'');
       lbPanel.classList.remove('open');
       lb.classList.add('web-mode');
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
-      frame.scrollTop = 0;
-      requestAnimationFrame(function(){ requestAnimationFrame(updateThumb); });
       return;
     }
 
@@ -1402,7 +1493,7 @@ window.addEventListener('DOMContentLoaded',function(){
   /* ── Project card click ──────────────────────── */
   document.querySelectorAll('.pc').forEach(function(card){
     card.addEventListener('click', function(){
-      if(card.dataset.gifsEnc || card.dataset.webEnc){ lbOpen(card); return; }
+      if(card.dataset.gifsEnc || card.dataset.webEnc || card.dataset.webPages){ lbOpen(card); return; }
       document.getElementById('modal-thumb').innerHTML = card.querySelector('.pt').innerHTML;
       document.getElementById('modal-cat').textContent = card.dataset.client||'';
       document.getElementById('modal-title').textContent = card.dataset.title||'';
