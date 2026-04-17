@@ -1311,10 +1311,34 @@ window.addEventListener('DOMContentLoaded',function(){
 
       var frame = document.createElement('div');
       frame.className = 'web-frame';
-      var wimg = document.createElement('img');
-      wimg.alt = card.dataset.title || '';
-      wimg.setAttribute('draggable','false');
-      frame.appendChild(wimg);
+
+      /* One <img> per page, all pre-created. Active one is visible;
+         others are hidden but loaded, so tab switching is instant. */
+      var imgs = pages.map(function(p, i){
+        var im = document.createElement('img');
+        im.alt = p.name || card.dataset.title || '';
+        im.setAttribute('draggable','false');
+        im.loading = i === 0 ? 'eager' : 'lazy';
+        im.decoding = 'async';
+        im.src = p.url;
+        im.style.display = i === 0 ? 'block' : 'none';
+        frame.appendChild(im);
+        return im;
+      });
+
+      /* Kick background preload for remaining pages after the first one loads.
+         This warms the cache so tab clicks feel instant even on slow connections. */
+      if(pages.length > 1){
+        var preload = function(){
+          pages.slice(1).forEach(function(p){
+            var pre = new Image();
+            pre.decoding = 'async';
+            pre.src = p.url;
+          });
+        };
+        if(imgs[0].complete) preload();
+        else imgs[0].addEventListener('load', preload, {once:true});
+      }
 
       var sb = document.createElement('div');
       sb.className = 'web-scrollbar';
@@ -1343,7 +1367,9 @@ window.addEventListener('DOMContentLoaded',function(){
         thumb.style.top = (pct * maxThumb) + 'px';
       }
       frame.addEventListener('scroll', updateThumb, {passive:true});
-      wimg.addEventListener('load', function(){ requestAnimationFrame(updateThumb); });
+      imgs.forEach(function(im){
+        im.addEventListener('load', function(){ requestAnimationFrame(updateThumb); });
+      });
       window.addEventListener('resize', updateThumb);
 
       var dragging = false, startY = 0, startTop = 0;
@@ -1387,7 +1413,7 @@ window.addEventListener('DOMContentLoaded',function(){
       document.addEventListener('touchend', dragEnd);
 
       function showPage(idx){
-        wimg.src = pages[idx].url;
+        imgs.forEach(function(im,i){ im.style.display = i===idx ? 'block' : 'none'; });
         frame.scrollTop = 0;
         if(tabs){
           tabs.querySelectorAll('.web-tab').forEach(function(t,i){
