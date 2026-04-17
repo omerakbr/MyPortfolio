@@ -267,6 +267,65 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 #gif-lb-track-wrap{touch-action:pan-x}
 
 /* ═══════════════════════════════════════════════════════════════════
+   WEB DESIGN MODE — single scrollable 16:9 frame
+   Activated when #gif-lb has class .web-mode (set by JS on open)
+   ═══════════════════════════════════════════════════════════════════ */
+#gif-lb.web-mode #img-scroll-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+  cursor:auto;
+  overflow:hidden;
+}
+#gif-lb.web-mode #img-scroll-wrap::before,
+#gif-lb.web-mode #img-scroll-wrap::after{display:none}
+#gif-lb.web-mode #img-scroll-track{
+  all:unset;
+  display:block;
+  width:min(1200px,calc(100vw - 80px));
+  aspect-ratio:16/9;
+  max-height:calc(100vh - 180px);
+  background:#0a0a0a;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+}
+#gif-lb.web-mode .web-frame{
+  position:absolute;inset:0;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.25) transparent;
+  -webkit-overflow-scrolling:touch;
+}
+#gif-lb.web-mode .web-frame::-webkit-scrollbar{width:8px}
+#gif-lb.web-mode .web-frame::-webkit-scrollbar-track{background:transparent}
+#gif-lb.web-mode .web-frame::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:4px}
+#gif-lb.web-mode .web-frame::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.35)}
+#gif-lb.web-mode .web-frame img{
+  width:100%;
+  height:auto;
+  display:block;
+  pointer-events:auto;
+  -webkit-user-drag:none;
+  user-select:none;
+}
+/* Hide prev/next and progress — only one item in web mode */
+#gif-lb.web-mode #scroll-nav .snav-arrows,
+#gif-lb.web-mode #scroll-progress-wrap,
+#gif-lb.web-mode #scroll-count{visibility:hidden}
+@media(max-width:600px){
+  #gif-lb.web-mode #img-scroll-wrap{padding:12px}
+  #gif-lb.web-mode #img-scroll-track{
+    width:100%;
+    max-height:calc(100vh - 140px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    MOBILE / TOUCHSCREEN OVERRIDES
    Targeted via (hover:none) and (pointer:coarse) — this matches phones
    and tablets only. Desktop with mouse NEVER matches this, regardless
@@ -453,6 +512,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
     <button class="fbtn" data-filter="branding">Branding</button>
     <button class="fbtn" data-filter="social-media">Social Media</button>
     <button class="fbtn" data-filter="print">Print</button>
+    <button class="fbtn" data-filter="web-design">Web Design</button>
   </div>
   <div class="pg-wrap">
   <div class="pg stagger" id="proj-grid">
@@ -712,6 +772,19 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       <div class="pt" style="background:#060a12"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZhpwYmBtIxxCfz54KgxdH1NEW1oeXEBWCFMCBBkRXV0fQxkLCFxfQARPUxtUHVFaHhkIQQZRGUxTG1Q=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Live Life Learn" />
       <div class="pt-overlay">▶</div></div>
       <div class="pi"><div class="pcl">Live Life Learn</div><div class="pn">Live Life Learn – Logo Animation</div><div class="pd">Branded logo motion sequence for digital &amp; social media use.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="web-design"
+      data-title="Zaiwar"
+      data-client="Zaiwar"
+      data-desc="Website design for Zaiwar — a full-length landing page with a distinctive visual system, structured content sections, and a cohesive brand aesthetic throughout."
+      data-tags="Web Design,UI Design,Landing Page,Figma,Photoshop"
+      data-web-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDBEKBGZxFi1Cfh1XABdEXFhAVQ=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0e1018"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDBEKBGZxFi1Cfh1XABdEXFhAVQ==" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Zaiwar" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Zaiwar</div><div class="pn">Zaiwar</div><div class="pd">Full-length landing page design with a distinctive visual system &amp; cohesive brand aesthetic.</div></div>
       <span class="parr">↗</span>
     </div>
 
@@ -1014,6 +1087,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
   /* ── Mouse wheel ─────────────────────────────── */
   wrap.addEventListener('wheel', function(e){
+    if(lb.classList.contains('web-mode')) return;
     e.preventDefault();
     var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
     scrollBy(delta * 1.1);
@@ -1022,6 +1096,7 @@ window.addEventListener('DOMContentLoaded',function(){
   /* ── Drag ────────────────────────────────────── */
   var dragActive = false, dragStartX = 0, dragStartScroll = 0, dragVel = 0, lastDragX = 0;
   wrap.addEventListener('mousedown', function(e){
+    if(lb.classList.contains('web-mode')) return;
     dragActive = true; dragStartX = e.clientX; dragStartScroll = targetX;
     dragVel = 0; lastDragX = e.clientX;
     wrap.classList.add('dragging');
@@ -1044,9 +1119,10 @@ window.addEventListener('DOMContentLoaded',function(){
   /* ── Touch ───────────────────────────────────── */
   if(!isMobile){
     var touchStartX = 0, touchScrollStart = 0;
-    wrap.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; touchScrollStart = targetX; }, { passive: true });
-    wrap.addEventListener('touchmove',  function(e){ scrollTo(touchScrollStart + (touchStartX - e.touches[0].clientX), true); e.preventDefault(); }, { passive: false });
+    wrap.addEventListener('touchstart', function(e){ if(lb.classList.contains('web-mode')) return; touchStartX = e.touches[0].clientX; touchScrollStart = targetX; }, { passive: true });
+    wrap.addEventListener('touchmove',  function(e){ if(lb.classList.contains('web-mode')) return; scrollTo(touchScrollStart + (touchStartX - e.touches[0].clientX), true); e.preventDefault(); }, { passive: false });
     wrap.addEventListener('touchend',   function(e){
+      if(lb.classList.contains('web-mode')) return;
       var vel = touchStartX - e.changedTouches[0].clientX;
       scrollBy(vel * 3);
     }, { passive: true });
@@ -1054,10 +1130,12 @@ window.addEventListener('DOMContentLoaded',function(){
 
   /* ── Arrow buttons ───────────────────────────── */
   prevBtn.addEventListener('click', function(){
+    if(lb.classList.contains('web-mode')) return;
     if(isMobile) wrap.scrollBy({left:-wrap.clientWidth,behavior:'smooth'});
     else scrollBy(-wrap.clientWidth * 0.75);
   });
   nextBtn.addEventListener('click', function(){
+    if(lb.classList.contains('web-mode')) return;
     if(isMobile) wrap.scrollBy({left: wrap.clientWidth,behavior:'smooth'});
     else scrollBy(+wrap.clientWidth * 0.75);
   });
@@ -1065,9 +1143,10 @@ window.addEventListener('DOMContentLoaded',function(){
   /* ── Keyboard ────────────────────────────────── */
   document.addEventListener('keydown', function(e){
     if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape')     { lbClose(); return; }
+    if(lb.classList.contains('web-mode')) return;
     if(e.key === 'ArrowLeft')  scrollBy(-360);
     if(e.key === 'ArrowRight') scrollBy(+360);
-    if(e.key === 'Escape')     lbClose();
   });
 
   /* ── Panel data ──────────────────────────────── */
@@ -1091,7 +1170,8 @@ window.addEventListener('DOMContentLoaded',function(){
     'Student Biryani \u2013 Social Media':{meta:'Student Biryani · Published May 1, 2024',title:'Student Biryani \u2013 Social Media',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Multi-brand social media posts — food, real estate, product, and security categories.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Food</span><span>Real Estate</span></div></div>',link:'https://www.behance.net/gallery/197520709/Social-Media'},
     'Japan Electronics Pakistan \u2013 Print & Branding':{meta:'Japan Electronics Pakistan · Print',title:'Japan Electronics Pakistan \u2013 Print & Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Retail display boards, signage, shelf labels, and branded print materials.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Print Design</span><span>Retail Signage</span><span>Electronics</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'ERA \u2013 Social Media Design':{meta:'ERA · Social Media',title:'ERA \u2013 Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Curated branded posts with consistent visual identity across platforms.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Brand Identity</span><span>Instagram</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'Live Life Learn \u2013 Logo Animation':{meta:'Live Life Learn · Logo Animation',title:'Live Life Learn \u2013 Logo Animation',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Smooth branded logo animation for intros, social media, and presentations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Animation</span><span>Motion Graphics</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'}
+    'Live Life Learn \u2013 Logo Animation':{meta:'Live Life Learn · Logo Animation',title:'Live Life Learn \u2013 Logo Animation',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Smooth branded logo animation for intros, social media, and presentations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Animation</span><span>Motion Graphics</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Zaiwar':{meta:'Zaiwar · Web Design',title:'Zaiwar',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Full-length landing page design for Zaiwar — a cohesive visual system, structured content sections, and a distinctive brand aesthetic carried from hero to footer.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Landing Page</span><span>Figma</span></div></div>',link:'https://www.behance.net/omi6910660'}
   };
 
   function renderPanel(title){
@@ -1103,6 +1183,32 @@ window.addEventListener('DOMContentLoaded',function(){
 
   /* ── Open ────────────────────────────────────── */
   function lbOpen(card){
+    /* Web-design mode: single long screenshot in a scrollable 16:9 frame */
+    if(card.dataset.webEnc){
+      var webUrl = window._decUrl(card.dataset.webEnc);
+      lbTitle.textContent = (card.dataset.client||'') + ' \u2014 ' + (card.dataset.title||'');
+      lbCount.textContent = '';
+      countEl.textContent = '';
+
+      track.innerHTML = '';
+      var frame = document.createElement('div');
+      frame.className = 'web-frame';
+      var wimg = document.createElement('img');
+      wimg.src = webUrl;
+      wimg.alt = card.dataset.title || '';
+      wimg.setAttribute('draggable','false');
+      frame.appendChild(wimg);
+      track.appendChild(frame);
+
+      renderPanel(card.dataset.title||'');
+      lbPanel.classList.remove('open');
+      lb.classList.add('web-mode');
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      frame.scrollTop = 0;
+      return;
+    }
+
     var gifsEnc = card.dataset.gifsEnc || '';
     var urls = gifsEnc.split('|').map(function(s){ return window._decUrl(s.trim()); }).filter(Boolean);
     lbTitle.textContent = (card.dataset.client||'') + ' \u2014 ' + (card.dataset.title||'');
@@ -1140,6 +1246,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
     renderPanel(card.dataset.title||'');
     lbPanel.classList.remove('open');
+    lb.classList.remove('web-mode');
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
 
@@ -1158,6 +1265,7 @@ window.addEventListener('DOMContentLoaded',function(){
   function lbClose(){
     if(raf){ cancelAnimationFrame(raf); raf = null; }
     lb.classList.remove('open');
+    lb.classList.remove('web-mode');
     lbPanel.classList.remove('open');
     document.body.style.overflow = '';
     setTimeout(function(){ track.innerHTML = ''; }, 400);
@@ -1173,7 +1281,7 @@ window.addEventListener('DOMContentLoaded',function(){
   /* ── Project card click ──────────────────────── */
   document.querySelectorAll('.pc').forEach(function(card){
     card.addEventListener('click', function(){
-      if(card.dataset.gifsEnc){ lbOpen(card); return; }
+      if(card.dataset.gifsEnc || card.dataset.webEnc){ lbOpen(card); return; }
       document.getElementById('modal-thumb').innerHTML = card.querySelector('.pt').innerHTML;
       document.getElementById('modal-cat').textContent = card.dataset.client||'';
       document.getElementById('modal-title').textContent = card.dataset.title||'';
