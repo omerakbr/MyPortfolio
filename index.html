@@ -1313,14 +1313,20 @@ window.addEventListener('DOMContentLoaded',function(){
       frame.className = 'web-frame';
 
       /* One <img> per page, all pre-created. Active one is visible;
-         others are hidden but loaded, so tab switching is instant. */
+         others are hidden but loaded, so tab switching is instant.
+         Each image tries: wsrv.nl proxy (WebP, resized) → postimg thumbnail → original. */
       var imgs = pages.map(function(p, i){
         var im = document.createElement('img');
         im.alt = p.name || card.dataset.title || '';
         im.setAttribute('draggable','false');
         im.loading = i === 0 ? 'eager' : 'lazy';
         im.decoding = 'async';
-        im.src = p.url;
+        im.dataset.stage = 'proxy';
+        im.addEventListener('error', function(){
+          if(im.dataset.stage === 'proxy'){ im.dataset.stage = 'thumb'; im.src = window._thumbUrl(p.url, 1280); }
+          else if(im.dataset.stage === 'thumb'){ im.dataset.stage = 'orig'; im.src = p.url; }
+        });
+        im.src = window._proxyUrl(p.url, 1280);
         im.style.display = i === 0 ? 'block' : 'none';
         frame.appendChild(im);
         return im;
@@ -1333,7 +1339,7 @@ window.addEventListener('DOMContentLoaded',function(){
           pages.slice(1).forEach(function(p){
             var pre = new Image();
             pre.decoding = 'async';
-            pre.src = p.url;
+            pre.src = window._proxyUrl(p.url, 1280);
           });
         };
         if(imgs[0].complete) preload();
@@ -1454,10 +1460,16 @@ window.addEventListener('DOMContentLoaded',function(){
       var item = document.createElement('div');
       item.className = 'si';
       var img = document.createElement('img');
-      img.src = url;
       img.alt = 'Image ' + (i+1);
       img.loading = i < 5 ? 'eager' : 'lazy';
       img.setAttribute('draggable','false');
+      /* Lightbox gallery ~1400px tall; proxy at 1600 covers retina. GIFs pass through unchanged. */
+      img.dataset.stage = 'proxy';
+      img.addEventListener('error', function(){
+        if(img.dataset.stage === 'proxy'){ img.dataset.stage = 'thumb'; img.src = window._thumbUrl(url, 1600); }
+        else if(img.dataset.stage === 'thumb'){ img.dataset.stage = 'orig'; img.src = url; }
+      });
+      img.src = window._proxyUrl(url, 1600);
       if(isMobile){
         /* Mobile: fit-to-screen */
         img.style.width = '100%';
@@ -1550,12 +1562,25 @@ window.addEventListener('DOMContentLoaded',function(){
   var _rk=[111,109,51,114,52,107,98,52,114,50,48,50,53,112];
   var _k=String.fromCharCode.apply(null,_rk);
   window._decUrl=function(s){try{var b=atob(s);var r='';for(var i=0;i<b.length;i++){r+=String.fromCharCode(b.charCodeAt(i)^_k.charCodeAt(i%_k.length));}return r;}catch(e){return '';}};
+  /* wsrv.nl proxy: resizes + WebP for static images. Preserves GIFs unchanged (animation would break). */
+  window._proxyUrl=function(u,w){if(!u)return u;if(/\.gif(\?|$)/i.test(u))return u;var m=u.match(/^https?:\/\/(.+)$/);if(!m)return u;return 'https://wsrv.nl/?url='+encodeURIComponent(m[1])+'&w='+(w||1280)+'&output=webp&q=82';};
+  /* postimg built-in thumbnail — e.g. i.postimg.cc/ID/FILE.jpg -> i.postimg.cc/ID/1080/FILE.jpg */
+  window._thumbUrl=function(u,w){if(!u)return u;return u.replace(/^(https?:\/\/i\.postimg\.cc\/[^\/]+)\/([^\/]+)$/,'$1/'+(w||1080)+'/$2');};
   function loadEncImages(){
     document.querySelectorAll('[data-enc]').forEach(function(el){
       var url=window._decUrl(el.getAttribute('data-enc'));if(!url)return;
-      if(el.closest('.hero-gif-wrap')){el.fetchPriority='high';el.src=url;}
-      else if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.src=url;o.unobserve(entry.target);}});},{rootMargin:'200px'});obs.observe(el);}
-      else{el.src=url;}
+      var isHero=el.closest('.hero-gif-wrap');
+      /* Hero is small (300×300), cards display ~260px wide at most — 600px proxy covers retina */
+      var proxied=window._proxyUrl(url,isHero?600:600);
+      /* Fallback cascade on error: proxy → postimg thumbnail → original */
+      el.dataset.stage='proxy';
+      el.addEventListener('error',function(){
+        if(el.dataset.stage==='proxy'){el.dataset.stage='thumb';el.src=window._thumbUrl(url,960);}
+        else if(el.dataset.stage==='thumb'){el.dataset.stage='orig';el.src=url;}
+      });
+      if(isHero){el.fetchPriority='high';el.src=proxied;}
+      else if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.src=proxied;o.unobserve(entry.target);}});},{rootMargin:'200px'});obs.observe(el);}
+      else{el.src=proxied;}
     });
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',loadEncImages);}else{loadEncImages();}
