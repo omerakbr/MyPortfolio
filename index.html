@@ -265,6 +265,83 @@ body{padding-bottom:72px}
 img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:none;pointer-events:none}
 .pc .pt img,#gif-lb-img,.lb-item img{pointer-events:none;-webkit-user-drag:none}
 #gif-lb-track-wrap{touch-action:pan-x}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE / TOUCHSCREEN OVERRIDES
+   Targeted via (hover:none) and (pointer:coarse) — this matches phones
+   and tablets only. Desktop with mouse NEVER matches this, regardless
+   of window width, so all desktop effects stay exactly as designed.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (hover:none) and (pointer:coarse){
+  /* ── 1. Remove blue glow / gradient effects ────────── */
+  body::before{display:none}
+  .sn{text-shadow:none}
+  .sc,.tool-card,.pc,.ar{transition:background .2s}
+  .sc:hover,.tool-card:hover,.pc:hover,.ar:hover{
+    border-color:var(--line)!important;
+    box-shadow:none!important;
+  }
+  .sarr{box-shadow:none;border-color:var(--line)}
+  .sarr:hover:not(:disabled){box-shadow:none;border-color:var(--line);background:var(--bg3)}
+  .btn.p{
+    border:1px solid var(--line);
+    background-image:none;
+    background:var(--bg2);
+    animation:none;
+  }
+  .btn.p:hover{
+    background-image:none;
+    background:var(--bg3);
+  }
+  #gif-lb-info{
+    border:1px solid rgba(255,255,255,.15);
+    background-image:none;
+    background:rgba(10,10,12,.95);
+    animation:none;
+    box-shadow:none;
+  }
+  #modal-box{box-shadow:0 30px 60px rgba(0,0,0,.5)}
+  #scroll-progress-bar{background:rgba(255,255,255,.4)}
+
+  /* ── 2. Lightbox images fit-to-screen (native scroll) ── */
+  #gif-lb-track-wrap,#img-scroll-wrap{touch-action:pinch-zoom}
+  #img-scroll-wrap{
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    cursor:auto;
+  }
+  #img-scroll-wrap::before,#img-scroll-wrap::after{display:none}
+  #img-scroll-track{
+    transform:none!important;
+    padding:16px 0;
+    gap:0;
+    width:max-content;
+  }
+  .si{
+    scroll-snap-align:center;
+    flex:0 0 100vw;
+    width:100vw;
+    max-height:100%;
+    border:none;
+    border-radius:0;
+    padding:0 10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    box-shadow:none;
+  }
+  .si:hover{border:none;box-shadow:none}
+  .si img{
+    width:100%!important;
+    height:auto!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    object-fit:contain;
+  }
+}
 </style>
 </head>
 <body>
@@ -834,6 +911,9 @@ window.addEventListener('DOMContentLoaded',function(){
   var prevBtn   = document.getElementById('snav-prev');
   var nextBtn   = document.getElementById('snav-next');
 
+  /* Touchscreen detection — desktop with mouse is always false */
+  var isMobile  = window.matchMedia('(hover:none) and (pointer:coarse)').matches;
+
   /* ── Smooth-scroll state ─────────────────────── */
   var targetX  = 0;
   var currentX = 0;
@@ -911,17 +991,25 @@ window.addEventListener('DOMContentLoaded',function(){
   });
 
   /* ── Touch ───────────────────────────────────── */
-  var touchStartX = 0, touchScrollStart = 0;
-  wrap.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; touchScrollStart = targetX; }, { passive: true });
-  wrap.addEventListener('touchmove',  function(e){ scrollTo(touchScrollStart + (touchStartX - e.touches[0].clientX), true); e.preventDefault(); }, { passive: false });
-  wrap.addEventListener('touchend',   function(e){
-    var vel = touchStartX - e.changedTouches[0].clientX;
-    scrollBy(vel * 3);
-  }, { passive: true });
+  if(!isMobile){
+    var touchStartX = 0, touchScrollStart = 0;
+    wrap.addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; touchScrollStart = targetX; }, { passive: true });
+    wrap.addEventListener('touchmove',  function(e){ scrollTo(touchScrollStart + (touchStartX - e.touches[0].clientX), true); e.preventDefault(); }, { passive: false });
+    wrap.addEventListener('touchend',   function(e){
+      var vel = touchStartX - e.changedTouches[0].clientX;
+      scrollBy(vel * 3);
+    }, { passive: true });
+  }
 
   /* ── Arrow buttons ───────────────────────────── */
-  prevBtn.addEventListener('click', function(){ scrollBy(-wrap.clientWidth * 0.75); });
-  nextBtn.addEventListener('click', function(){ scrollBy(+wrap.clientWidth * 0.75); });
+  prevBtn.addEventListener('click', function(){
+    if(isMobile) wrap.scrollBy({left:-wrap.clientWidth,behavior:'smooth'});
+    else scrollBy(-wrap.clientWidth * 0.75);
+  });
+  nextBtn.addEventListener('click', function(){
+    if(isMobile) wrap.scrollBy({left: wrap.clientWidth,behavior:'smooth'});
+    else scrollBy(+wrap.clientWidth * 0.75);
+  });
 
   /* ── Keyboard ────────────────────────────────── */
   document.addEventListener('keydown', function(e){
@@ -975,9 +1063,17 @@ window.addEventListener('DOMContentLoaded',function(){
       img.alt = 'Image ' + (i+1);
       img.loading = i < 5 ? 'eager' : 'lazy';
       img.setAttribute('draggable','false');
-      /* Natural aspect ratio: fixed height, auto width */
-      img.style.height = '100%';
-      img.style.width = 'auto';
+      if(isMobile){
+        /* Mobile: fit-to-screen */
+        img.style.width = '100%';
+        img.style.height = 'auto';
+        img.style.maxHeight = '100%';
+        img.style.objectFit = 'contain';
+      } else {
+        /* Desktop: natural aspect ratio — fixed height, auto width */
+        img.style.height = '100%';
+        img.style.width = 'auto';
+      }
       item.appendChild(img);
       track.appendChild(item);
     });
