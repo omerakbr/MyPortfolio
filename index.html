@@ -283,7 +283,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 #gif-lb.web-mode #img-scroll-track{
   all:unset;
   display:block;
-  width:min(1200px,calc(100vw - 80px));
+  width:min(800px,calc(100vw - 80px));
   aspect-ratio:16/9;
   max-height:calc(100vh - 180px);
   background:#0a0a0a;
@@ -1191,6 +1191,7 @@ window.addEventListener('DOMContentLoaded',function(){
       countEl.textContent = '';
 
       track.innerHTML = '';
+      track.style.transform = 'none';
       var frame = document.createElement('div');
       frame.className = 'web-frame';
       var wimg = document.createElement('img');
