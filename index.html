@@ -1523,7 +1523,7 @@ window.addEventListener('DOMContentLoaded',function(){
 (function(){
   var _rk=[111,109,51,114,52,107,98,52,114,50,48,50,53,112];
   var _k=String.fromCharCode.apply(null,_rk);
-  window._decUrl=function(s){try{var b=atob(s);var r='';for(var i=0;i<b.length;i++){r+=String.fromCharCode(b.charCodeAt(i)^_k.charCodeAt(i%_k.length));}return r;}catch(e){return '';}};
+  window._decUrl=function(s){try{var b=atob(s);var r='';for(var i=0;i<b.length;i++){r+=String.fromCharCode(b.charCodeAt(i)^_k.charCodeAt(i%_k.length));}if(/i\.postimg\.cc\//.test(r)&&!/[?&]dl=/.test(r)){r+=(r.indexOf('?')>-1?'&':'?')+'dl=1';}return r;}catch(e){return '';}};
   function loadEncImages(){
     document.querySelectorAll('[data-enc]').forEach(function(el){
       var url=window._decUrl(el.getAttribute('data-enc'));if(!url)return;
