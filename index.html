@@ -267,8 +267,10 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 #gif-lb-track-wrap{touch-action:pan-x}
 
 /* ═══════════════════════════════════════════════════════════════════
-   WEB DESIGN MODE — single scrollable 16:9 frame
-   Activated when #gif-lb has class .web-mode (set by JS on open)
+   WEB DESIGN MODE — scrollable 16:9 frame with external blue scrollbar
+   Activated when #gif-lb has class .web-mode (set by JS on open).
+   Frame itself is the scroller (rounded + overflow hidden) — no nested
+   clip-and-scroll, which previously caused GPU rasterization pixelation.
    ═══════════════════════════════════════════════════════════════════ */
 #gif-lb.web-mode #img-scroll-wrap{
   display:flex;
@@ -279,32 +281,40 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   overflow:hidden;
 }
 #gif-lb.web-mode #img-scroll-wrap::before,
-#gif-lb.web-mode #img-scroll-wrap::after{display:none}
+#gif-lb.web-mode #img-scroll-wrap::after{display:none!important}
 #gif-lb.web-mode #img-scroll-track{
-  all:unset;
-  display:block;
-  width:min(800px,calc(100vw - 80px));
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:stretch!important;
+  justify-content:center;
+  gap:14px!important;
+  padding:0!important;
+  height:auto!important;
+  width:auto!important;
+  background:transparent!important;
+  border:none!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  transform:none!important;
+  will-change:auto!important;
+}
+#gif-lb.web-mode .web-frame{
+  width:min(800px,calc(100vw - 100px));
   aspect-ratio:16/9;
   max-height:calc(100vh - 180px);
   background:#0a0a0a;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.1);
-  overflow:hidden;
-  position:relative;
-  box-shadow:0 20px 50px rgba(0,0,0,.6);
-}
-#gif-lb.web-mode .web-frame{
-  position:absolute;inset:0;
-  overflow-y:auto;
+  overflow-y:scroll;
   overflow-x:hidden;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(255,255,255,.25) transparent;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
   -webkit-overflow-scrolling:touch;
+  flex-shrink:0;
 }
-#gif-lb.web-mode .web-frame::-webkit-scrollbar{width:8px}
-#gif-lb.web-mode .web-frame::-webkit-scrollbar-track{background:transparent}
-#gif-lb.web-mode .web-frame::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:4px}
-#gif-lb.web-mode .web-frame::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.35)}
+#gif-lb.web-mode .web-frame::-webkit-scrollbar{display:none;width:0;height:0}
 #gif-lb.web-mode .web-frame img{
   width:100%;
   height:auto;
@@ -312,15 +322,52 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   pointer-events:auto;
   -webkit-user-drag:none;
   user-select:none;
+  image-rendering:auto;
 }
-/* Hide prev/next and progress — only one item in web mode */
+/* External themed scrollbar */
+#gif-lb.web-mode .web-scrollbar{
+  width:4px;
+  background:rgba(255,255,255,.05);
+  border-radius:3px;
+  position:relative;
+  flex-shrink:0;
+  align-self:stretch;
+  max-height:calc(100vh - 180px);
+  border:1px solid rgba(255,255,255,.04);
+}
+#gif-lb.web-mode .web-scrollbar-thumb{
+  position:absolute;
+  left:-3px;
+  width:8px;
+  min-height:40px;
+  background:linear-gradient(180deg,#60a5fa 0%,#3b82f6 50%,#60a5fa 100%);
+  border-radius:4px;
+  box-shadow:0 0 8px rgba(59,130,246,.5),0 0 18px rgba(59,130,246,.25);
+  cursor:grab;
+  transition:box-shadow .25s ease,filter .15s ease;
+  top:0;
+  touch-action:none;
+}
+#gif-lb.web-mode .web-scrollbar-thumb:hover{
+  box-shadow:0 0 12px rgba(59,130,246,.75),0 0 26px rgba(59,130,246,.35);
+  filter:brightness(1.15);
+}
+#gif-lb.web-mode .web-scrollbar-thumb.dragging{
+  cursor:grabbing;
+  box-shadow:0 0 14px rgba(59,130,246,.85),0 0 32px rgba(59,130,246,.45);
+  filter:brightness(1.2);
+}
 #gif-lb.web-mode #scroll-nav .snav-arrows,
 #gif-lb.web-mode #scroll-progress-wrap,
 #gif-lb.web-mode #scroll-count{visibility:hidden}
 @media(max-width:600px){
-  #gif-lb.web-mode #img-scroll-wrap{padding:12px}
-  #gif-lb.web-mode #img-scroll-track{
-    width:100%;
+  #gif-lb.web-mode #img-scroll-wrap{padding:14px!important}
+  #gif-lb.web-mode #img-scroll-track{gap:10px!important}
+  #gif-lb.web-mode .web-frame{
+    width:calc(100vw - 44px);
+    max-height:calc(100vh - 140px);
+  }
+  #gif-lb.web-mode .web-scrollbar{
     max-height:calc(100vh - 140px);
   }
 }
@@ -1192,6 +1239,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
       track.innerHTML = '';
       track.style.transform = 'none';
+
       var frame = document.createElement('div');
       frame.className = 'web-frame';
       var wimg = document.createElement('img');
@@ -1199,7 +1247,72 @@ window.addEventListener('DOMContentLoaded',function(){
       wimg.alt = card.dataset.title || '';
       wimg.setAttribute('draggable','false');
       frame.appendChild(wimg);
+
+      var sb = document.createElement('div');
+      sb.className = 'web-scrollbar';
+      var thumb = document.createElement('div');
+      thumb.className = 'web-scrollbar-thumb';
+      sb.appendChild(thumb);
+
       track.appendChild(frame);
+      track.appendChild(sb);
+
+      function updateThumb(){
+        var visible = frame.clientHeight;
+        var total = frame.scrollHeight;
+        if(total <= visible + 1){ thumb.style.display = 'none'; return; }
+        thumb.style.display = '';
+        var ratio = visible / total;
+        var thumbH = Math.max(40, ratio * visible);
+        thumb.style.height = thumbH + 'px';
+        var maxScroll = total - visible;
+        var maxThumb = visible - thumbH;
+        var pct = maxScroll > 0 ? frame.scrollTop / maxScroll : 0;
+        thumb.style.top = (pct * maxThumb) + 'px';
+      }
+      frame.addEventListener('scroll', updateThumb, {passive:true});
+      wimg.addEventListener('load', function(){ requestAnimationFrame(updateThumb); });
+      window.addEventListener('resize', updateThumb);
+
+      var dragging = false, startY = 0, startTop = 0;
+      function dragMove(clientY){
+        if(!dragging) return;
+        var visible = frame.clientHeight;
+        var thumbH = thumb.offsetHeight;
+        var maxThumb = visible - thumbH;
+        var newTop = Math.max(0, Math.min(maxThumb, startTop + (clientY - startY)));
+        var pct = maxThumb > 0 ? newTop / maxThumb : 0;
+        frame.scrollTop = pct * (frame.scrollHeight - visible);
+      }
+      function dragEnd(){
+        if(!dragging) return;
+        dragging = false;
+        thumb.classList.remove('dragging');
+        document.body.style.userSelect = '';
+      }
+      thumb.addEventListener('mousedown', function(e){
+        dragging = true;
+        startY = e.clientY;
+        startTop = parseFloat(thumb.style.top) || 0;
+        thumb.classList.add('dragging');
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function(e){ dragMove(e.clientY); });
+      document.addEventListener('mouseup', dragEnd);
+      thumb.addEventListener('touchstart', function(e){
+        dragging = true;
+        startY = e.touches[0].clientY;
+        startTop = parseFloat(thumb.style.top) || 0;
+        thumb.classList.add('dragging');
+        e.preventDefault();
+      }, {passive:false});
+      document.addEventListener('touchmove', function(e){
+        if(!dragging) return;
+        dragMove(e.touches[0].clientY);
+        e.preventDefault();
+      }, {passive:false});
+      document.addEventListener('touchend', dragEnd);
 
       renderPanel(card.dataset.title||'');
       lbPanel.classList.remove('open');
@@ -1207,6 +1320,7 @@ window.addEventListener('DOMContentLoaded',function(){
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
       frame.scrollTop = 0;
+      requestAnimationFrame(function(){ requestAnimationFrame(updateThumb); });
       return;
     }
 
