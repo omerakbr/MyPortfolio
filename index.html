@@ -469,74 +469,23 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   REELS MODE — 9:16 portrait frame + tab strip for multiple reels
+   REELS MODE — 9:16 portrait horizontal slider (same nav as images)
    Activated when #gif-lb has class .reels-mode
    ═══════════════════════════════════════════════════════════════════ */
-#gif-lb.reels-mode #img-scroll-wrap{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:20px 32px 32px;
-  gap:14px;
-  cursor:auto;
-  overflow:hidden;
-}
 #gif-lb.reels-mode #img-scroll-wrap::before,
 #gif-lb.reels-mode #img-scroll-wrap::after{display:none!important}
 #gif-lb.reels-mode #img-scroll-track{
-  display:flex!important;
-  flex-direction:column!important;
+  /* Inherit default horizontal flex behaviour — no column override.
+     Just tighten up vertical centering and padding for portrait reels. */
   align-items:center!important;
-  justify-content:flex-start!important;
-  gap:14px!important;
-  padding:0!important;
-  height:auto!important;
-  width:auto!important;
-  max-width:100%;
-  background:transparent!important;
-  border:none!important;
-  box-shadow:none!important;
-  overflow:visible!important;
-  transform:none!important;
-  will-change:auto!important;
+  padding:20px 80px!important;
+  gap:24px!important;
 }
-#gif-lb.reels-mode .reels-tabs{
-  display:flex;
-  gap:4px;
-  padding:4px;
-  background:rgba(255,255,255,.04);
-  border-radius:30px;
-  border:1px solid rgba(255,255,255,.06);
-  flex-wrap:wrap;
-  justify-content:center;
-  max-width:100%;
-  flex-shrink:0;
-}
-#gif-lb.reels-mode .reels-tab{
-  font:inherit;
-  font-size:11px;
-  letter-spacing:.04em;
-  padding:6px 13px;
-  border-radius:20px;
-  border:none;
-  background:transparent;
-  color:rgba(255,255,255,.5);
-  cursor:none;
-  transition:background .18s,color .18s;
-  white-space:nowrap;
-}
-#gif-lb.reels-mode .reels-tab:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.06)}
-#gif-lb.reels-mode .reels-tab.active{
-  background:rgba(59,130,246,.18);
-  color:#60a5fa;
-  box-shadow:0 0 8px rgba(59,130,246,.25);
-}
-#gif-lb.reels-mode .reel-frame{
-  /* 9:16 portrait — height-constrained so tall phones don't clip */
-  height:min(calc(100vh - 210px),900px);
+#gif-lb.reels-mode .si{
+  /* Each reel slot — fixed 9:16 portrait aspect, height-constrained */
+  height:min(calc(100vh - 160px),900px);
   aspect-ratio:9/16;
-  max-width:calc(100vw - 100px);
+  max-width:calc(100vw - 60px);
   background:#000;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.1);
@@ -544,22 +493,38 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   overflow:hidden;
   position:relative;
   flex-shrink:0;
+  display:block;
 }
-#gif-lb.reels-mode .reel-frame iframe{
-  width:100%;
-  height:100%;
+#gif-lb.reels-mode .si iframe{
+  /* Oversize iframe + centered negative offset hides Drive's player chrome
+     so the 9:16 video fills the frame without cropping. */
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:calc(100% + 120px);
+  height:calc(100% + 120px);
+  transform:translate(-50%,-50%);
   border:none;
   display:block;
   background:#000;
 }
-#gif-lb.reels-mode #scroll-nav .snav-arrows,
-#gif-lb.reels-mode #scroll-progress-wrap,
-#gif-lb.reels-mode #scroll-count{visibility:hidden}
+#gif-lb.reels-mode .si .reel-placeholder{
+  /* Shown for reels that aren't currently active — dark tile with play icon */
+  position:absolute;inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0a0a0a;
+  color:rgba(255,255,255,.35);
+  font-size:48px;
+  cursor:pointer;
+}
+#gif-lb.reels-mode .si .reel-placeholder:hover{color:rgba(96,165,250,.8)}
 @media(max-width:600px){
-  #gif-lb.reels-mode #img-scroll-wrap{padding:14px!important}
-  #gif-lb.reels-mode .reel-frame{
-    height:calc(100vh - 180px);
-    max-width:calc(100vw - 28px);
+  #gif-lb.reels-mode #img-scroll-track{padding:20px 24px!important;gap:12px!important}
+  #gif-lb.reels-mode .si{
+    height:calc(100vh - 130px);
+    max-width:calc(100vw - 48px);
   }
 }
 
@@ -779,71 +744,6 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       <div class="pt" style="background:#0c0814"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDTFVWFZbRQFCYBtAChBVBh9ZQRg4Ch9WXFMCBA==" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Sitaray Character Animations" />
       <div class="pt-overlay">▶</div></div>
       <div class="pi"><div class="pcl">Knowledge Platform</div><div class="pn">Sitaray Character Animations</div><div class="pd">Character animation loops for a cast of colour-coded Sitarey mascots — learning games &amp; competition branding.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="animation"
-      data-title="Poppie & Grace – Logo Animation"
-      data-client="Poppie & Grace"
-      data-desc="Logo animation for Poppie &amp; Grace — a smooth, branded motion sequence that introduces the identity across digital touchpoints, social media, and branded content."
-      data-tags="Logo Animation,Motion Graphics,Brand Identity,After Effects,2D Animation"
-      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FA1JhFHdeY1AGLSsAJ0UZGnlLfHELZEUqB0s/Wh82YV8dQEBQBgYIRA=="
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#0a0a0a"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BWgUlCShdI1EdIHJBZ0FATT1WI3JLZV4nXgp/XkZhJUJLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Poppie & Grace" />
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">Poppie &amp; Grace</div><div class="pn">Poppie &amp; Grace – Logo Animation</div><div class="pd">Branded logo motion sequence introducing the identity across digital &amp; social.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="animation"
-      data-title="Water Aid – Animated Video"
-      data-client="Water Aid"
-      data-desc="Animated video produced for Water Aid — a short-form motion piece communicating the organisation's mission around clean water access, hygiene, and community impact through accessible, warm visual storytelling."
-      data-tags="2D Animation,Motion Graphics,Explainer,Non-profit,Social Impact,After Effects"
-      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FMVBVOnleaGdHNxtRJ0NZJWwCBwFmUUFcGl0YbAk2ZBwdQEBQBgYIRA=="
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#081014"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BaAcRJyZdKGZcOkIQZ0cAcigfWAImUFpRQxxYaFBhIAFLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Water Aid" />
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">Water Aid</div><div class="pn">Water Aid – Animated Video</div><div class="pd">Animated mission piece on clean water access, hygiene &amp; community impact.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="animation"
-      data-title="NCA Power to the Youth – Explainer"
-      data-client="NCA"
-      data-desc="Explainer animation for NCA's Power to the Youth initiative — a motion piece breaking down the programme's goals, audience, and impact through clear visual storytelling and character-led scenes."
-      data-tags="2D Animation,Explainer,Motion Graphics,Youth,Social Impact,After Effects"
-      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FLzt8QABjWnMWDiRhF3haLQcUdkdqQRNdXQYbUwgyAhwdQEBQBgYIRA=="
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#14100a"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8Bdmw4XV9gGnINA30gV3wDekMJKUQqQAhQBEdbV1FlRgFLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="NCA Power to the Youth" />
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">NCA</div><div class="pn">NCA Power to the Youth – Explainer</div><div class="pd">Explainer animation for a youth-focused initiative — goals, audience &amp; impact.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="animation"
-      data-title="3CIX – Logo Reveal Animation"
-      data-client="3CIX"
-      data-desc="Logo reveal animation for 3CIX — a crisp, branded motion moment designed to introduce the identity with impact across video intros, presentations, and product touchpoints."
-      data-tags="Logo Animation,Logo Reveal,Motion Graphics,Brand Identity,After Effects"
-      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FCTNSNm1DV3MCJwRgNAw6IFFCC1J6YhE7Hl8aZzg9BkAdQEBQBgYIRA=="
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#0c0c10"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BUGQWKzJAF3IZKl0hdAhjdxVfVFE6Ywo2Rx5aY2FqQl1LQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="3CIX Logo Reveal" />
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">3CIX</div><div class="pn">3CIX – Logo Reveal Animation</div><div class="pd">Crisp logo reveal for branded video intros, presentations &amp; product moments.</div></div>
-      <span class="parr">↗</span>
-    </div>
-
-    <div class="pc sa" data-cat="animation"
-      data-title="3CIX Accelerec – Demo Video"
-      data-client="3CIX Accelerec"
-      data-desc="Demo video for 3CIX Accelerec — a motion piece walking through the product's features, interface, and use cases to communicate value and drive engagement."
-      data-tags="Product Demo,Motion Graphics,Explainer,Product,UI Animation,After Effects"
-      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FESRjKgd8WGcjFx9/AmENNFw6V35BdAEpP1obQAINckcdQEBQBgYIRA=="
-      data-behance="https://www.behance.net/omi6910660">
-      <div class="pt" style="background:#0a1014"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BSHMnN1h/GGY4GkY+QmVUYxgnCH0BdRokZhtbRFtaNlpLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="3CIX Accelerec" />
-      <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">3CIX Accelerec</div><div class="pn">3CIX Accelerec – Demo Video</div><div class="pd">Product demo walk-through — features, interface &amp; use cases in motion.</div></div>
       <span class="parr">↗</span>
     </div>
 
@@ -1128,6 +1028,71 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       <div class="pt" style="background:#080812"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNUCN/SnpXITxCWh9VDAcaAlxX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Sitaray" />
       <div class="pt-overlay">▶</div></div>
       <div class="pi"><div class="pcl">Knowledge Platform</div><div class="pn">Sitaray</div><div class="pd">Promotional animation for a national digital learning games competition across Pakistani schools.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="Poppie & Grace – Logo Animation"
+      data-client="Poppie & Grace"
+      data-desc="Logo animation for Poppie &amp; Grace — a smooth, branded motion sequence that introduces the identity across digital touchpoints, social media, and branded content."
+      data-tags="Logo Animation,Motion Graphics,Brand Identity,After Effects,2D Animation"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FA1JhFHdeY1AGLSsAJ0UZGnlLfHELZEUqB0s/Wh82YV8dQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0a0a"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BWgUlCShdI1EdIHJBZ0FATT1WI3JLZV4nXgp/XkZhJUJLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Poppie & Grace" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Poppie &amp; Grace</div><div class="pn">Poppie &amp; Grace – Logo Animation</div><div class="pd">Branded logo motion sequence introducing the identity across digital &amp; social.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="Water Aid – Animated Video"
+      data-client="Water Aid"
+      data-desc="Animated video produced for Water Aid — a short-form motion piece communicating the organisation's mission around clean water access, hygiene, and community impact through accessible, warm visual storytelling."
+      data-tags="2D Animation,Motion Graphics,Explainer,Non-profit,Social Impact,After Effects"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FMVBVOnleaGdHNxtRJ0NZJWwCBwFmUUFcGl0YbAk2ZBwdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#081014"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BaAcRJyZdKGZcOkIQZ0cAcigfWAImUFpRQxxYaFBhIAFLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Water Aid" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Water Aid</div><div class="pn">Water Aid – Animated Video</div><div class="pd">Animated mission piece on clean water access, hygiene &amp; community impact.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="NCA Power to the Youth – Explainer"
+      data-client="NCA"
+      data-desc="Explainer animation for NCA's Power to the Youth initiative — a motion piece breaking down the programme's goals, audience, and impact through clear visual storytelling and character-led scenes."
+      data-tags="2D Animation,Explainer,Motion Graphics,Youth,Social Impact,After Effects"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FLzt8QABjWnMWDiRhF3haLQcUdkdqQRNdXQYbUwgyAhwdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#14100a"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8Bdmw4XV9gGnINA30gV3wDekMJKUQqQAhQBEdbV1FlRgFLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="NCA Power to the Youth" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">NCA</div><div class="pn">NCA Power to the Youth – Explainer</div><div class="pd">Explainer animation for a youth-focused initiative — goals, audience &amp; impact.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="3CIX – Logo Reveal Animation"
+      data-client="3CIX"
+      data-desc="Logo reveal animation for 3CIX — a crisp, branded motion moment designed to introduce the identity with impact across video intros, presentations, and product touchpoints."
+      data-tags="Logo Animation,Logo Reveal,Motion Graphics,Brand Identity,After Effects"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FCTNSNm1DV3MCJwRgNAw6IFFCC1J6YhE7Hl8aZzg9BkAdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0c0c10"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BUGQWKzJAF3IZKl0hdAhjdxVfVFE6Ywo2Rx5aY2FqQl1LQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="3CIX Logo Reveal" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">3CIX</div><div class="pn">3CIX – Logo Reveal Animation</div><div class="pd">Crisp logo reveal for branded video intros, presentations &amp; product moments.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="3CIX Accelerec – Demo Video"
+      data-client="3CIX Accelerec"
+      data-desc="Demo video for 3CIX Accelerec — a motion piece walking through the product's features, interface, and use cases to communicate value and drive engagement."
+      data-tags="Product Demo,Motion Graphics,Explainer,Product,UI Animation,After Effects"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FESRjKgd8WGcjFx9/AmENNFw6V35BdAEpP1obQAINckcdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a1014"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BSHMnN1h/GGY4GkY+QmVUYxgnCH0BdRokZhtbRFtaNlpLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="3CIX Accelerec" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">3CIX Accelerec</div><div class="pn">3CIX Accelerec – Demo Video</div><div class="pd">Product demo walk-through — features, interface &amp; use cases in motion.</div></div>
       <span class="parr">↗</span>
     </div>
 
@@ -1504,6 +1469,7 @@ window.addEventListener('DOMContentLoaded',function(){
     var pct = maxX > 0 ? (currentX / maxX * 100) : 0;
     progress.style.width = pct + '%';
     if(countEl && lbCount) lbCount.textContent = countEl.textContent;
+    if(lb.classList.contains('reels-mode') && lb._syncActiveReel){ lb._syncActiveReel(); }
   }
 
   /* ── Mouse wheel ─────────────────────────────── */
@@ -1572,7 +1538,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
   /* ── Panel data ──────────────────────────────── */
   var panelData = {
-    'Social Media Mix Reels':{meta:'Social Media · Reels',title:'Social Media Mix Reels',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">A mixed selection of vertical reels produced for social media. Short-form motion work covering brand moments, motion content, and platform-native formats built for Instagram, TikTok, and YouTube Shorts. Use the tabs above the player to switch between reels.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Reels</span><span>Social Media</span><span>Short-form</span><span>Vertical Video</span><span>Motion Graphics</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Social Media Mix Reels':{meta:'Social Media · Reels',title:'Social Media Mix Reels',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">A mixed selection of vertical reels produced for social media. Short-form motion work covering brand moments, motion content, and platform-native formats built for Instagram, TikTok, and YouTube Shorts. Swipe or use the arrows to browse between reels.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Reels</span><span>Social Media</span><span>Short-form</span><span>Vertical Video</span><span>Motion Graphics</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'Poppie & Grace \u2013 Logo Animation':{meta:'Poppie & Grace · Logo Animation',title:'Poppie & Grace \u2013 Logo Animation',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Logo animation for Poppie & Grace — a smooth, branded motion sequence introducing the identity across digital touchpoints, social media, and branded content.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Animation</span><span>Motion Graphics</span><span>Brand Identity</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'Water Aid \u2013 Animated Video':{meta:'Water Aid · Animated Video',title:'Water Aid \u2013 Animated Video',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Animated video for Water Aid — a short-form motion piece communicating the organisation\u2019s mission around clean water access, hygiene, and community impact through warm, accessible visual storytelling.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>2D Animation</span><span>Motion Graphics</span><span>Explainer</span><span>Non-profit</span><span>Social Impact</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'NCA Power to the Youth \u2013 Explainer':{meta:'NCA · Explainer',title:'NCA Power to the Youth \u2013 Explainer',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Explainer animation for NCA\u2019s Power to the Youth initiative — a motion piece breaking down the programme\u2019s goals, audience, and impact through clear visual storytelling and character-led scenes.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>2D Animation</span><span>Explainer</span><span>Motion Graphics</span><span>Youth</span><span>Social Impact</span></div></div>',link:'https://www.behance.net/omi6910660'},
@@ -1646,7 +1612,10 @@ window.addEventListener('DOMContentLoaded',function(){
       return;
     }
 
-    /* Reels mode: multi-reel 9:16 portrait with tab strip */
+    /* Reels mode: horizontal 9:16 portrait slider (same nav as image gallery).
+       Only the active (centered) reel's iframe has its src set — inactive slots
+       show a play-icon placeholder. Navigating to a new reel activates it and
+       deactivates the previous, which also stops any playing audio. */
     if(card.dataset.reelsPages){
       var reels = card.dataset.reelsPages.split('|').map(function(s){
         var idx = s.indexOf('::');
@@ -1655,44 +1624,101 @@ window.addEventListener('DOMContentLoaded',function(){
       if(!reels.length) return;
 
       lbTitle.textContent = (card.dataset.client||'') + ' \u2014 ' + (card.dataset.title||'');
-      lbCount.textContent = '';
-      countEl.textContent = '';
+      lbCount.textContent = reels.length + ' reels';
+      countEl.textContent = reels.length + ' reels';
 
       track.innerHTML = '';
-      track.style.transform = 'none';
+      track.style.transform = 'translateX(0)';
+      targetX = 0; currentX = 0;
 
-      var rtabs = document.createElement('div');
-      rtabs.className = 'reels-tabs';
-      track.appendChild(rtabs);
+      var reelItems = reels.map(function(r, i){
+        var item = document.createElement('div');
+        item.className = 'si';
+        item.dataset.reelIdx = i;
+        var ph = document.createElement('div');
+        ph.className = 'reel-placeholder';
+        ph.innerHTML = '&#9654;'; /* ▶ */
+        ph.title = r.name;
+        item.appendChild(ph);
+        track.appendChild(item);
+        return item;
+      });
 
-      var rframe = document.createElement('div');
-      rframe.className = 'reel-frame';
-      var riframe = document.createElement('iframe');
-      riframe.setAttribute('allow','autoplay; fullscreen; encrypted-media');
-      riframe.setAttribute('allowfullscreen','true');
-      rframe.appendChild(riframe);
-      track.appendChild(rframe);
-
-      function showReel(idx){
-        riframe.src = reels[idx].url;
-        rtabs.querySelectorAll('.reels-tab').forEach(function(t,i){
-          t.classList.toggle('active', i===idx);
+      /* Swap a placeholder for a live iframe, or vice-versa */
+      function activateReel(idx){
+        reelItems.forEach(function(item, i){
+          var hasIframe = item.querySelector('iframe');
+          if(i === idx){
+            if(!hasIframe){
+              item.innerHTML = '';
+              var iframe = document.createElement('iframe');
+              iframe.src = reels[i].url;
+              iframe.setAttribute('allow','autoplay; fullscreen; encrypted-media');
+              iframe.setAttribute('allowfullscreen','true');
+              item.appendChild(iframe);
+            }
+          } else {
+            if(hasIframe){
+              /* Destroy iframe → stops any playing audio, frees memory */
+              item.innerHTML = '';
+              var ph = document.createElement('div');
+              ph.className = 'reel-placeholder';
+              ph.innerHTML = '&#9654;';
+              ph.title = reels[i].name;
+              item.appendChild(ph);
+            }
+          }
         });
       }
-      reels.forEach(function(r,i){
-        var b = document.createElement('button');
-        b.className = 'reels-tab' + (i===0?' active':'');
-        b.textContent = r.name;
-        b.addEventListener('click', function(){ showReel(i); });
-        rtabs.appendChild(b);
+
+      /* Click a placeholder to jump to that reel */
+      reelItems.forEach(function(item, i){
+        item.addEventListener('click', function(e){
+          if(e.target.closest('iframe')) return; /* don't interfere with video player clicks */
+          /* Scroll that item into the centered position */
+          var itemRect = item.getBoundingClientRect();
+          var wrapRect = wrap.getBoundingClientRect();
+          var delta = (itemRect.left + itemRect.width/2) - (wrapRect.left + wrapRect.width/2);
+          scrollBy(delta);
+        });
       });
-      showReel(0);
+
+      /* Watch scroll position — activate the reel currently nearest center */
+      var lastActive = -1;
+      var activeReelIdx = 0;
+      function syncActiveReel(){
+        var wrapRect = wrap.getBoundingClientRect();
+        var wrapCenter = wrapRect.left + wrapRect.width/2;
+        var bestIdx = 0, bestDist = Infinity;
+        reelItems.forEach(function(item, i){
+          var r = item.getBoundingClientRect();
+          var c = r.left + r.width/2;
+          var d = Math.abs(c - wrapCenter);
+          if(d < bestDist){ bestDist = d; bestIdx = i; }
+        });
+        if(bestIdx !== lastActive){
+          lastActive = bestIdx;
+          activeReelIdx = bestIdx;
+          activateReel(bestIdx);
+        }
+      }
+      /* Stash the sync function on the lightbox element so the animation loop
+         and updateProgress can call it without closure wiring */
+      lb._syncActiveReel = syncActiveReel;
 
       renderPanel(card.dataset.title||'');
       lbPanel.classList.remove('open');
+      lb.classList.remove('web-mode');
+      lb.classList.remove('video-mode');
       lb.classList.add('reels-mode');
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
+
+      /* Activate first reel immediately + compute maxX for navigation */
+      activateReel(0);
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ updateMax(); syncActiveReel(); });
+      });
       return;
     }
 
@@ -1935,7 +1961,7 @@ window.addEventListener('DOMContentLoaded',function(){
     document.body.style.overflow = '';
     /* Video/Reels: clear immediately so iframe is destroyed & audio stops.
        Images: delay until after the close animation to avoid visual flicker. */
-    if(wasVideo){ track.innerHTML = ''; }
+    if(wasVideo){ track.innerHTML = ''; lb._syncActiveReel = null; }
     else { setTimeout(function(){ track.innerHTML = ''; }, 400); }
   }
 
