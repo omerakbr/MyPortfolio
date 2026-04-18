@@ -475,10 +475,10 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 #gif-lb.reels-mode #img-scroll-wrap::before,
 #gif-lb.reels-mode #img-scroll-wrap::after{display:none!important}
 #gif-lb.reels-mode #img-scroll-track{
-  /* Inherit default horizontal flex behaviour — no column override.
-     Just tighten up vertical centering and padding for portrait reels. */
+  /* Horizontal padding is set dynamically via JS to center the first slot
+     at translateX(0) and allow the last slot to scroll to the center. */
   align-items:center!important;
-  padding:20px 80px!important;
+  padding:20px 0!important;
   gap:24px!important;
 }
 #gif-lb.reels-mode .si{
@@ -486,7 +486,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   height:min(calc(100vh - 160px),900px);
   aspect-ratio:9/16;
   max-width:calc(100vw - 60px);
-  background:#000;
+  background:#0a0a0a;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.1);
   box-shadow:0 20px 50px rgba(0,0,0,.6);
@@ -494,6 +494,47 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   position:relative;
   flex-shrink:0;
   display:block;
+  cursor:pointer;
+}
+#gif-lb.reels-mode .si .reel-thumb{
+  /* Drive thumbnail — always visible on inactive slots, hidden under iframe when active */
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  pointer-events:none;
+  opacity:.75;
+  transition:opacity .3s;
+  z-index:1;
+}
+#gif-lb.reels-mode .si:hover .reel-thumb{opacity:1}
+#gif-lb.reels-mode .si.active .reel-thumb{opacity:0}
+#gif-lb.reels-mode .si .reel-play-icon{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:64px;height:64px;
+  border-radius:50%;
+  background:rgba(0,0,0,.55);
+  color:rgba(255,255,255,.95);
+  font-size:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-left:4px;
+  pointer-events:none;
+  z-index:2;
+  transition:opacity .25s,transform .25s,background .2s;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+#gif-lb.reels-mode .si:hover .reel-play-icon{
+  background:rgba(59,130,246,.8);
+  transform:translate(-50%,-50%) scale(1.08);
+}
+#gif-lb.reels-mode .si.active .reel-play-icon{
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.7);
 }
 #gif-lb.reels-mode .si iframe{
   /* Oversize iframe + centered negative offset hides Drive's player chrome
@@ -507,21 +548,10 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   border:none;
   display:block;
   background:#000;
+  z-index:3;
 }
-#gif-lb.reels-mode .si .reel-placeholder{
-  /* Shown for reels that aren't currently active — dark tile with play icon */
-  position:absolute;inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#0a0a0a;
-  color:rgba(255,255,255,.35);
-  font-size:48px;
-  cursor:pointer;
-}
-#gif-lb.reels-mode .si .reel-placeholder:hover{color:rgba(96,165,250,.8)}
 @media(max-width:600px){
-  #gif-lb.reels-mode #img-scroll-track{padding:20px 24px!important;gap:12px!important}
+  #gif-lb.reels-mode #img-scroll-track{padding:20px 0!important;gap:12px!important}
   #gif-lb.reels-mode .si{
     height:calc(100vh - 130px);
     max-width:calc(100vw - 48px);
@@ -668,10 +698,10 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
     <div class="hero-text">
       <div class="avail"><span class="dot"></span> Available for freelance</div>
       <h1 id="hero-h1">I AM<br><span class="dim"><span id="tw-target"></span><span class="tw-cursor"></span></span></h1>
-      <p>10+ years producing educational animations, motion graphics, and brand visuals for UNICEF, PTV, PTCL, and millions of learners across Pakistan.</p>
+      <p>10+ years producing educational animations, motion graphics, and brand visuals for UNICEF, NIBAF, Adamjee, WaterAid, NCA ActAlliance, PTV Teleschool, Ministry of Federal Education and PTCL — reaching millions of learners across Pakistan.</p>
       <div class="actions">
         <a href="https://www.behance.net/omi6910660" target="_blank" class="btn p">View Portfolio ↗</a>
-        <a href="#contact" class="btn">Get in touch</a>
+        <a href="https://wa.me/923465325080" target="_blank" rel="noopener" class="btn" aria-label="Get in touch on WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>Get in touch</a>
       </div>
     </div>
     <div class="hero-gif-wrap">
@@ -1627,9 +1657,9 @@ window.addEventListener('DOMContentLoaded',function(){
     }
 
     /* Reels mode: horizontal 9:16 portrait slider (same nav as image gallery).
-       Only the active (centered) reel's iframe has its src set — inactive slots
-       show a play-icon placeholder. Navigating to a new reel activates it and
-       deactivates the previous, which also stops any playing audio. */
+       Each slot shows a Drive thumbnail + play icon by default. Only the active
+       (centered) slot gets an iframe overlay which autoplays muted. Navigating
+       swaps which slot has the iframe, stopping any prior playback. */
     if(card.dataset.reelsPages){
       var reels = card.dataset.reelsPages.split('|').map(function(s){
         var idx = s.indexOf('::');
@@ -1643,28 +1673,42 @@ window.addEventListener('DOMContentLoaded',function(){
 
       track.innerHTML = '';
       track.style.transform = 'translateX(0)';
+      track.style.paddingLeft = '';
+      track.style.paddingRight = '';
       targetX = 0; currentX = 0;
 
       var reelItems = reels.map(function(r, i){
         var item = document.createElement('div');
         item.className = 'si';
         item.dataset.reelIdx = i;
-        var ph = document.createElement('div');
-        ph.className = 'reel-placeholder';
-        ph.innerHTML = '&#9654;'; /* ▶ */
-        ph.title = r.name;
-        item.appendChild(ph);
+
+        /* Extract Drive file ID from preview URL for the thumbnail */
+        var m = r.url.match(/\/file\/d\/([^\/]+)\//);
+        var fileId = m ? m[1] : '';
+
+        var thumb = document.createElement('img');
+        thumb.className = 'reel-thumb';
+        thumb.alt = r.name;
+        thumb.loading = i < 3 ? 'eager' : 'lazy';
+        if(fileId){ thumb.src = 'https://drive.google.com/thumbnail?id=' + fileId + '&sz=w800'; }
+        item.appendChild(thumb);
+
+        var icon = document.createElement('div');
+        icon.className = 'reel-play-icon';
+        icon.innerHTML = '&#9654;';
+        item.appendChild(icon);
+
         track.appendChild(item);
         return item;
       });
 
-      /* Swap a placeholder for a live iframe, or vice-versa */
+      /* Add / remove the iframe on top of the thumbnail. Thumbnail stays put. */
       function activateReel(idx){
         reelItems.forEach(function(item, i){
-          var hasIframe = item.querySelector('iframe');
+          var existingIframe = item.querySelector('iframe');
           if(i === idx){
-            if(!hasIframe){
-              item.innerHTML = '';
+            item.classList.add('active');
+            if(!existingIframe){
               var iframe = document.createElement('iframe');
               iframe.src = reels[i].url;
               iframe.setAttribute('allow','autoplay; fullscreen; encrypted-media');
@@ -1672,24 +1716,19 @@ window.addEventListener('DOMContentLoaded',function(){
               item.appendChild(iframe);
             }
           } else {
-            if(hasIframe){
-              /* Destroy iframe → stops any playing audio, frees memory */
-              item.innerHTML = '';
-              var ph = document.createElement('div');
-              ph.className = 'reel-placeholder';
-              ph.innerHTML = '&#9654;';
-              ph.title = reels[i].name;
-              item.appendChild(ph);
+            item.classList.remove('active');
+            if(existingIframe){
+              /* Destroy iframe → stops playback + audio, frees memory */
+              existingIframe.remove();
             }
           }
         });
       }
 
-      /* Click a placeholder to jump to that reel */
+      /* Click any slot to jump it into centered position */
       reelItems.forEach(function(item, i){
         item.addEventListener('click', function(e){
-          if(e.target.closest('iframe')) return; /* don't interfere with video player clicks */
-          /* Scroll that item into the centered position */
+          if(e.target.closest('iframe')) return;
           var itemRect = item.getBoundingClientRect();
           var wrapRect = wrap.getBoundingClientRect();
           var delta = (itemRect.left + itemRect.width/2) - (wrapRect.left + wrapRect.width/2);
@@ -1699,7 +1738,6 @@ window.addEventListener('DOMContentLoaded',function(){
 
       /* Watch scroll position — activate the reel currently nearest center */
       var lastActive = -1;
-      var activeReelIdx = 0;
       function syncActiveReel(){
         var wrapRect = wrap.getBoundingClientRect();
         var wrapCenter = wrapRect.left + wrapRect.width/2;
@@ -1712,12 +1750,9 @@ window.addEventListener('DOMContentLoaded',function(){
         });
         if(bestIdx !== lastActive){
           lastActive = bestIdx;
-          activeReelIdx = bestIdx;
           activateReel(bestIdx);
         }
       }
-      /* Stash the sync function on the lightbox element so the animation loop
-         and updateProgress can call it without closure wiring */
       lb._syncActiveReel = syncActiveReel;
 
       renderPanel(card.dataset.title||'');
@@ -1728,10 +1763,21 @@ window.addEventListener('DOMContentLoaded',function(){
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
 
-      /* Activate first reel immediately + compute maxX for navigation */
-      activateReel(0);
+      /* After layout, dynamically pad the track so slot 0 is centered at
+         translateX(0) AND the last slot can scroll fully to center. */
       requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ updateMax(); syncActiveReel(); });
+        requestAnimationFrame(function(){
+          var wrapRect = wrap.getBoundingClientRect();
+          var slot0 = reelItems[0];
+          if(slot0){
+            var slotW = slot0.offsetWidth;
+            var sidePad = Math.max(20, Math.round((wrapRect.width - slotW) / 2));
+            track.style.paddingLeft  = sidePad + 'px';
+            track.style.paddingRight = sidePad + 'px';
+          }
+          updateMax();
+          syncActiveReel();
+        });
       });
       return;
     }
@@ -1912,6 +1958,8 @@ window.addEventListener('DOMContentLoaded',function(){
     countEl.textContent = urls.length + ' images';
 
     track.innerHTML = '';
+    track.style.paddingLeft = '';
+    track.style.paddingRight = '';
     urls.forEach(function(url, i){
       var item = document.createElement('div');
       item.className = 'si';
