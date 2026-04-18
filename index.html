@@ -409,6 +409,66 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   VIDEO MODE — 16:9 embedded iframe (Google Drive / YouTube / etc.)
+   Activated when #gif-lb has class .video-mode
+   ═══════════════════════════════════════════════════════════════════ */
+#gif-lb.video-mode #img-scroll-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+  cursor:auto;
+  overflow:hidden;
+}
+#gif-lb.video-mode #img-scroll-wrap::before,
+#gif-lb.video-mode #img-scroll-wrap::after{display:none!important}
+#gif-lb.video-mode #img-scroll-track{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center;
+  gap:0!important;
+  padding:0!important;
+  height:auto!important;
+  width:auto!important;
+  max-width:100%;
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  transform:none!important;
+  will-change:auto!important;
+}
+#gif-lb.video-mode .video-frame{
+  width:min(1080px,calc(100vw - 100px));
+  aspect-ratio:16/9;
+  max-height:calc(100vh - 160px);
+  background:#000;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  overflow:hidden;
+  position:relative;
+}
+#gif-lb.video-mode .video-frame iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  display:block;
+  background:#000;
+}
+#gif-lb.video-mode #scroll-nav .snav-arrows,
+#gif-lb.video-mode #scroll-progress-wrap,
+#gif-lb.video-mode #scroll-count{visibility:hidden}
+@media(max-width:600px){
+  #gif-lb.video-mode #img-scroll-wrap{padding:14px!important}
+  #gif-lb.video-mode .video-frame{
+    width:calc(100vw - 28px);
+    max-height:calc(100vh - 140px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    MOBILE / TOUCHSCREEN OVERRIDES
    Targeted via (hover:none) and (pointer:coarse) — this matches phones
    and tablets only. Desktop with mouse NEVER matches this, regardless
@@ -858,6 +918,19 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       <span class="parr">↗</span>
     </div>
 
+    <div class="pc sa" data-cat="animation"
+      data-title="Sitaray"
+      data-client="Knowledge Platform"
+      data-desc="Promotional animation for Sitaray by Knowledge Platform — a national digital learning games competition in Pakistan. The video brings the platform's three-stage competition format, student journey, and reward system to life for schools and learners across the country."
+      data-tags="2D Animation,Motion Graphics,Explainer,EdTech,After Effects,Character Animator"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FAFp7IXd4V2ImVj9rKH8PFVs+cEJFTBpZBUcDdV8EWAsdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#080812"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BWQ0/PCh7F2M9W2YqaHtWQh8jL0EFTQFUXAZDcQZTHBZLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Sitaray" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Knowledge Platform</div><div class="pn">Sitaray</div><div class="pd">Promotional animation for a national digital learning games competition across Pakistani schools.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
     <div class="pc sa" data-cat="web-design"
       data-title="Zaiwar"
       data-client="Zaiwar"
@@ -889,7 +962,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       data-client="Scale X Pro"
       data-desc="Web design for Scale X Pro — a premium product landing and commerce experience. A bold, confident visual language ties the product story and purchase journey into one cohesive brand experience."
       data-tags="Web Design,UI Design,Landing Page,E-commerce,Product Design,Figma"
-      data-web-pages="Homepage::BxlHAkdRTRsbHEBdRgQGAFRcVwhNXBVVQgZvHQFCYBFVBwcZKh9gQFpdJwJeF0QKBVFcWEBV|Buy Now::BxlHAkdRTRsbHEBdRgQGAFRcVwhNB0UFckBTBilCYBFVBwcZKh9gQFpdLRhKX3oEFRoYQlc="
+      data-web-pages="Homepage::BxlHAkdRTRsbHEBdRgQGAFRcVwhNXBVVQgZvHQFCYBFVBwcZKh9gQFpdJwJeF0QKBVFcWEBV|Buy Now::BxlHAkdRTRsbHEBdRgQGAFRcVwhNVgh+A3l+CSNCYBFVBwcZKh9gQFpdLRhKX3oEFRoYQlc="
       data-behance="https://www.behance.net/omi6910660">
       <div class="pt" style="background:#0a0a10"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXBVVQgZvHQFCYBFVBwcZKh9gQFpdJwJeF0QKBVFcWEBV" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Scale X Pro" />
       <div class="pt-overlay">↗</div></div>
@@ -920,6 +993,19 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       <div class="pt" style="background:#080a0c"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZwN4YHF7FAtCex1ZDhJVFVceWEUX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="MTM Global" />
       <div class="pt-overlay">↗</div></div>
       <div class="pi"><div class="pcl">MTM Global</div><div class="pn">MTM Global</div><div class="pd">Sports &amp; lifestyle holding company — 6 sub-brands unified by a cohesive corporate system.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="web-design"
+      data-title="Comparables.ai"
+      data-client="Comparables.ai"
+      data-desc="Website design for Comparables.ai — an AI-driven market intelligence platform. Clean, product-led aesthetic that communicates the data, positioning, and trust signals users need to evaluate the platform at a glance."
+      data-tags="Web Design,UI Design,Landing Page,SaaS,AI,Product Design,Figma"
+      data-web-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNV0JqSXAAKV5CZBdWRlMNQAIdABsaHwo="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#08090c"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNV0JqSXAAKV5CZBdWRlMNQAIdABsaHwo=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Comparables.ai" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Comparables.ai</div><div class="pn">Comparables.ai</div><div class="pd">AI-driven market intelligence platform — clean, product-led design focused on data &amp; trust.</div></div>
       <span class="parr">↗</span>
     </div>
 
@@ -1306,11 +1392,13 @@ window.addEventListener('DOMContentLoaded',function(){
     'Japan Electronics Pakistan \u2013 Print & Branding':{meta:'Japan Electronics Pakistan · Print',title:'Japan Electronics Pakistan \u2013 Print & Branding',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Retail display boards, signage, shelf labels, and branded print materials.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Print Design</span><span>Retail Signage</span><span>Electronics</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'ERA \u2013 Social Media Design':{meta:'ERA · Social Media',title:'ERA \u2013 Social Media Design',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#31a8ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#31a8ff" font-family="sans-serif">Ps</text></svg> Adobe Photoshop & Illustrator',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Curated branded posts with consistent visual identity across platforms.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Social Media</span><span>Brand Identity</span><span>Instagram</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'Live Life Learn \u2013 Logo Animation':{meta:'Live Life Learn · Logo Animation',title:'Live Life Learn \u2013 Logo Animation',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Smooth branded logo animation for intros, social media, and presentations.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Logo Animation</span><span>Motion Graphics</span><span>After Effects</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Sitaray':{meta:'Knowledge Platform · Animation',title:'Sitaray',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#9999ff" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#9999ff" font-family="sans-serif">Ae</text></svg> Adobe After Effects',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Promotional animation for Sitaray — Knowledge Platform\u2019s national digital learning games competition. The video explains the three-stage competition format (Qualifier, Knockout, Grand Finale), the learning subjects covered across grades 3-10 and 11+, and the reward system that engages schools and students across Pakistan.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>2D Animation</span><span>Motion Graphics</span><span>Explainer</span><span>EdTech</span><span>After Effects</span></div></div>',link:'https://www.knowledgeplatform.com.pk/sitarey/'},
     'Zaiwar':{meta:'Zaiwar · Web Design',title:'Zaiwar',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Website design for Zaiwar — a cohesive visual system, structured content sections, and a distinctive brand aesthetic throughout.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Landing Page</span><span>Figma</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'Sanctum':{meta:'Sanctum · Web Design',title:'Sanctum',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Website design for Sanctum — a fitness and CrossFit box concept. A bold, training-focused visual language runs across the entire site, from the homepage and scheduling through to the workout, leaderboard, and membership flows.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Multi-page</span><span>Fitness</span><span>CrossFit</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'Scale X Pro':{meta:'Scale X Pro · Web Design',title:'Scale X Pro',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Web design for Scale X Pro — a premium product landing and commerce experience. A bold visual language carries the product story into the purchase journey, with considered typography and a confident, conversion-focused aesthetic throughout.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Landing Page</span><span>E-commerce</span><span>Product Design</span></div></div>',link:'https://www.behance.net/omi6910660'},
     'Hamtum Watches':{meta:'Hamtum Watches · Web Design',title:'Hamtum Watches',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Website design for Hamtum Watches — a luxury timepiece brand. The design carries the user through the collection, craftsmanship story, and buying journey in one continuous premium visual narrative, with refined typography, rich product photography, and deliberate pacing throughout.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Luxury</span><span>Watches</span><span>E-commerce</span></div></div>',link:'https://www.behance.net/omi6910660'},
-    'MTM Global':{meta:'MTM Global · Web Design',title:'MTM Global',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Corporate website for MTM Global — a Doha-based sports and lifestyle holding company. A cohesive corporate visual system unifies the entire brand portfolio — Aspire Active, Crossfit DOHA, DOHAfac, Elite, Qgym, and The Venue — while leaving room for each sub-brand to carry its own identity.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Multi-page</span><span>Corporate</span><span>Sports</span><span>Fitness</span></div></div>',link:'https://www.behance.net/omi6910660'}
+    'MTM Global':{meta:'MTM Global · Web Design',title:'MTM Global',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Corporate website for MTM Global — a Doha-based sports and lifestyle holding company. A cohesive corporate visual system unifies the entire brand portfolio — Aspire Active, Crossfit DOHA, DOHAfac, Elite, Qgym, and The Venue — while leaving room for each sub-brand to carry its own identity.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>Multi-page</span><span>Corporate</span><span>Sports</span><span>Fitness</span></div></div>',link:'https://www.behance.net/omi6910660'},
+    'Comparables.ai':{meta:'Comparables.ai · Web Design',title:'Comparables.ai',tool:'<svg width="14" height="14" viewBox="0 0 14 14"><rect width="14" height="14" rx="3" fill="#0acf83" opacity=".25"/><text x="7" y="10.5" text-anchor="middle" font-size="7" font-weight="700" fill="#0acf83" font-family="sans-serif">Fg</text></svg> Figma & Photoshop',body:'<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">Website design for Comparables.ai — an AI-driven market intelligence platform. A clean, product-led aesthetic communicates the data, positioning, and trust signals users need to evaluate the platform at a glance, balancing editorial clarity with a modern SaaS visual language.</p></div><div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags"><span>Web Design</span><span>UI Design</span><span>SaaS</span><span>AI</span><span>Product Design</span></div></div>',link:'https://www.behance.net/omi6910660'}
   };
 
   function renderPanel(title){
@@ -1322,6 +1410,34 @@ window.addEventListener('DOMContentLoaded',function(){
 
   /* ── Open ────────────────────────────────────── */
   function lbOpen(card){
+    /* Video mode: embedded iframe (Google Drive / YouTube / etc.) */
+    if(card.dataset.videoEnc){
+      var videoUrl = window._decUrl(card.dataset.videoEnc);
+      lbTitle.textContent = (card.dataset.client||'') + ' \u2014 ' + (card.dataset.title||'');
+      lbCount.textContent = '';
+      countEl.textContent = '';
+
+      track.innerHTML = '';
+      track.style.transform = 'none';
+
+      var vframe = document.createElement('div');
+      vframe.className = 'video-frame';
+      var iframe = document.createElement('iframe');
+      iframe.src = videoUrl;
+      iframe.setAttribute('allow','autoplay; fullscreen; encrypted-media');
+      iframe.setAttribute('allowfullscreen','true');
+      iframe.setAttribute('loading','eager');
+      vframe.appendChild(iframe);
+      track.appendChild(vframe);
+
+      renderPanel(card.dataset.title||'');
+      lbPanel.classList.remove('open');
+      lb.classList.add('video-mode');
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+
     /* Web-design mode: scrollable 16:9 frame(s). Two variants:
        - data-web-enc   (single page)
        - data-web-pages (multiple pages — "Name::encodedUrl" joined by |) */
@@ -1552,11 +1668,16 @@ window.addEventListener('DOMContentLoaded',function(){
   /* ── Close ───────────────────────────────────── */
   function lbClose(){
     if(raf){ cancelAnimationFrame(raf); raf = null; }
+    var wasVideo = lb.classList.contains('video-mode');
     lb.classList.remove('open');
     lb.classList.remove('web-mode');
+    lb.classList.remove('video-mode');
     lbPanel.classList.remove('open');
     document.body.style.overflow = '';
-    setTimeout(function(){ track.innerHTML = ''; }, 400);
+    /* Video: clear immediately so iframe is destroyed & audio stops.
+       Images: delay until after the close animation to avoid visual flicker. */
+    if(wasVideo){ track.innerHTML = ''; }
+    else { setTimeout(function(){ track.innerHTML = ''; }, 400); }
   }
 
   /* ── Controls ────────────────────────────────── */
@@ -1569,7 +1690,7 @@ window.addEventListener('DOMContentLoaded',function(){
   /* ── Project card click ──────────────────────── */
   document.querySelectorAll('.pc').forEach(function(card){
     card.addEventListener('click', function(){
-      if(card.dataset.gifsEnc || card.dataset.webEnc || card.dataset.webPages){ lbOpen(card); return; }
+      if(card.dataset.gifsEnc || card.dataset.webEnc || card.dataset.webPages || card.dataset.videoEnc){ lbOpen(card); return; }
       document.getElementById('modal-thumb').innerHTML = card.querySelector('.pt').innerHTML;
       document.getElementById('modal-cat').textContent = card.dataset.client||'';
       document.getElementById('modal-title').textContent = card.dataset.title||'';
@@ -1604,8 +1725,9 @@ window.addEventListener('DOMContentLoaded',function(){
   var _rk=[111,109,51,114,52,107,98,52,114,50,48,50,53,112];
   var _k=String.fromCharCode.apply(null,_rk);
   window._decUrl=function(s){try{var b=atob(s);var r='';for(var i=0;i<b.length;i++){r+=String.fromCharCode(b.charCodeAt(i)^_k.charCodeAt(i%_k.length));}return r;}catch(e){return '';}};
-  /* wsrv.nl proxy: resizes + WebP for static images. Preserves GIFs unchanged (animation would break). */
-  window._proxyUrl=function(u,w){if(!u)return u;if(/\.gif(\?|$)/i.test(u))return u;var m=u.match(/^https?:\/\/(.+)$/);if(!m)return u;return 'https://wsrv.nl/?url='+encodeURIComponent(m[1])+'&w='+(w||1280)+'&output=webp&q=82';};
+  /* wsrv.nl proxy: resizes + WebP for static images. Preserves GIFs unchanged (animation would break).
+     Also skips drive.google.com (already CDN-served and can't be reliably proxied). */
+  window._proxyUrl=function(u,w){if(!u)return u;if(/\.gif(\?|$)/i.test(u))return u;if(/drive\.google\.com/i.test(u))return u;var m=u.match(/^https?:\/\/(.+)$/);if(!m)return u;return 'https://wsrv.nl/?url='+encodeURIComponent(m[1])+'&w='+(w||1280)+'&output=webp&q=82';};
   /* postimg built-in thumbnail — e.g. i.postimg.cc/ID/FILE.jpg -> i.postimg.cc/ID/1080/FILE.jpg */
   window._thumbUrl=function(u,w){if(!u)return u;return u.replace(/^(https?:\/\/i\.postimg\.cc\/[^\/]+)\/([^\/]+)$/,'$1/'+(w||1080)+'/$2');};
   function loadEncImages(){
