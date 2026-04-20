@@ -478,10 +478,12 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 /* gradient background stays visible in reels-mode */
 #gif-lb.reels-mode #img-scroll-track{
   /* Horizontal padding is set dynamically via JS to center the first slot
-     at translateX(0) and allow the last slot to scroll to the center. */
-  align-items:center!important;
-  padding:20px 0!important;
-  gap:24px!important;
+     at translateX(0) and allow the last slot to scroll to the center.
+     NO !important on padding — we need JS-set inline padding-left/right to win the cascade.
+     Specificity (2 IDs + 1 class) already beats the default #img-scroll-track rule. */
+  align-items:center;
+  padding:20px 0;
+  gap:24px;
 }
 #gif-lb.reels-mode .si{
   /* Each reel slot — fixed 9:16 portrait aspect, height-constrained */
@@ -557,7 +559,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   z-index:3;
 }
 @media(max-width:600px){
-  #gif-lb.reels-mode #img-scroll-track{padding:20px 0!important;gap:12px!important}
+  #gif-lb.reels-mode #img-scroll-track{padding:20px 0;gap:12px}
   #gif-lb.reels-mode .si{
     height:calc(100vh - 130px);
     max-width:calc(100vw - 48px);
