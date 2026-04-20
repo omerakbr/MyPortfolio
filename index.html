@@ -497,6 +497,11 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   flex-shrink:0;
   display:block;
   cursor:pointer;
+  /* clip-path + contain:paint force hit-testing to respect the box, not just rendering.
+     Without these the oversized iframe leaks clicks into adjacent reels, making them unplayable. */
+  clip-path:inset(0 round 14px);
+  contain:paint;
+  isolation:isolate;
 }
 #gif-lb.reels-mode .si .reel-thumb{
   /* Drive thumbnail — always visible on inactive slots, hidden under iframe when active */
