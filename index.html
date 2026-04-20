@@ -497,11 +497,8 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   flex-shrink:0;
   display:block;
   cursor:pointer;
-  /* clip-path + contain:paint force hit-testing to respect the box, not just rendering.
-     Without these the oversized iframe leaks clicks into adjacent reels, making them unplayable. */
+  /* clip-path enforces hit-test clipping (stricter than overflow:hidden) so iframes never leak clicks to neighbors */
   clip-path:inset(0 round 14px);
-  contain:paint;
-  isolation:isolate;
 }
 #gif-lb.reels-mode .si .reel-thumb{
   /* Drive thumbnail — always visible on inactive slots, hidden under iframe when active */
@@ -544,14 +541,16 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   transform:translate(-50%,-50%) scale(.7);
 }
 #gif-lb.reels-mode .si iframe{
-  /* Oversize iframe + centered negative offset hides Drive's player chrome
-     so the 9:16 video fills the frame without cropping. */
+  /* Vertical oversize hides Drive's top/bottom chrome (title bar + player controls).
+     Horizontal is kept at 100% — Drive has no meaningful side chrome on portrait videos,
+     and any horizontal overflow would leak click-catching into adjacent reels and break
+     playback on neighbors regardless of overflow:hidden. */
   position:absolute;
   top:50%;
-  left:50%;
-  width:calc(100% + 120px);
+  left:0;
+  width:100%;
   height:calc(100% + 120px);
-  transform:translate(-50%,-50%);
+  transform:translateY(-50%);
   border:none;
   display:block;
   background:#000;
