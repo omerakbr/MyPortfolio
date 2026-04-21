@@ -105,6 +105,9 @@ header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-
 .pc{background:var(--bg2);border-radius:var(--rl);overflow:hidden;cursor:none;position:relative;transition:border-color .22s,box-shadow .22s,transform .25s,opacity .3s,background .2s}
 .pc.hidden{display:none!important}
 .pt{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;background:var(--bg3)}
+.pt.pt-placeholder{background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);display:flex;align-items:center;justify-content:center}
+.pt.pt-placeholder::before{content:attr(data-initials);font-size:42px;font-weight:600;letter-spacing:-.03em;color:rgba(var(--neon-rgb),.55);text-shadow:0 0 24px rgba(var(--neon-rgb),.35);font-family:'Geist',system-ui,sans-serif}
+.pt.pt-placeholder::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 50% 50%,rgba(var(--neon-rgb),.08) 0%,transparent 70%);pointer-events:none}
 .pt-overlay{position:absolute;inset:0;background:rgba(var(--neon-rgb),.12);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s;font-size:22px}
 .pc:hover .pt-overlay{opacity:1}
 .pi{padding:16px 18px 18px}
@@ -603,6 +606,19 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       <span class="parr">↗</span>
     </div>
 
+    <div class="pc sa" data-cat="web-design"
+      data-title="Project Tabs Homepage"
+      data-client="Web Design"
+      data-desc="Website design for a project-management platform — a single scrolling homepage taking the visitor from hero through features, product screens, testimonials, pricing, and CTA. Bold visual hierarchy and ample whitespace tie the full narrative into one continuous page."
+      data-tags="Web Design,UI Design,Landing Page,Homepage,SaaS,Figma,Photoshop"
+      data-web-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0BICGRNAwlCex1ZDhJVFVceWEUX"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0e1018"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0BICGRNAwlCex1ZDhJVFVceWEUX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Project Tabs Homepage" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Web Design</div><div class="pn">Project Tabs Homepage</div><div class="pd">Full-length SaaS landing page — hero, features, product, testimonials &amp; pricing.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
     <div class="pc sa" data-cat="web-design" data-title="Zaiwar" data-client="Zaiwar" data-desc="Website design for Zaiwar." data-tags="Web Design,UI Design,Landing Page,Figma">
       <div class="pt"><div class="pt-overlay">↗</div></div>
       <div class="pi"><div class="pcl">Zaiwar</div><div class="pn">Zaiwar</div><div class="pd">Website design with a distinctive visual system.</div></div>
@@ -890,6 +906,91 @@ window.addEventListener('DOMContentLoaded',function(){
     });
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',loadEncImages);}else{loadEncImages();}
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   THUMBNAIL PLACEHOLDERS — any .pc card whose .pt thumbnail contains
+   no <img> gets a styled gradient placeholder showing the project's
+   initials, so the grid never shows blank boxes even without artwork.
+   ═══════════════════════════════════════════════════════════════════ */
+(function(){
+  function makeInitials(title){
+    if(!title)return '•';
+    var words=title.split(/[\s\u2013\u2014\-]+/).filter(Boolean);
+    if(words.length===1)return words[0].substring(0,2).toUpperCase();
+    return (words[0][0]+words[1][0]).toUpperCase();
+  }
+  function applyPlaceholders(){
+    document.querySelectorAll('.pc').forEach(function(card){
+      var pt=card.querySelector('.pt');
+      if(!pt)return;
+      var hasImg=pt.querySelector('img');
+      if(hasImg)return;
+      var title=card.dataset.title||card.dataset.client||'';
+      pt.classList.add('pt-placeholder');
+      pt.setAttribute('data-initials',makeInitials(title));
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',applyPlaceholders);}else{applyPlaceholders();}
+})();
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMATED FAVICON — draws a 64×64 canvas every 120ms with pulsing
+   concentric rings around a glowing "O" and swaps the <link rel=icon>
+   href to the canvas dataURL. Also sets a static PNG favicon first so
+   the tab shows something immediately even if the animation fails.
+   ═══════════════════════════════════════════════════════════════════ */
+(function(){
+  /* Static placeholder favicon so the tab is never blank */
+  var staticIcon=document.createElement('link');
+  staticIcon.rel='icon';
+  staticIcon.type='image/svg+xml';
+  staticIcon.href='data:image/svg+xml;utf8,'+encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'+
+    '<rect width="64" height="64" rx="13" fill="#0a0a0c"/>'+
+    '<text x="32" y="44" font-family="system-ui,sans-serif" font-size="40" font-weight="700" fill="#fff" text-anchor="middle">O</text>'+
+    '</svg>'
+  );
+  document.head.appendChild(staticIcon);
+
+  /* Animated favicon — only runs if canvas.roundRect exists (modern browsers) */
+  var cv=document.createElement('canvas');cv.width=cv.height=64;
+  var ctx=cv.getContext('2d');
+  if(!ctx||typeof ctx.roundRect!=='function')return;
+  var lnk=document.createElement('link');lnk.rel='icon';lnk.type='image/png';
+  document.head.appendChild(lnk);
+  var phase=0,STEP=1/48;
+  function draw(){
+    var S=64,R=32;
+    ctx.clearRect(0,0,S,S);
+    ctx.beginPath();ctx.roundRect(0,0,S,S,13);
+    ctx.fillStyle='#0a0a0c';ctx.fill();
+    [0,0.33,0.66].forEach(function(off){
+      var t=(phase+off)%1;
+      var r=4+t*26;
+      var a=Math.max(0,0.8*(1-t*1.25));
+      ctx.beginPath();ctx.arc(R,R,r,0,Math.PI*2);
+      ctx.strokeStyle='rgba(59,130,246,'+a+')';
+      ctx.lineWidth=1.8*(1-t*0.6);
+      ctx.stroke();
+    });
+    var pulse=0.5+0.5*Math.sin(phase*Math.PI*2);
+    var ig=ctx.createRadialGradient(R,R,0,R,R,18);
+    ig.addColorStop(0,'rgba(59,130,246,'+(0.1+pulse*0.15)+')');
+    ig.addColorStop(1,'rgba(59,130,246,0)');
+    ctx.fillStyle=ig;ctx.beginPath();ctx.arc(R,R,18,0,Math.PI*2);ctx.fill();
+    ctx.shadowColor='#3b82f6';ctx.shadowBlur=6+pulse*8;
+    ctx.fillStyle='#fff';
+    ctx.font='bold 24px system-ui,sans-serif';
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('O',R,R+1);
+    ctx.shadowBlur=0;
+    phase=(phase+STEP)%1;
+  }
+  try{draw();lnk.href=cv.toDataURL('image/png');}catch(e){return;}
+  setInterval(function(){
+    try{draw();lnk.href=cv.toDataURL('image/png');}catch(e){}
+  },120);
 })();
 
 /* ═══════════════════════════════════════════════════════════════════
