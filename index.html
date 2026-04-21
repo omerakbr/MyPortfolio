@@ -890,7 +890,7 @@ window.addEventListener('DOMContentLoaded',function(){
   /* Render track for a given theme (dark | light) */
   function renderTrack(theme){
     if(!currentCard)return;
-    var attr=theme==='light'?'dataAppsLightUrls':'dataAppsDarkUrls';
+    var attr=theme==='light'?'appsLightUrls':'appsDarkUrls';
     var urlsStr=currentCard.dataset[attr]||'';
     var urls=urlsStr.split('|').map(function(s){return s.trim();}).filter(Boolean);
     track.innerHTML='';
