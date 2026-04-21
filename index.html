@@ -222,7 +222,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
 #apps-scroll::-webkit-scrollbar{display:none}
 #apps-scroll.dragging{cursor:grabbing}
 #apps-track{display:flex;align-items:center;gap:20px;height:100%;width:max-content;padding:24px 60px;position:relative;z-index:1}
-.app-slot{flex-shrink:0;height:min(calc(100vh - 130px),1200px);aspect-ratio:414/896;border-radius:24px;background:#000;border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 52px rgba(0,0,0,.55);overflow:hidden;position:relative;transition:border-color .25s,box-shadow .25s}
+.app-slot{flex-shrink:0;height:min(calc(100vh - 130px),1200px);aspect-ratio:var(--app-ratio,414/896);border-radius:24px;background:#000;border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 52px rgba(0,0,0,.55);overflow:hidden;position:relative;transition:border-color .25s,box-shadow .25s}
 .app-slot:hover{border-color:rgba(59,130,246,.55);box-shadow:0 20px 52px rgba(0,0,0,.55),0 0 22px rgba(59,130,246,.22)}
 .app-slot img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none;background:#000}
 #apps-lb-foot{display:flex;align-items:center;gap:16px;padding:0 28px;height:50px;flex-shrink:0;border-top:1px solid rgba(255,255,255,.06)}
@@ -238,7 +238,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
   #apps-lb-title{font-size:10px;max-width:120px;overflow:hidden;text-overflow:ellipsis}
   .apps-tab{font-size:10px;padding:5px 11px}
   #apps-track{padding:16px 24px;gap:12px}
-  .app-slot{border-radius:18px;height:calc(100vh - 120px);aspect-ratio:414/896}
+  .app-slot{border-radius:18px;height:calc(100vh - 120px);aspect-ratio:var(--app-ratio,414/896)}
   #apps-lb-foot{padding:0 14px}
 }
 @media(hover:none) and (pointer:coarse){
@@ -543,6 +543,7 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
       data-client="Mobile App"
       data-desc="A fever and body-temperature tracking mobile app — complete UI design in both dark and light themes. Onboarding, readings history, charts, reminders, and settings screens designed for iOS and Android."
       data-tags="Mobile App,UI Design,iOS,Android,Product Design,Health,Dark Mode,Light Mode,Figma"
+      data-apps-ratio="414/896"
       data-apps-dark-urls="https://i.postimg.cc/w6wzh5hB/1.png|https://i.postimg.cc/yVLKFhFW/2.png|https://i.postimg.cc/3Kthgjg0/3.png|https://i.postimg.cc/Hp6mQ0Qc/4.png|https://i.postimg.cc/fw8sx7x9/5.png|https://i.postimg.cc/p2svDQDB/6.png|https://i.postimg.cc/W25VMmMS/7.png|https://i.postimg.cc/jsMTz6zZ/8.png|https://i.postimg.cc/4JWGzvzL/9.png|https://i.postimg.cc/NsLcby44/10.png|https://i.postimg.cc/4fngwK5w/11.png|https://i.postimg.cc/9mzh14pb/12.png|https://i.postimg.cc/M6XStcDP/14.png|https://i.postimg.cc/MW6xM3jp/15.png|https://i.postimg.cc/csxZgk8J/16.png|https://i.postimg.cc/csxZgk84/17.png|https://i.postimg.cc/SySq21zs/18.png"
       data-apps-light-urls="https://i.postimg.cc/D77Ckddx/1.png|https://i.postimg.cc/YttXKfzK/2.png|https://i.postimg.cc/JRKp1DpV/3.png|https://i.postimg.cc/PdKStpSG/4.png|https://i.postimg.cc/FhGT9dTX/5.png|https://i.postimg.cc/zqpxJbxr/6.png|https://i.postimg.cc/JRKp1Dpt/7.png|https://i.postimg.cc/339tK4tR/8.png|https://i.postimg.cc/SmVgy2gR/9.png|https://i.postimg.cc/NQbdg9dy/10.png|https://i.postimg.cc/QjSfX9f1/11.png|https://i.postimg.cc/Mzt9WM9R/12.png|https://i.postimg.cc/ZJjwTBw8/14.png|https://i.postimg.cc/qkRjgJFK/15.png|https://i.postimg.cc/dJJWPmm4/16.png|https://i.postimg.cc/099tRddZ/17.png|https://i.postimg.cc/fMMHnjjC/18.png"
       data-behance="https://www.behance.net/omi6910660">
@@ -551,6 +552,54 @@ img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:n
         <div class="pt-overlay">↗</div>
       </div>
       <div class="pi"><div class="pcl">Mobile App</div><div class="pn">Body Temperature App</div><div class="pd">Fever-tracking mobile app — full UI in dark &amp; light themes.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="mobile-apps"
+      data-title="MyArk"
+      data-client="Mobile App"
+      data-desc="MyArk — a mobile app designed with a forest-inspired visual language. UI covers onboarding, login, profile, project summary, checkout, highlights, and question flows. Built in high-density portrait screens at 1227×2449 for crisp retina display."
+      data-tags="Mobile App,UI Design,Product Design,iOS,Android,Onboarding,Figma"
+      data-apps-ratio="1227/2449"
+      data-apps-light-urls="https://i.postimg.cc/hg5CGDXN/Splash.png|https://i.postimg.cc/VzyDjKB9/Login.png|https://i.postimg.cc/pR5shw8r/Get-Started.png|https://i.postimg.cc/BJxNN2Mg/Profile.png|https://i.postimg.cc/9CwLR6TX/FOREST-1.png|https://i.postimg.cc/HTGBQ64r/Highlight.png|https://i.postimg.cc/37cLw8kj/Question.png|https://i.postimg.cc/Gr5MpL4k/Checkout.png|https://i.postimg.cc/ZZMfqbWB/project-summary.png"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0f0a;display:flex;align-items:center;justify-content:center">
+        <img src="https://wsrv.nl/?url=i.postimg.cc/hg5CGDXN/Splash.png&w=420&output=webp&q=82" alt="MyArk" style="height:100%;width:auto;object-fit:contain;display:block;" loading="lazy" />
+        <div class="pt-overlay">↗</div>
+      </div>
+      <div class="pi"><div class="pcl">Mobile App</div><div class="pn">MyArk</div><div class="pd">Forest-inspired mobile app — onboarding, profile, project summary &amp; checkout.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="mobile-apps"
+      data-title="My Wallet"
+      data-client="Mobile App"
+      data-desc="My Wallet — a finance and vehicle-document management mobile app. UI covers login, register, budget tracking, progress steps, document upload, vehicle details, FAQ, profile, and side navigation. Designed for iPhone with standard portrait screens."
+      data-tags="Mobile App,UI Design,Finance,Fintech,Product Design,iOS,Onboarding,Figma"
+      data-apps-ratio="375/844"
+      data-apps-light-urls="https://i.postimg.cc/Hpk55MKY/Login.png|https://i.postimg.cc/Pt5ZZDcb/Register.png|https://i.postimg.cc/W21rrZKb/Mobile-Number.png|https://i.postimg.cc/ZT533Ngv/Progress-Bar-Start.png|https://i.postimg.cc/rqJxKjhm/Checkboxes.png|https://i.postimg.cc/TR3mmbSq/Upload-Documents.png|https://i.postimg.cc/1yHwfBW9/Vehicle-Details.png|https://i.postimg.cc/RvRKNdPh/Details.png|https://i.postimg.cc/Yt3YhRXC/Budget.png|https://i.postimg.cc/yV899R5g/Profile.png|https://i.postimg.cc/jsSNNf9R/Left-Panel.png|https://i.postimg.cc/x01HHm7n/Faq.png"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0c14;display:flex;align-items:center;justify-content:center">
+        <img src="https://wsrv.nl/?url=i.postimg.cc/Hpk55MKY/Login.png&w=420&output=webp&q=82" alt="My Wallet" style="height:100%;width:auto;object-fit:contain;display:block;" loading="lazy" />
+        <div class="pt-overlay">↗</div>
+      </div>
+      <div class="pi"><div class="pcl">Mobile App</div><div class="pn">My Wallet</div><div class="pd">Finance &amp; vehicle-document manager — 12 screens from login to budget tracking.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="mobile-apps"
+      data-title="Hettysphere"
+      data-client="Mobile App"
+      data-desc="Hettysphere — a full mobile app experience covering login, home feeds, side nav, card management, transaction history, privacy, terms of service, and contact pages. Native-density iPhone portrait screens at 1125×2436."
+      data-tags="Mobile App,UI Design,Product Design,iOS,iPhone,Fintech,Home Feed,Figma"
+      data-apps-ratio="1125/2436"
+      data-apps-light-urls="https://i.postimg.cc/Sq6sSsTV/1-Login.png|https://i.postimg.cc/gdVJzJtm/Home-1.png|https://i.postimg.cc/7wqLfkjT/HOme-2.png|https://i.postimg.cc/gdVJzJt0/HOme-2-1.png|https://i.postimg.cc/JMRhGLSh/HOme-2-2.png|https://i.postimg.cc/vbGmcsCB/HOme-2-3.png|https://i.postimg.cc/1sM3FdZc/Side-Nav.png|https://i.postimg.cc/HHwxYxZR/Add-Card.png|https://i.postimg.cc/KxmYR2Ct/plus.png|https://i.postimg.cc/51B0407K/Transaction-History.png|https://i.postimg.cc/kqwgSHdb/Privacy.png|https://i.postimg.cc/Hd3kMNCS/Terms-of-Service.png|https://i.postimg.cc/8DR5p5Kq/Contact-Us.png"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0a12;display:flex;align-items:center;justify-content:center">
+        <img src="https://wsrv.nl/?url=i.postimg.cc/Sq6sSsTV/1-Login.png&w=420&output=webp&q=82" alt="Hettysphere" style="height:100%;width:auto;object-fit:contain;display:block;" loading="lazy" />
+        <div class="pt-overlay">↗</div>
+      </div>
+      <div class="pi"><div class="pcl">Mobile App</div><div class="pn">Hettysphere</div><div class="pd">Full mobile app — login, home feeds, cards, transactions &amp; policy pages.</div></div>
       <span class="parr">↗</span>
     </div>
 
@@ -893,10 +942,12 @@ window.addEventListener('DOMContentLoaded',function(){
     var attr=theme==='light'?'appsLightUrls':'appsDarkUrls';
     var urlsStr=currentCard.dataset[attr]||'';
     var urls=urlsStr.split('|').map(function(s){return s.trim();}).filter(Boolean);
+    var ratio=currentCard.dataset.appsRatio||'414/896';
     track.innerHTML='';
     urls.forEach(function(url,i){
       var slot=document.createElement('div');
       slot.className='app-slot';
+      slot.style.setProperty('--app-ratio',ratio);
       var img=document.createElement('img');
       img.alt='Screen '+(i+1);
       img.setAttribute('draggable','false');
@@ -931,12 +982,16 @@ window.addEventListener('DOMContentLoaded',function(){
   /* Open / close */
   function openApps(card){
     currentCard=card;
-    currentTheme='dark';
-    tabButtons.forEach(function(b){b.classList.toggle('active',b.dataset.themeMode==='dark');});
+    var hasDark=!!card.dataset.appsDarkUrls;
+    var hasLight=!!card.dataset.appsLightUrls;
+    /* Hide theme tabs entirely if only one theme is available */
+    tabsWrap.style.display=(hasDark&&hasLight)?'':'none';
+    currentTheme=hasDark?'dark':'light';
+    tabButtons.forEach(function(b){b.classList.toggle('active',b.dataset.themeMode===currentTheme);});
     titleEl.textContent=(card.dataset.client||'')+' — '+(card.dataset.title||'');
     lb.classList.add('open');
     document.body.style.overflow='hidden';
-    renderTrack('dark');
+    renderTrack(currentTheme);
   }
   function closeApps(){
     lb.classList.remove('open');
@@ -1004,7 +1059,7 @@ window.addEventListener('DOMContentLoaded',function(){
      This installs in capture phase so it runs before the existing card
      click handlers that open the standard image lightbox. */
   document.querySelectorAll('.pc').forEach(function(card){
-    if(!card.dataset.appsDarkUrls)return;
+    if(!card.dataset.appsDarkUrls&&!card.dataset.appsLightUrls)return;
     card.addEventListener('click',function(e){e.stopImmediatePropagation();openApps(card);},true);
   });
 
