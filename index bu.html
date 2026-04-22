@@ -30,59 +30,25 @@ body{
   background:var(--bg);
 }
 a{color:inherit;text-decoration:none}
-
-/* ── GRADIENT BG ── */
 body::before{
-  content:'';
-  position:fixed;inset:0;z-index:0;
+  content:'';position:fixed;inset:0;z-index:0;
   background:
-    radial-gradient(ellipse 80% 50% at 10% 0%,   rgba(59,130,246,0.13) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 20%,  rgba(99,102,241,0.10) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(139,92,246,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 80% 80%,  rgba(59,130,246,0.07) 0%, transparent 55%);
-  animation:gradShift 14s ease-in-out infinite alternate;
-  pointer-events:none;
+    radial-gradient(ellipse 80% 50% at 10% 0%,rgba(59,130,246,0.13) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 20%,rgba(99,102,241,0.10) 0%,transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 100%,rgba(139,92,246,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 80% 80%,rgba(59,130,246,0.07) 0%,transparent 55%);
+  animation:gradShift 14s ease-in-out infinite alternate;pointer-events:none;
 }
-@keyframes gradShift{
-  0%  {opacity:.7; transform:scale(1)}
-  50% {opacity:1;  transform:scale(1.04)}
-  100%{opacity:.8; transform:scale(1.01)}
-}
-[data-theme="light"] body::before{
-  background:
-    radial-gradient(ellipse 80% 50% at 10% 0%,   rgba(59,130,246,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 20%,  rgba(99,102,241,0.05) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(139,92,246,0.04) 0%, transparent 60%);
-}
-
-/* all content above bg */
+@keyframes gradShift{0%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}100%{opacity:.8;transform:scale(1.01)}}
+[data-theme="light"] body::before{background:radial-gradient(ellipse 80% 50% at 10% 0%,rgba(59,130,246,0.07) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 90% 20%,rgba(99,102,241,0.05) 0%,transparent 55%),radial-gradient(ellipse 70% 50% at 50% 100%,rgba(139,92,246,0.04) 0%,transparent 60%)}
 header,section,.w,.hr,footer,#modal-overlay{position:relative;z-index:2}
-
-/* ── CURSOR ── */
-#cursor{
-  position:fixed;width:12px;height:12px;border-radius:50%;
-  background:#3b82f6;pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  box-shadow:0 0 10px #3b82f6, 0 0 22px rgba(59,130,246,0.5);
-  transition:width .18s,height .18s,background .18s;
-}
-#cursor-ring{
-  position:fixed;width:38px;height:38px;border-radius:50%;
-  border:1.5px solid rgba(var(--neon-rgb),.4);
-  pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
-  transition:width .3s cubic-bezier(.16,1,.3,1),height .3s cubic-bezier(.16,1,.3,1),border-color .25s;
-}
+#cursor{position:fixed;width:12px;height:12px;border-radius:50%;background:#3b82f6;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px #3b82f6,0 0 22px rgba(59,130,246,0.5);transition:width .18s,height .18s,background .18s}
+#cursor-ring{position:fixed;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(var(--neon-rgb),.4);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s cubic-bezier(.16,1,.3,1),height .3s cubic-bezier(.16,1,.3,1),border-color .25s}
 body.ch #cursor{width:20px;height:20px;background:#fff}
 body.ch #cursor-ring{width:54px;height:54px;border-color:rgba(var(--neon-rgb),.9)}
 .trail{position:fixed;width:5px;height:5px;border-radius:50%;background:var(--neon);pointer-events:none;z-index:9997;transform:translate(-50%,-50%)}
-
-/* ── NAV ── */
-header{
-  position:sticky;top:0;z-index:50;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 28px;height:52px;
-  border-bottom:1px solid var(--line);background:var(--bg);
-}
+@media(hover:none),(pointer:coarse){#cursor,#cursor-ring,.trail{display:none!important}body{cursor:auto!important}a,button,.pc,.tool-card,.sc,.ar,.nbtn,.fbtn,.sarr,.sdot,.snbtn,#gif-lb-close,#gif-lb-info,#gif-lb-panel-close,.modal-close,.btn,.tgl,.cf-send{cursor:pointer!important}}
+header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;border-bottom:1px solid var(--line);background:var(--bg)}
 .logo{font-size:14px;font-weight:500;letter-spacing:-.01em}
 .nav-r{display:flex;align-items:center;gap:4px}
 .nbtn{padding:5px 12px;border-radius:40px;font-size:13px;color:var(--sub);border:1px solid transparent;background:none;cursor:none;transition:all .15s}
@@ -90,13 +56,10 @@ header{
 .nbtn.active{color:var(--neon);border-color:rgba(var(--neon-rgb),.3)}
 .tgl{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--sub);cursor:none;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s}
 .tgl:hover{color:var(--text);background:var(--bg2)}
-
-/* ── LAYOUT ── */
 .w{max-width:1040px;margin:0 auto;padding:0 28px}
 .hr{height:1px;background:var(--line)}
-
-/* ── HERO ── */
-.hero{padding:76px 0 64px}
+.hero{padding:76px 0 64px;display:flex;align-items:center;justify-content:space-between;gap:40px}
+.hero-text{flex:1;min-width:0}
 .hero h1{font-size:clamp(26px,3.5vw,38px);font-weight:500;letter-spacing:-.03em;line-height:1.2;margin-bottom:18px}
 .hero h1 .dim{color:var(--sub)}
 .hero p{font-size:15px;color:var(--sub);max-width:440px;line-height:1.7;margin-bottom:28px}
@@ -104,60 +67,43 @@ header{
 .dot{width:6px;height:6px;border-radius:50%;background:#4caf82;animation:blink 2.4s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 .actions{display:flex;gap:9px;flex-wrap:wrap}
-
-/* typewriter cursor */
+.hero-gif-wrap{flex:0 0 300px;width:300px;height:300px;border-radius:28px;overflow:hidden;position:relative;flex-shrink:0;box-shadow:0 28px 56px rgba(0,0,0,.5);transform-style:preserve-3d;transition:transform .12s ease,box-shadow .12s ease;will-change:transform}
+.hero-gif-wrap img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+@media(max-width:768px){.hero{flex-direction:column-reverse;gap:28px;padding:40px 0 36px;align-items:flex-start}.hero-gif-wrap{flex:none;width:100%;height:220px;border-radius:20px;transform:none!important}}
+@media(max-width:480px){.hero-gif-wrap{height:180px;border-radius:16px}}
 .tw-cursor{display:inline-block;width:2px;height:.9em;background:var(--neon);vertical-align:middle;margin-left:2px;animation:twBlink .7s steps(1) infinite}
 @keyframes twBlink{0%,100%{opacity:1}50%{opacity:0}}
-
-/* ── BUTTONS ── */
-.btn{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:8px 16px;border-radius:40px;font-size:13px;font-weight:500;cursor:none;
-  border:1px solid var(--line);background:var(--bg2);color:var(--text);transition:all .2s;
-}
-.btn:hover{background:var(--bg3);transform:translateY(-1px);border-color:rgba(var(--neon-rgb),.7);box-shadow:0 0 14px rgba(var(--neon-rgb),.25)}
-.btn.p{background:var(--text);color:var(--bg);border-color:transparent}
-.btn.p:hover{opacity:.88;transform:translateY(-1px);box-shadow:0 0 18px rgba(var(--neon-rgb),.35)}
-
-/* ── CARDS neon hover ── */
-.sc,.tool-card,.pc,.ar{
-  border:1px solid var(--line);
-  transition:border-color .22s,box-shadow .22s,transform .22s,background .2s;
-}
-.sc:hover,.tool-card:hover,.pc:hover,.ar:hover{
-  border-color:rgba(var(--neon-rgb),.75)!important;
-  box-shadow:0 0 0 1px rgba(var(--neon-rgb),.15),0 0 22px rgba(var(--neon-rgb),.18),inset 0 0 20px rgba(var(--neon-rgb),.04);
-}
-
-/* ── STATS ── */
+@property --ba{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes baSpin{to{--ba:360deg}}
+@keyframes baGlow{from{box-shadow:0 0 5px rgba(59,130,246,.2),0 0 12px rgba(59,130,246,.08)}to{box-shadow:0 0 10px rgba(59,130,246,.5),0 0 22px rgba(59,130,246,.2)}}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:40px;font-size:13px;font-weight:500;cursor:none;color:var(--text);border:1px solid var(--line);background:var(--bg2);transition:all .2s}
+.btn:hover{background:var(--bg3);transform:translateY(-1px);border-color:rgba(var(--neon-rgb),.6)}
+.btn.p{border:1.5px solid transparent;background-image:linear-gradient(var(--bg2),var(--bg2)),conic-gradient(from var(--ba),#3b82f6 0deg,#60a5fa 40deg,rgba(59,130,246,.18) 80deg,rgba(10,10,18,1) 120deg,rgba(10,10,18,1) 240deg,rgba(59,130,246,.15) 280deg,#60a5fa 320deg,#3b82f6 360deg);background-origin:border-box;background-clip:padding-box,border-box;animation:baSpin 3.5s linear infinite,baGlow 2.8s ease-in-out infinite alternate;transition:transform .2s,opacity .2s}
+.btn.p:hover{background-image:linear-gradient(var(--bg3),var(--bg3)),conic-gradient(from var(--ba),#3b82f6 0deg,#60a5fa 40deg,rgba(59,130,246,.18) 80deg,rgba(10,10,18,1) 120deg,rgba(10,10,18,1) 240deg,rgba(59,130,246,.15) 280deg,#60a5fa 320deg,#3b82f6 360deg);transform:translateY(-1px)}
+.sc,.tool-card,.pc,.ar{border:1px solid var(--line);transition:border-color .22s,box-shadow .22s,transform .22s,background .2s}
+.sc:hover,.tool-card:hover,.pc:hover,.ar:hover{border-color:rgba(var(--neon-rgb),.75)!important;box-shadow:0 0 0 1px rgba(var(--neon-rgb),.15),0 0 22px rgba(var(--neon-rgb),.18),inset 0 0 20px rgba(var(--neon-rgb),.04)}
 .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:28px 0}
 .sc{background:var(--bg2);border-radius:var(--rl);padding:24px}
 .sn{font-size:44px;font-weight:500;letter-spacing:-.04em;line-height:1;margin-bottom:6px;color:#60a5fa;text-shadow:0 0 20px rgba(59,130,246,.7),0 0 50px rgba(59,130,246,.25)}
 .sl{font-size:13px;color:var(--sub);line-height:1.5}
 .ct{font-size:14px;font-weight:500;margin-bottom:8px}
 .cb{font-size:13px;color:var(--sub);line-height:1.6}
-
-/* ── SECTION HDR ── */
 .sec-hdr{display:flex;align-items:baseline;justify-content:space-between;padding:24px 0 16px}
 .sec-lbl{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sub)}
 .sec-link{font-size:13px;color:var(--sub);transition:color .15s}
 .sec-link:hover{color:var(--text)}
-
-/* ── TOOLS ── */
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;padding-bottom:28px;border-bottom:1px solid var(--line)}
 .tool-card{background:var(--bg2);border-radius:var(--r);padding:16px 12px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:none}
 .tool-card:hover{background:var(--bg3);transform:translateY(-2px)}
 .tool-icon{width:40px;height:40px;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tool-icon img{width:40px;height:40px;object-fit:contain;display:block}
 .tool-name{font-size:12px;font-weight:500;color:var(--text);text-align:center;line-height:1.3}
-
-/* ── WORK FILTERS ── */
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .fbtn{padding:5px 14px;border-radius:40px;font-size:12px;font-weight:500;cursor:none;border:1px solid var(--line);background:var(--bg2);color:var(--sub);transition:all .18s}
 .fbtn:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.5)}
 .fbtn.on{background:rgba(var(--neon-rgb),.12);border-color:rgba(var(--neon-rgb),.6);color:var(--neon)}
 .pc{background:var(--bg2);border-radius:var(--rl);overflow:hidden;cursor:none;position:relative;transition:border-color .22s,box-shadow .22s,transform .25s,opacity .3s,background .2s}
-.pc.hidden{opacity:0;pointer-events:none;transform:scale(.95)}
+.pc.hidden{display:none!important}
 .pt{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative}
 .pt-overlay{position:absolute;inset:0;background:rgba(var(--neon-rgb),.12);opacity:0;display:flex;align-items:center;justify-content:center;transition:opacity .2s;font-size:22px}
 .pc:hover .pt-overlay{opacity:1}
@@ -167,36 +113,50 @@ header{
 .pd{font-size:13px;color:var(--sub);line-height:1.55}
 .parr{position:absolute;top:14px;right:16px;font-size:13px;color:var(--sub);opacity:0;transition:opacity .2s}
 .pc:hover .parr{opacity:1}
-/* slider */
-.pg-wrap{position:relative;padding-bottom:28px}
-.pg{display:flex;gap:14px;overflow:hidden;padding:4px 2px 8px}
-.pg .pc{flex:0 0 320px;width:320px}
-.slider-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
-.slider-dots{display:flex;gap:6px}
+
+/* ── SLIDER ─────────────────────────────────────────── */
+.pg-wrap{position:relative;padding-bottom:28px;overflow:hidden}
+.pg{
+  display:flex;
+  gap:8px;
+  overflow-x:scroll;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  padding:4px 0 8px;
+}
+.pg::-webkit-scrollbar{display:none}
+/* 4 cards — large screens */
+.pg .pc{
+  scroll-snap-align:start;
+  flex:0 0 calc((100% - 24px) / 4);
+  width:calc((100% - 24px) / 4);
+}
+/* 3 cards — default laptops */
+@media(max-width:1300px){
+  .pg .pc{flex:0 0 calc((100% - 16px) / 3);width:calc((100% - 16px) / 3)}
+}
+/* 2 cards — tablets */
+@media(max-width:800px){
+  .pg .pc{flex:0 0 calc((100% - 8px) / 2);width:calc((100% - 8px) / 2)}
+}
+/* 1 card — mobile */
+@media(max-width:480px){
+  .pg .pc{flex:0 0 100%;width:100%}
+}
+/* ─────────────────────────────────────────────────── */
+
+.slider-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px;flex-wrap:nowrap;gap:10px}
+.slider-dots{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
+.slider-arrows{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .sdot{width:6px;height:6px;border-radius:50%;background:var(--line);border:none;cursor:none;transition:all .2s;padding:0}
 .sdot.active{width:20px;border-radius:3px;background:var(--neon)}
-.sarr{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--sub);cursor:none;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.sarr:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.6);background:var(--bg3)}
-.sarr:disabled{opacity:.3;pointer-events:none}
-.slider-arrows{display:flex;gap:8px}
-
-/* ── MODAL ── */
-#modal-overlay{
-  position:fixed;inset:0;z-index:200;
-  background:rgba(0,0,0,.7);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;
-  transition:opacity .25s;
-  padding:20px;
-}
+.sarr{width:34px;height:34px;border-radius:50%;border:1px solid rgba(var(--neon-rgb),.25);background:var(--bg2);color:var(--sub);cursor:none;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;box-shadow:0 0 6px rgba(59,130,246,.18),0 0 12px rgba(59,130,246,.08)}
+.sarr:hover:not(:disabled){color:var(--text);border-color:rgba(var(--neon-rgb),.8);background:var(--bg3);box-shadow:0 0 10px rgba(59,130,246,.5),0 0 22px rgba(59,130,246,.25)}
+.sarr:disabled{opacity:.25;pointer-events:none;box-shadow:none}
+#modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;padding:20px}
 #modal-overlay.open{opacity:1;pointer-events:all}
-#modal-box{
-  background:var(--bg2);border:1px solid rgba(var(--neon-rgb),.35);
-  border-radius:20px;max-width:580px;width:100%;
-  box-shadow:0 0 60px rgba(var(--neon-rgb),.18),0 30px 60px rgba(0,0,0,.5);
-  transform:scale(.93) translateY(16px);transition:transform .28s cubic-bezier(.16,1,.3,1);
-  overflow:hidden;
-}
+#modal-box{background:var(--bg2);border:1px solid rgba(var(--neon-rgb),.35);border-radius:20px;max-width:580px;width:100%;box-shadow:0 0 60px rgba(var(--neon-rgb),.18),0 30px 60px rgba(0,0,0,.5);transform:scale(.93) translateY(16px);transition:transform .28s cubic-bezier(.16,1,.3,1);overflow:hidden;position:relative}
 #modal-overlay.open #modal-box{transform:scale(1) translateY(0)}
 #modal-thumb{width:100%;aspect-ratio:16/9;overflow:hidden}
 #modal-body{padding:24px 28px 28px}
@@ -205,18 +165,59 @@ header{
 #modal-desc{font-size:14px;color:var(--sub);line-height:1.7;margin-bottom:20px}
 .modal-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
 .modal-tag{background:rgba(var(--neon-rgb),.1);color:var(--neon);border:1px solid rgba(var(--neon-rgb),.25);border-radius:6px;padding:4px 10px;font-size:12px}
-.modal-close{
-  position:absolute;top:14px;right:14px;
-  width:32px;height:32px;border-radius:50%;
-  border:1px solid var(--line);background:var(--bg2);
-  color:var(--sub);cursor:none;font-size:16px;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;z-index:10;
-}
+.modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--sub);cursor:none;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;z-index:10}
 .modal-close:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.5);background:var(--bg3)}
-#modal-box{position:relative}
-
-/* ── EXPERIENCE ── */
+#gif-lb{position:fixed;inset:0;z-index:500;background:#0a0a0a;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .35s ease}
+#gif-lb.open{opacity:1;pointer-events:all}
+#gif-lb-bar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.06);position:relative;z-index:2}
+#gif-lb-title{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.38);font-weight:400}
+#gif-lb-right{display:flex;align-items:center;gap:16px}
+#gif-lb-count{font-size:11px;color:rgba(255,255,255,.28);font-variant-numeric:tabular-nums;letter-spacing:.05em}
+#gif-lb-close{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:none;color:rgba(255,255,255,.5);cursor:none;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+#gif-lb-close:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.3)}
+#img-scroll-wrap{flex:1;position:relative;overflow:hidden;cursor:grab}
+#img-scroll-wrap.dragging{cursor:grabbing}
+/* Subtle animated gradient behind all lightbox content (reels, wallpapers, videos, web, images) */
+#img-scroll-wrap::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 55% 45% at 22% 28%,rgba(59,130,246,.16) 0%,transparent 58%),radial-gradient(ellipse 50% 40% at 78% 72%,rgba(139,92,246,.13) 0%,transparent 58%),radial-gradient(ellipse 70% 50% at 50% 100%,rgba(99,102,241,.10) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 85% 15%,rgba(59,130,246,.08) 0%,transparent 55%);animation:lbBgShift 18s ease-in-out infinite alternate;will-change:transform,opacity}
+#img-scroll-track{position:relative;z-index:1}
+@keyframes lbBgShift{0%{opacity:.65;transform:scale(1) translate(0,0)}50%{opacity:1;transform:scale(1.08) translate(2%,-1.5%)}100%{opacity:.8;transform:scale(1.04) translate(-1.5%,1%)}}
+#img-scroll-track{display:flex;align-items:center;height:100%;padding:32px 80px;gap:16px;will-change:transform;transform:translateX(0)}
+.si{flex-shrink:0;height:100%;max-height:calc(100% - 64px);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08);transition:border-color .3s,box-shadow .3s}
+.si:hover{border-color:rgba(59,130,246,.5);box-shadow:0 0 28px rgba(59,130,246,.2)}
+.si img{height:100%;width:auto;display:block;pointer-events:none;-webkit-user-drag:none;user-select:none;max-width:none}
+#scroll-nav{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:52px;flex-shrink:0;border-top:1px solid rgba(255,255,255,.06)}
+.snav-arrows{display:flex;gap:10px}
+.snbtn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:rgba(255,255,255,.6);cursor:none;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.snbtn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.36);color:#fff}
+#scroll-progress-wrap{flex:1;height:2px;background:rgba(255,255,255,.08);border-radius:1px;margin:0 20px}
+#scroll-progress-bar{height:100%;background:rgba(59,130,246,.8);border-radius:1px;width:0%;transition:width .1s linear}
+#scroll-count{font-size:11px;color:rgba(255,255,255,.28);font-variant-numeric:tabular-nums;letter-spacing:.05em;white-space:nowrap}
+@media(max-width:600px){#img-scroll-track{padding:20px 24px;gap:10px}#scroll-nav{padding:0 16px}}
+@property --lba{syntax:'<angle>';initial-value:0deg;inherits:false}
+#gif-lb-info{position:relative;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#3b82f6;cursor:none;border-radius:20px;padding:5px 13px;border:1.5px solid transparent;background-image:linear-gradient(rgba(10,10,12,.95),rgba(10,10,12,.95)),conic-gradient(from var(--lba),#3b82f6 0deg,#60a5fa 35deg,rgba(59,130,246,.18) 75deg,rgba(8,12,22,1) 110deg,rgba(8,12,22,1) 250deg,rgba(59,130,246,.18) 285deg,#60a5fa 325deg,#3b82f6 360deg);background-origin:border-box;background-clip:padding-box,border-box;animation:lbaSpin 2.2s linear infinite,lbaGlow 2.6s ease-in-out infinite alternate;transition:color .15s}
+#gif-lb-info:hover{color:#93c5fd}
+@keyframes lbaSpin{to{--lba:360deg}}
+@keyframes lbaGlow{from{box-shadow:0 0 6px rgba(59,130,246,.28),0 0 14px rgba(59,130,246,.10)}to{box-shadow:0 0 10px rgba(59,130,246,.55),0 0 24px rgba(59,130,246,.22),0 0 42px rgba(59,130,246,.08)}}
+#gif-lb-panel{position:absolute;top:0;right:0;bottom:0;width:360px;max-width:90vw;background:rgba(10,10,12,.96);border-left:1px solid rgba(255,255,255,.07);transform:translateX(100%);transition:transform .38s cubic-bezier(.22,1,.36,1);z-index:10;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent}
+#gif-lb-panel.open{transform:translateX(0)}
+#gif-lb-panel-inner{padding:28px 28px 48px}
+#gif-lb-panel-close{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:none;color:rgba(255,255,255,.5);cursor:none;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+#gif-lb-panel-close:hover{color:#fff;border-color:rgba(255,255,255,.35)}
+.lbp-tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.lbp-title{font-size:18px;font-weight:500;color:#fff;letter-spacing:-.02em;line-height:1.3;margin-bottom:12px}
+.lbp-tool{display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:28px}
+.lbp-section{margin-bottom:26px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.06)}
+.lbp-section:last-of-type{border-bottom:none}
+.lbp-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px}
+.lbp-body{font-size:13px;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:10px}
+.lbp-lot{padding:12px 14px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);margin-bottom:8px}
+.lbp-lot p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6;margin:5px 0 0}
+.lbp-lot-n{font-size:11px;font-weight:600;color:rgba(var(--neon-rgb),.8);letter-spacing:.04em;margin-right:8px}
+.lbp-lot-g{font-size:11px;color:rgba(255,255,255,.35)}
+.lbp-tags{display:flex;flex-wrap:wrap;gap:6px}
+.lbp-tags span{font-size:11px;padding:4px 9px;border-radius:5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
+.lbp-behance{display:inline-flex;align-items:center;gap:6px;margin-top:24px;padding:9px 18px;border-radius:40px;background:rgba(var(--neon-rgb),.15);border:1px solid rgba(var(--neon-rgb),.4);color:rgba(var(--neon-rgb),1);font-size:12px;font-weight:500;transition:all .18s}
+.lbp-behance:hover{background:rgba(var(--neon-rgb),.25);border-color:rgba(var(--neon-rgb),.7)}
 .el{padding-bottom:20px}
 .er{display:grid;grid-template-columns:180px 1fr;gap:32px;padding:22px 0;border-top:1px solid var(--line)}
 .er:last-child{border-bottom:1px solid var(--line)}
@@ -228,23 +229,12 @@ header{
 .etg{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .tag{background:var(--tag-bg);color:var(--tag-text);border-radius:6px;padding:5px 10px;font-size:12px;border:1px solid var(--line);transition:all .15s}
 .tag:hover{color:var(--text);border-color:rgba(var(--neon-rgb),.5)}
-
-/* ── AWARDS ── */
 .ag{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:28px}
 .ar{background:var(--bg2);border-radius:var(--r);padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:none;position:relative;overflow:visible}
-
-/* ── CONFETTI ── */
-#confetti-canvas{
-  position:fixed;inset:0;
-  width:100%;height:100%;
-  pointer-events:none;
-  z-index:9990;
-}
+#confetti-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9990}
 .ai{font-size:22px;flex-shrink:0}
 .an{font-size:14px;font-weight:500;margin-bottom:2px}
 .ao{font-size:12px;color:var(--sub)}
-
-/* ── CONTACT FORM ── */
 .cct{padding:60px 0 80px;border-top:1px solid var(--line)}
 .cct h2{font-size:clamp(28px,4vw,48px);font-weight:500;letter-spacing:-.03em;margin-bottom:14px;white-space:nowrap}
 .cct h2 .dim{color:var(--sub)}
@@ -252,108 +242,391 @@ header{
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
 .cl{display:flex;flex-direction:column;gap:10px}
 .cl .btn{justify-content:flex-start}
-
-/* form */
-.cf{display:flex;flex-direction:column;gap:12px}
-.cf input,.cf textarea{
-  background:var(--bg2);border:1px solid var(--line);border-radius:10px;
-  padding:10px 14px;font-size:13px;color:var(--text);font-family:inherit;
-  transition:border-color .2s,box-shadow .2s;outline:none;resize:none;width:100%;
-}
-.cf input::placeholder,.cf textarea::placeholder{color:var(--sub)}
-.cf input:focus,.cf textarea:focus{border-color:rgba(var(--neon-rgb),.6);box-shadow:0 0 0 3px rgba(var(--neon-rgb),.08)}
-.cf textarea{height:100px}
-.cf-send{
-  padding:10px 20px;border-radius:40px;font-size:13px;font-weight:500;cursor:none;
-  border:none;background:var(--neon);color:#fff;
-  transition:all .2s;box-shadow:0 0 16px rgba(var(--neon-rgb),.35);
-  align-self:flex-start;
-}
-.cf-send:hover{transform:translateY(-1px);box-shadow:0 0 24px rgba(var(--neon-rgb),.55);background:#2563eb}
-.cf-sent{
-  display:none;align-items:center;gap:8px;font-size:13px;color:#4caf82;
-  padding:10px 0;
-}
-.cf-sent.show{display:flex}
-
-/* ── FOOTER ── */
-footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--sub)}
+footer{position:fixed;bottom:0;left:0;right:0;z-index:40;height:88px;padding:0 28px 16px;display:flex;align-items:flex-end;justify-content:space-between;font-size:12px;color:var(--sub);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);background:linear-gradient(to bottom,transparent 0%,rgba(10,10,12,0.55) 50%,rgba(10,10,12,0.82) 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 40%);mask-image:linear-gradient(to bottom,transparent 0%,black 40%);border-top:none}
+[data-theme="light"] footer{background:linear-gradient(to bottom,transparent 0%,rgba(245,244,240,0.55) 50%,rgba(245,244,240,0.88) 100%)}
+body{padding-bottom:72px}
 .fl{display:flex;gap:18px}
 .fl a{transition:color .15s}.fl a:hover{color:var(--text)}
-
-/* ── SCROLL ANIMATIONS ── */
-@keyframes fadeUp  {from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 @keyframes fadeLeft{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
-@keyframes fadeRight{from{opacity:0;transform:translateX(28px)} to{opacity:1;transform:none}}
-@keyframes scaleFade{from{opacity:0;transform:scale(.94)}       to{opacity:1;transform:none}}
-
-/* hidden until .vis is added by JS */
+@keyframes fadeRight{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes scaleFade{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 .sa{opacity:0;transform:translateY(26px)}
-.sa.from-left {opacity:0;transform:translateX(-28px)}
+.sa.from-left{opacity:0;transform:translateX(-28px)}
 .sa.from-right{opacity:0;transform:translateX(28px)}
-.sa.scale-in  {opacity:0;transform:scale(.94)}
-
-/* animate in */
-.sa.vis{animation:fadeUp   .6s cubic-bezier(.22,1,.36,1) both}
-.sa.from-left.vis {animation:fadeLeft  .6s cubic-bezier(.22,1,.36,1) both}
+.sa.scale-in{opacity:0;transform:scale(.94)}
+.sa.vis{animation:fadeUp .6s cubic-bezier(.22,1,.36,1) both}
+.sa.from-left.vis{animation:fadeLeft .6s cubic-bezier(.22,1,.36,1) both}
 .sa.from-right.vis{animation:fadeRight .6s cubic-bezier(.22,1,.36,1) both}
-.sa.scale-in.vis  {animation:scaleFade .6s cubic-bezier(.22,1,.36,1) both}
+.sa.scale-in.vis{animation:scaleFade .6s cubic-bezier(.22,1,.36,1) both}
+@media(max-width:768px){.sg{grid-template-columns:1fr 1fr}.ag{grid-template-columns:1fr 1fr}.er{grid-template-columns:1fr;gap:6px}.tool-grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr))}.contact-grid{grid-template-columns:1fr}.cct h2{white-space:normal;font-size:clamp(22px,5vw,36px)}.cct{padding:40px 0 60px}.hero{padding:48px 0 40px}#gif-lb-panel{width:100%;max-width:100%;top:auto;height:65vh;border-left:none;border-top:1px solid rgba(255,255,255,.07)}#gif-lb-panel.open{transform:translateY(0)}#gif-lb-panel{transform:translateY(100%)}.lbp-behance{margin-top:16px}}
+@media(max-width:600px){.lb-item{flex:0 0 100%}#gif-lb-bar{padding:0 10px;height:46px;gap:8px}#gif-lb-title{font-size:9px;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#gif-lb-info{font-size:9px;padding:4px 10px;letter-spacing:.05em}#gif-lb-right{gap:8px}#gif-lb-count{display:none}#gif-lb-dots{height:36px}footer{flex-direction:column;gap:6px;padding:0 16px 14px;height:72px}body{padding-bottom:80px}.modal-tags{gap:4px}#modal-body{padding:16px 18px 20px}#modal-title{font-size:17px}}
+@media(max-width:480px){.sg{grid-template-columns:1fr}.ag{grid-template-columns:1fr}header{padding:0 16px}.w{padding:0 16px}.nbtn{padding:5px 8px;font-size:12px}.logo{font-size:13px}.tool-grid{grid-template-columns:repeat(4,1fr)}.cct h2{white-space:normal}.hero h1{font-size:clamp(22px,7vw,32px)}.actions{gap:7px}.btn{padding:7px 13px;font-size:12px}.sg .sn{font-size:36px}.er{padding:16px 0}.slider-nav{flex-direction:row;gap:8px}#gif-lb-count{font-size:10px}}
+@media(max-width:360px){.nbtn{padding:4px 6px;font-size:11px}.tool-grid{grid-template-columns:repeat(3,1fr)}}
+img{-webkit-user-drag:none;user-drag:none;-webkit-user-select:none;user-select:none;pointer-events:none}
+.pc .pt img,#gif-lb-img,.lb-item img{pointer-events:none;-webkit-user-drag:none}
+#gif-lb-track-wrap{touch-action:pan-x}
 
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .sg,.pg,.ag{grid-template-columns:1fr 1fr}
-  .er{grid-template-columns:1fr;gap:6px}
-  .tool-grid{grid-template-columns:repeat(auto-fill,minmax(90px,1fr))}
-  .contact-grid{grid-template-columns:1fr}
-  .cct h2{white-space:normal}
+/* ═══════════════════════════════════════════════════════════════════
+   WEB DESIGN MODE — scrollable 16:9 frame with external blue scrollbar
+   Tabs on top, frame + scrollbar in a row below.
+   ═══════════════════════════════════════════════════════════════════ */
+#gif-lb.web-mode #img-scroll-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:20px 32px 32px;
+  gap:14px;
+  cursor:auto;
+  overflow:hidden;
 }
-@media(max-width:480px){
-  .sg{grid-template-columns:1fr}
-  .pg,.ag{grid-template-columns:1fr}
-  header,.w{padding-left:16px;padding-right:16px}
-  .tool-grid{grid-template-columns:repeat(4,1fr)}
-  .cct h2{white-space:normal}
+/* gradient background stays visible in web-mode */
+#gif-lb.web-mode #img-scroll-track{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:14px!important;
+  padding:0!important;
+  height:auto!important;
+  width:auto!important;
+  max-width:100%;
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  transform:none!important;
+  will-change:auto!important;
 }
-/* ── GIF GALLERY MODAL ── */
-#modal-box.gallery-mode{max-width:780px}
-#gif-main-wrap{
-  position:relative;background:#000;
-  display:flex;align-items:center;justify-content:center;
-  min-height:200px;max-height:420px;overflow:hidden;
+#gif-lb.web-mode .web-tabs{
+  display:flex;
+  gap:4px;
+  padding:4px;
+  background:rgba(255,255,255,.04);
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.06);
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:100%;
+  flex-shrink:0;
 }
-#gif-main{
-  width:100%;max-height:420px;object-fit:contain;
+#gif-lb.web-mode .web-tab{
+  font:inherit;
+  font-size:11px;
+  letter-spacing:.04em;
+  padding:6px 13px;
+  border-radius:20px;
+  border:none;
+  background:transparent;
+  color:rgba(255,255,255,.5);
+  cursor:none;
+  transition:background .18s,color .18s;
+  white-space:nowrap;
+}
+#gif-lb.web-mode .web-tab:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.06)}
+#gif-lb.web-mode .web-tab.active{
+  background:rgba(59,130,246,.18);
+  color:#60a5fa;
+  box-shadow:0 0 8px rgba(59,130,246,.25);
+}
+#gif-lb.web-mode .web-row{
+  display:flex;
+  gap:14px;
+  align-items:stretch;
+  max-width:100%;
+}
+#gif-lb.web-mode .web-frame{
+  width:min(1080px,calc(100vw - 100px));
+  aspect-ratio:16/9;
+  max-height:calc(100vh - 210px);
+  background:#0a0a0a;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  overflow-y:scroll;
+  overflow-x:hidden;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  -webkit-overflow-scrolling:touch;
+  flex-shrink:0;
+}
+#gif-lb.web-mode .web-frame::-webkit-scrollbar{display:none;width:0;height:0}
+#gif-lb.web-mode .web-frame img{
   display:block;
+  width:100%;
+  height:auto;
+  max-width:none;
+  pointer-events:auto;
+  -webkit-user-drag:none;
+  user-select:none;
 }
-.gif-arrow{
-  position:absolute;left:10px;top:50%;transform:translateY(-50%);
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.55);
-  color:#fff;font-size:16px;cursor:none;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;z-index:10;
+#gif-lb.web-mode .web-scrollbar{
+  width:4px;
+  background:rgba(255,255,255,.05);
+  border-radius:3px;
+  position:relative;
+  flex-shrink:0;
+  align-self:stretch;
+  max-height:calc(100vh - 210px);
+  border:1px solid rgba(255,255,255,.04);
 }
-.gif-arrow:hover{background:rgba(var(--neon-rgb),.7);border-color:var(--neon)}
-.gif-arrow:disabled{opacity:.25;pointer-events:none}
-#gif-counter{
-  position:absolute;bottom:10px;right:14px;
-  font-size:11px;color:rgba(255,255,255,.5);
-  background:rgba(0,0,0,.45);padding:3px 8px;border-radius:20px;
+#gif-lb.web-mode .web-scrollbar-thumb{
+  position:absolute;
+  left:-3px;
+  width:8px;
+  min-height:40px;
+  background:linear-gradient(180deg,#60a5fa 0%,#3b82f6 50%,#60a5fa 100%);
+  border-radius:4px;
+  box-shadow:0 0 8px rgba(59,130,246,.5),0 0 18px rgba(59,130,246,.25);
+  cursor:grab;
+  transition:box-shadow .25s ease,filter .15s ease;
+  top:0;
+  touch-action:none;
 }
-#gif-strip{
-  display:flex;gap:6px;padding:10px 14px;
-  overflow-x:auto;background:var(--bg);
-  scrollbar-width:thin;scrollbar-color:rgba(var(--neon-rgb),.3) transparent;
+#gif-lb.web-mode .web-scrollbar-thumb:hover{
+  box-shadow:0 0 12px rgba(59,130,246,.75),0 0 26px rgba(59,130,246,.35);
+  filter:brightness(1.15);
 }
-#gif-strip::-webkit-scrollbar{height:4px}
-#gif-strip::-webkit-scrollbar-thumb{background:rgba(var(--neon-rgb),.35);border-radius:2px}
-.gif-thumb{
-  flex:0 0 80px;height:52px;border-radius:6px;overflow:hidden;
-  border:2px solid transparent;cursor:none;transition:border-color .15s,transform .15s;
+#gif-lb.web-mode .web-scrollbar-thumb.dragging{
+  cursor:grabbing;
+  box-shadow:0 0 14px rgba(59,130,246,.85),0 0 32px rgba(59,130,246,.45);
+  filter:brightness(1.2);
 }
-.gif-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.gif-thumb.active{border-color:var(--neon)}
-.gif-thumb:hover{transform:scale(1.06)}
+#gif-lb.web-mode #scroll-nav .snav-arrows,
+#gif-lb.web-mode #scroll-progress-wrap,
+#gif-lb.web-mode #scroll-count{visibility:hidden}
+@media(max-width:600px){
+  #gif-lb.web-mode #img-scroll-wrap{padding:14px!important}
+  #gif-lb.web-mode #img-scroll-track{gap:10px!important}
+  #gif-lb.web-mode .web-frame{
+    /* Phone portrait: tall frame matching screen shape instead of wide 16:9.
+       Width follows the viewport, height fills most of the screen. */
+    width:calc(100vw - 44px);
+    aspect-ratio:auto;
+    height:calc(100vh - 170px);
+    max-height:calc(100vh - 170px);
+  }
+  #gif-lb.web-mode .web-scrollbar{
+    max-height:calc(100vh - 170px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   VIDEO MODE — 16:9 embedded iframe (Google Drive / YouTube / etc.)
+   Activated when #gif-lb has class .video-mode
+   ═══════════════════════════════════════════════════════════════════ */
+#gif-lb.video-mode #img-scroll-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+  cursor:auto;
+  overflow:hidden;
+}
+/* gradient background stays visible in video-mode */
+#gif-lb.video-mode #img-scroll-track{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center;
+  gap:0!important;
+  padding:0!important;
+  height:auto!important;
+  width:auto!important;
+  max-width:100%;
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  transform:none!important;
+  will-change:auto!important;
+}
+#gif-lb.video-mode .video-frame{
+  width:min(1080px,calc(100vw - 100px));
+  aspect-ratio:16/9;
+  max-height:calc(100vh - 160px);
+  background:#000;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  overflow:hidden;
+  position:relative;
+}
+#gif-lb.video-mode .video-frame iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  display:block;
+  background:#000;
+}
+#gif-lb.video-mode #scroll-nav .snav-arrows,
+#gif-lb.video-mode #scroll-progress-wrap,
+#gif-lb.video-mode #scroll-count{visibility:hidden}
+@media(max-width:600px){
+  #gif-lb.video-mode #img-scroll-wrap{padding:14px!important}
+  #gif-lb.video-mode .video-frame{
+    width:calc(100vw - 28px);
+    max-height:calc(100vh - 140px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   REELS MODE — 9:16 portrait horizontal slider (same nav as images)
+   Activated when #gif-lb has class .reels-mode
+   ═══════════════════════════════════════════════════════════════════ */
+/* gradient background stays visible in reels-mode */
+#gif-lb.reels-mode #img-scroll-track{
+  /* Horizontal padding is set dynamically via JS to center the first slot
+     at translateX(0) and allow the last slot to scroll to the center.
+     NO !important on padding — we need JS-set inline padding-left/right to win the cascade.
+     Specificity (2 IDs + 1 class) already beats the default #img-scroll-track rule. */
+  align-items:center;
+  padding:20px 0;
+  gap:24px;
+}
+#gif-lb.reels-mode .si{
+  /* Each reel slot — fixed 9:16 portrait aspect, height-constrained */
+  height:min(calc(100vh - 160px),900px);
+  aspect-ratio:9/16;
+  max-width:calc(100vw - 60px);
+  background:#0a0a0a;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 20px 50px rgba(0,0,0,.6);
+  overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+  display:block;
+  cursor:pointer;
+  /* clip-path enforces hit-test clipping (stricter than overflow:hidden) so iframes never leak clicks to neighbors */
+  clip-path:inset(0 round 14px);
+}
+#gif-lb.reels-mode .si .reel-thumb{
+  /* Drive thumbnail — always visible on inactive slots, hidden under iframe when active */
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  pointer-events:none;
+  opacity:.75;
+  transition:opacity .3s;
+  z-index:1;
+}
+#gif-lb.reels-mode .si:hover .reel-thumb{opacity:1}
+#gif-lb.reels-mode .si.active .reel-thumb{opacity:0}
+#gif-lb.reels-mode .si .reel-play-icon{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:64px;height:64px;
+  border-radius:50%;
+  background:rgba(0,0,0,.55);
+  color:rgba(255,255,255,.95);
+  font-size:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-left:4px;
+  pointer-events:none;
+  z-index:2;
+  transition:opacity .25s,transform .25s,background .2s;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+#gif-lb.reels-mode .si:hover .reel-play-icon{
+  background:rgba(59,130,246,.8);
+  transform:translate(-50%,-50%) scale(1.08);
+}
+#gif-lb.reels-mode .si.active .reel-play-icon{
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.7);
+}
+#gif-lb.reels-mode .si iframe{
+  /* Vertical oversize hides Drive's top/bottom chrome (title bar + player controls).
+     Horizontal is kept at 100% — Drive has no meaningful side chrome on portrait videos,
+     and any horizontal overflow would leak click-catching into adjacent reels and break
+     playback on neighbors regardless of overflow:hidden. */
+  position:absolute;
+  top:50%;
+  left:0;
+  width:100%;
+  height:calc(100% + 120px);
+  transform:translateY(-50%);
+  border:none;
+  display:block;
+  background:#000;
+  z-index:3;
+}
+@media(max-width:600px){
+  #gif-lb.reels-mode #img-scroll-track{padding:20px 0;gap:12px}
+  #gif-lb.reels-mode .si{
+    height:calc(100vh - 130px);
+    max-width:calc(100vw - 48px);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOBILE / TOUCHSCREEN OVERRIDES
+   Targeted via (hover:none) and (pointer:coarse) — this matches phones
+   and tablets only. Desktop with mouse NEVER matches this, regardless
+   of window width, so all desktop effects stay exactly as designed.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (hover:none) and (pointer:coarse){
+  /* ── 1. Remove blue glow / gradient effects ────────── */
+  body::before{display:none}
+  .sn{text-shadow:none}
+  .sc,.tool-card,.pc,.ar{transition:background .2s}
+  .sc:hover,.tool-card:hover,.pc:hover,.ar:hover{
+    border-color:var(--line)!important;
+    box-shadow:none!important;
+  }
+  .sarr{box-shadow:none;border-color:var(--line)}
+  .sarr:hover:not(:disabled){box-shadow:none;border-color:var(--line);background:var(--bg3)}
+  /* Keep the conic-gradient glow on .btn.p and #gif-lb-info on touchscreens —
+     it's the brand signal and modern phones handle the animation fine. */
+  #modal-box{box-shadow:0 30px 60px rgba(0,0,0,.5)}
+  #scroll-progress-bar{background:rgba(255,255,255,.4)}
+
+  /* ── 2. Lightbox images fit-to-screen (native scroll) ── */
+  #gif-lb-track-wrap,#img-scroll-wrap{touch-action:pan-x pinch-zoom}
+  #img-scroll-wrap{
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    cursor:auto;
+  }
+  #img-scroll-wrap::before,#img-scroll-wrap::after{display:block}
+  #img-scroll-track{
+    transform:none!important;
+    padding:16px 0;
+    gap:0;
+    width:max-content;
+  }
+  .si{
+    scroll-snap-align:center;
+    flex:0 0 100vw;
+    width:100vw;
+    max-height:100%;
+    border:none;
+    border-radius:0;
+    padding:0 10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    box-shadow:none;
+  }
+  .si:hover{border:none;box-shadow:none}
+  .si img{
+    width:100%!important;
+    height:auto!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    object-fit:contain;
+  }
+}
 </style>
 </head>
 <body>
@@ -361,31 +634,44 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
-<!-- MODAL -->
 <div id="modal-overlay" onclick="closeModal(event)">
   <div id="modal-box">
     <button class="modal-close" onclick="closeModal(null,true)">✕</button>
-
-    <!-- standard thumb (non-gif cards) -->
     <div id="modal-thumb"></div>
-
-    <!-- gif gallery (shown for gif cards) -->
-    <div id="gif-gallery" style="display:none">
-      <div id="gif-main-wrap">
-        <img id="gif-main" src="" alt="preview" />
-        <button id="gif-prev" class="gif-arrow">&#8592;</button>
-        <button id="gif-next" class="gif-arrow" style="right:10px;left:auto">&#8594;</button>
-        <div id="gif-counter"></div>
-      </div>
-      <div id="gif-strip"></div>
-    </div>
-
     <div id="modal-body">
       <div id="modal-cat"></div>
       <div id="modal-title"></div>
       <div id="modal-desc"></div>
       <div class="modal-tags" id="modal-tags"></div>
       <a id="modal-link" href="https://www.behance.net/omi6910660" target="_blank" class="btn p" style="width:fit-content">View on Behance ↗</a>
+    </div>
+  </div>
+</div>
+
+<div id="gif-lb">
+  <div id="gif-lb-bar">
+    <span id="gif-lb-title"></span>
+    <div id="gif-lb-right">
+      <button id="gif-lb-info">Project Details</button>
+      <span id="gif-lb-count"></span>
+      <button id="gif-lb-close">✕</button>
+    </div>
+  </div>
+  <div id="img-scroll-wrap">
+    <div id="img-scroll-track"></div>
+  </div>
+  <div id="scroll-nav">
+    <div class="snav-arrows">
+      <button class="snbtn" id="snav-prev">←</button>
+      <button class="snbtn" id="snav-next">→</button>
+    </div>
+    <div id="scroll-progress-wrap"><div id="scroll-progress-bar"></div></div>
+    <span id="scroll-count"></span>
+  </div>
+  <div id="gif-lb-panel">
+    <div id="gif-lb-panel-inner">
+      <button id="gif-lb-panel-close">✕</button>
+      <div id="lbp-dynamic"></div>
     </div>
   </div>
 </div>
@@ -402,12 +688,17 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
 
 <div class="w">
   <section class="hero sa">
-    <div class="avail"><span class="dot"></span> Available for freelance</div>
-    <h1 id="hero-h1">I AM<br><span class="dim"><span id="tw-target"></span><span class="tw-cursor"></span></span></h1>
-    <p>10+ years producing educational animations, motion graphics, and brand visuals for UNICEF, PTV, PTCL, and millions of learners across Pakistan.</p>
-    <div class="actions">
-      <a href="https://www.behance.net/omi6910660" target="_blank" class="btn p">View Portfolio ↗</a>
-      <a href="#contact" class="btn">Get in touch</a>
+    <div class="hero-text">
+      <div class="avail"><span class="dot"></span> Available for freelance</div>
+      <h1 id="hero-h1">I AM<br><span class="dim"><span id="tw-target"></span><span class="tw-cursor"></span></span></h1>
+      <p>10+ years producing educational animations, motion graphics, and brand visuals for UNICEF, NIBAF, Adamjee, WaterAid, NCA ActAlliance, PTV Teleschool, Ministry of Federal Education and PTCL — reaching millions of learners across Pakistan.</p>
+      <div class="actions">
+        <a href="https://www.behance.net/omi6910660" target="_blank" class="btn p">View Portfolio ↗</a>
+        <a href="https://wa.me/923465325080" target="_blank" rel="noopener" class="btn" aria-label="Get in touch on WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-gif-wrap">
+      <img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNQCBWA0YGPBxCYBpVGwcZJkBRUV4ZAQoBX1ERBV0UH1NdWF0AHUcbWQIYUVxVWVQ=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Motion showcase" />
     </div>
   </section>
 </div>
@@ -423,13 +714,13 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
 
   <div class="sec-hdr sa"><span class="sec-lbl">Tools</span></div>
   <div class="tool-grid stagger">
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-after-effects-cc.svg" alt="After Effects" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#00005b\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#9999ff\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Ae</text></svg>'"></div><div class="tool-name">After Effects</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-character-animator-cc-2019-.svg" alt="Character Animator" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#1e0030\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#c278ff\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Ch</text></svg>'"></div><div class="tool-name">Character Animator</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-photoshop-2.svg" alt="Photoshop" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#001e36\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#31a8ff\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Ps</text></svg>'"></div><div class="tool-name">Photoshop</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-illustrator-cc-3.svg" alt="Illustrator" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#330000\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#ff9a00\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Ai</text></svg>'"></div><div class="tool-name">Illustrator</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-premiere-pro-cc-1430-vector-svg-.svg" alt="Premiere Pro" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#00005b\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#9999ff\' font-size=\'11\' font-weight=\'700\' font-family=\'sans-serif\'>Pr</text></svg>'"></div><div class="tool-name">Premiere Pro</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-indesign-cc-icon.svg" alt="InDesign" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#49021f\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#ff3366\' font-size=\'11\' font-weight=\'700\' font-family=\'sans-serif\'>Id</text></svg>'"></div><div class="tool-name">InDesign</div></div>
-    <div class="tool-card sa"><div class="tool-icon"><img src="https://cdn.worldvectorlogo.com/logos/adobe-xd-2.svg" alt="Adobe XD" onerror="this.parentNode.innerHTML='<svg viewBox=\'0 0 40 40\'><rect width=\'40\' height=\'40\' rx=\'8\' fill=\'#2e001e\'/><text x=\'50%\' y=\'55%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'#ff61f6\' font-size=\'13\' font-weight=\'700\' font-family=\'sans-serif\'>Xd</text></svg>'"></div><div class="tool-name">Adobe XD</div></div>
+    <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#00005b"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#9999ff" font-size="14" font-weight="700" font-family="sans-serif" letter-spacing="-0.5">Ae</text></svg></div><div class="tool-name">After Effects</div></div>
+    <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#1e0030"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#c278ff" font-size="14" font-weight="700" font-family="sans-serif" letter-spacing="-0.5">Ch</text></svg></div><div class="tool-name">Character Animator</div></div>
+    <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#001e36"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#31a8ff" font-size="14" font-weight="700" font-family="sans-serif" letter-spacing="-0.5">Ps</text></svg></div><div class="tool-name">Photoshop</div></div>
+    <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#330000"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#ff9a00" font-size="14" font-weight="700" font-family="sans-serif" letter-spacing="-0.5">Ai</text></svg></div><div class="tool-name">Illustrator</div></div>
+    <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#00005b"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#9999ff" font-size="14" font-weight="700" font-family="sans-serif" letter-spacing="-0.5">Pr</text></svg></div><div class="tool-name">Premiere Pro</div></div>
+    <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#49021f"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#ff3366" font-size="14" font-weight="700" font-family="sans-serif" letter-spacing="-0.5">Id</text></svg></div><div class="tool-name">InDesign</div></div>
+    <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#2e001e"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="#ff61f6" font-size="14" font-weight="700" font-family="sans-serif" letter-spacing="-0.5">Xd</text></svg></div><div class="tool-name">Adobe XD</div></div>
     <div class="tool-card sa"><div class="tool-icon"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="8" fill="#1e1e1e"/><rect x="13" y="7" width="7" height="7" rx="3.5" fill="#f24e1e"/><rect x="20" y="7" width="7" height="7" rx="3.5" fill="#ff7262"/><rect x="13" y="14" width="7" height="7" rx="3.5" fill="#a259ff"/><rect x="13" y="21" width="7" height="7" rx="3.5" fill="#0acf83"/><circle cx="23.5" cy="24.5" r="3.5" fill="#1abcfe"/></svg></div><div class="tool-name">Figma</div></div>
   </div>
 </div>
@@ -442,79 +733,480 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
     <a href="https://www.behance.net/omi6910660" target="_blank" class="sec-link">All projects ↗</a>
   </div>
   <div class="filters sa">
-    <button class="fbtn on" data-filter="all">All</button>
-    <button class="fbtn" data-filter="animation">Animation</button>
-    <button class="fbtn" data-filter="education">Education</button>
-    <button class="fbtn" data-filter="brand">Brand</button>
-    <button class="fbtn" data-filter="government">Government</button>
+    <button class="fbtn" data-filter="all">All</button>
+    <button class="fbtn on" data-filter="animation">Animation</button>
+    <button class="fbtn" data-filter="reels">Reels</button>
+    <button class="fbtn" data-filter="branding">Branding</button>
+    <button class="fbtn" data-filter="social-media">Social Media</button>
+    <button class="fbtn" data-filter="print">Print</button>
+    <button class="fbtn" data-filter="web-design">Web Design</button>
   </div>
   <div class="pg-wrap">
   <div class="pg stagger" id="proj-grid">
+
+    <div class="pc sa" data-cat="reels"
+      data-title="Social Media Mix Reels"
+      data-client="Social Media"
+      data-desc="A mixed selection of vertical reels produced for social media — a range of short-form video work covering brand moments, motion content, and platform-native formats built for Instagram, TikTok, and YouTube Shorts."
+      data-tags="Reels,Social Media,Short-form,Vertical Video,Motion Graphics,9:16"
+      data-reels-pages="Reel 1::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FWiddQ0NmAUxCWzxGAF9TOwEFf3tGUjkMWgRfVgk7WkQdQEBQBgYIRA==|Reel 2::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FHjFbG2F+RXMvHSZBPmMBPXgjU0lteiEpGlo0c1MhTUAdQEBQBgYIRA==|Reel 3::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FXFRxMVByH2wbAkAERmEmKVElQXNVAB4HWwA3AQdWWjcdQEBQBgYIRA==|Reel 4::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FOTZyJkR2cAQeBUBmHAQTPUQ8Ux1DUxxWXH4gXQkzAUAdQEBQBgYIRA==|Reel 5::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FMVp1R2VRaEIdJwEAX0wtWnIlH3QCYAUiI38BBCMlZ0cdQEBQBgYIRA==|Reel 6::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FDDZNMGdoCnYmIzxFJgwNDX4GcFFEWUM7J2NfACUxAAcdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0a14"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BA3AZXhxlQU1ZVmUHQFsKbEUYIHgGUyIBA0UfUlBsHllLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Social Media Mix Reels" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Social Media</div><div class="pn">Social Media Mix Reels</div><div class="pd">A collection of vertical reels produced for Instagram, TikTok &amp; YouTube Shorts.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="Sitaray Character Animations"
+      data-client="Knowledge Platform"
+      data-desc="Character animation loops for Sitaray by Knowledge Platform — a cast of six colour-coded Sitarey mascots (Blue, Green, Orange, Pink, Purple, Red, Yellow) designed for the platform's learning games and competition branding. Each looping animation brings the characters to life with distinct personality."
+      data-tags="Character Animation,2D Animation,Motion Graphics,Mascot Design,EdTech,After Effects,Character Animator"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNejBxUwRPARdCcR5BDkxTG1Q=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfj9rfHwHJjtCdABRDgwaFVtW|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbT92eARGOytCfABVBQVRXFVZVA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRUZ2ZEEAJgVCYxtaAExTG1Q=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfBZEV0VdNFZCYwdGGw5RXFVZVA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNejBxUwRPAVtCYRdQRQVdFA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUAV8aQBNICdCahdYBw1DXFVZVA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDTFVWFZbRQFCYBtAChBVBh9ZQRg4Ch9WXFMCBA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0c0814"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDTFVWFZbRQFCYBtAChBVBh9ZQRg4Ch9WXFMCBA==" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Sitaray Character Animations" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Knowledge Platform</div><div class="pn">Sitaray Character Animations</div><div class="pd">Character animation loops for a cast of colour-coded Sitarey mascots — learning games &amp; competition branding.</div></div>
+      <span class="parr">↗</span>
+    </div>
 
     <div class="pc sa" data-cat="animation"
       data-title="Government Educational Media"
       data-client="MoFEPT"
       data-desc="Animated educational content commissioned by the Ministry of Federal Education and Professional Training. Curriculum-aligned visual content covering climate change, green transport, water conservation and nature for federal schools across Pakistan."
       data-tags="2D Animation,Educational,Government,After Effects,Character Animator"
-      data-gifs="https://i.postimg.cc/pdqHsMCJ/Climate-Change-PT1V3-ezgif-com-optimize.gif|https://i.postimg.cc/ryW8L3Fb/Global-Warmingand-Climate-Change-P2V3-mp4-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/tgYjvmc7/Greenhouse-Effect-Part2V2-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/PrynXjGB/Green-Transport-P1V3-ezgif-com-optimize.gif|https://i.postimg.cc/fTDhQbPr/Green-Transport-P2V3-ezgif-com-optimize.gif|https://i.postimg.cc/vHhwYsF8/Importanceand-Effects-V2-ezgif-com-optimize.gif|https://i.postimg.cc/7ZL8bWwH/Importanceof-Water-V7-2-ezgif-com-optimize.gif|https://i.postimg.cc/Bnv9tV4X/Intro-V6-ezgif-com-optimize.gif|https://i.postimg.cc/xdkw3NXF/Nature-Works-Part3V2-ezgif-com-video-to-gif-converter.gif|https://i.postimg.cc/W14LtHT8/Natures-Gift-P2V4-ezgif-com-optimize.gif|https://i.postimg.cc/jjWp4nDF/Nested-Sequence01-ezgif-com-optimize.gif|https://i.postimg.cc/QMB2JKBh/Nested-Sequence02-ezgif-com-optimize.gif|https://i.postimg.cc/KvxyhYWL/Our-World-Outro-ezgif-com-optimize.gif">
-      <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#0b1a10"/><circle cx="160" cy="78" r="38" fill="none" stroke="rgba(100,220,120,.18)" stroke-width="1.5" stroke-dasharray="5,4"/><polygon points="148,62 148,94 180,78" fill="rgba(100,220,120,.3)"/><rect x="60" y="120" width="200" height="3" rx="1.5" fill="rgba(255,255,255,.06)"/><rect x="60" y="128" width="140" height="3" rx="1.5" fill="rgba(255,255,255,.04)"/></svg>
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNdhxECUZjRDdCehxAGQ0ZJAQdV08XBgseEVsGT1sCRllfXAoKQ1QbUg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0MGfEZ9JFdCfRNAHhBRAR93W1MEQj0BJABGB04VW1YfVh8CQFwCQAIPXQhXHlVcFg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhhlQAZbNClCfRdHHwdQX2FVQ0AVAQ5WQgVGB04VW1YfVh8CQFwCQAIPXQhXHlVcFg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQBVrWkRYE1hCdABRDgwZJkBRUV4ZAQoBX1ERBV0UH1NdWF0AHUcbWQIYUVxVWVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRgtlCH4GNg1CdB5bCQNYX2VRQFgZAQpSHFBGIVgbX1FGUF0sBVIcUw5PZEBkAx9YAFtAVghTAgQZEV1dH0MZCwhcX0AET1MbVB1RWh4ZCEEGURlMUxtU|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRBZDeEF4MyVCcB5dBgNAFx9zWlQeCAgeImBaNAdfV0pVXBZCDlwfGQQSQBtfWUhQXggEVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZABLXmpfNy1CdABRDgwZJkBRXEYAAB9HX2RaNAdfV0pVXBZCDlwfGQQSQBtfWUhQXggEVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUiZ2WGNXIB1CdABRDgwZJkBRXEYAAB9HX2RZNAdfV0pVXBZCDlwfGQQSQBtfWUhQXggEVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQjpaR2tGNldCeh9EBBBAE1xTV1QeC0B2FFIOAUABH2YAGBUVCloUGQgNWV9dQEZcHQYXVlxTAgQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAyh+CFBiBydCeh9EBBBAE1xTV1oWQjpSBlEZT2JFHwIfUAoIBFVfVwQPGR1CRFtYGRUIHRVdDQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTBZZRwF7KClCfRNAHhBRX2VfQF4DQj1SAEBYNAZfV0pVXBZCDlwfGR0LUBddHUZaXQgEVV9XBAxCF0BEV0deCARV|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZT9wAnh+MgdCfRdHHwdQX2FVQ0AVAQ5WQgZGB04VW1YfVh8CQFwCQAIPXQhXHlVcFg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfwRKSVpsJyNCfAdGRjVbAF5UH3oFGx9cX1ERBV0UH1NdWF0AHUcbWQIYUVxVWVQ=">
+      <div class="pt" style="background:#0b1a10"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNdhxECUZjRDdCehxAGQ0ZJAQdV08XBgseEVsGT1sCRllfXAoKQ1QbUg==" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="MoFEPT" />
       <div class="pt-overlay">▶</div></div>
       <div class="pi"><div class="pcl">MoFEPT</div><div class="pn">Government Educational Media</div><div class="pd">Curriculum-aligned animated content for federal schools — climate, nature &amp; sustainability.</div></div>
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="education"
-      data-title="National TV Educational Series"
-      data-client="PTV Teleschool"
-      data-desc="Produced animated and motion graphics content for Pakistan's national broadcast education programme during the COVID-19 school closures, helping millions of students continue learning from home."
-      data-tags="Motion Graphics,Educational,Broadcast,After Effects">
-      <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#12121e"/><rect x="58" y="48" width="204" height="84" rx="7" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="1"/><rect x="78" y="63" width="60" height="8" rx="2" fill="rgba(255,255,255,.14)"/><rect x="78" y="78" width="120" height="5" rx="2" fill="rgba(255,255,255,.07)"/><rect x="78" y="90" width="90" height="5" rx="2" fill="rgba(255,255,255,.07)"/><rect x="78" y="104" width="50" height="14" rx="4" fill="rgba(255,255,255,.18)"/></svg>
+    <div class="pc sa" data-cat="animation"
+      data-title="Aero LiFi"
+      data-client="Aero LiFi"
+      data-desc="Animated brand campaign for Aero LiFi — a next-generation in-flight connectivity solution using Light Fidelity (LiFi) technology. The animation sequence communicates how beams of light replace traditional Wi-Fi, delivering faster, more secure wireless data to passengers at 30,000 feet."
+      data-tags="2D Animation,Motion Graphics,Aviation,LiFi,Tech Animation,After Effects,Concept Animation"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSoER1wDHVtCYEMaDAtS|BxlHAkdRTRsbHEBdRgQGAFRcVwhNc0FlZAdiPBxCYEAaDAtS|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAUtaYWBdRF9CYEEaDAtS|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfxEEA3oDNydCYEYaDAtS|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfxEEA3oDNz5CYEcaDAtS|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhZLXgJ4QgxCYEQaDAtS|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVhZUYAt9GgJCYEUaDAtS"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#060a14"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVhZUYAt9GgJCYEUaDAtS" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Aero LiFi" />
       <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">PTV Teleschool</div><div class="pn">National TV Educational Series</div><div class="pd">Video content for Pakistan's national broadcast school programme.</div></div>
+      <div class="pi"><div class="pcl">Aero LiFi</div><div class="pn">Aero LiFi</div><div class="pd">In-flight LiFi connectivity animation — beams of light replacing Wi-Fi at 30,000 feet.</div></div>
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="animation education"
-      data-title="National E-Learning Modules"
+    <div class="pc sa" data-cat="branding"
+      data-title="Bitvaley Logo Design"
+      data-client="Bitvaley"
+      data-desc="Complete logo identity design for Bitvaley — a modern brand mark crafted with precision. Includes primary mark, alternate layouts, and usage variations delivered across multiple formats."
+      data-tags="Logo Design,Brand Identity,Typography,Illustrator"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNAUt2fnhiCi1CcRtAHQNYF0sdfloXAEADQxoBElM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcgFRdkF2ElhCcRtAHQNYF0sdfloXAEADQBoBElM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbEV0fgUEOwlCcRtAHQNYF0sdfloXAEADQRoBElM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfkZ4BwZsQxtCcRtAHQNYF0sdfloXAEADRhoBElM=">
+      <div class="pt" style="background:#0d0d14"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNAUt2fnhiCi1CcRtAHQNYF0sdfloXAEADQxoBElM=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Bitvaley Logo" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Bitvaley</div><div class="pn">Bitvaley Logo Design</div><div class="pd">Brand identity — logo mark, alternates &amp; usage variations.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding"
+      data-title="Cedar Heights – Real Estate Logo &amp; Brand Identity"
+      data-client="Cedar Heights"
+      data-desc="Complete real estate brand identity for Cedar Heights — logo, visual system, and collateral inspired by the enduring Cedar tree. A symbol of strength, resilience, and natural elegance."
+      data-tags="Logo Design,Branding,Corporate Identity,Architecture Branding,Luxury Branding,Real Estate"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZkJUZkNGCARCcBdQChAZQgMeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVz5ifEpEQgJCcBdQChAZQgAeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUiADYkgBABlCcBdQChAZQgEeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWhp8WHQNFyFCcBdQChAZQgYeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbAR0B2p9QB5CcBdQChAZQgceWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNX0cKaHYEFB5CcBdQChAZQgQeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNdgR2YUZsN1dCcBdQChAZQgUeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZApYVnZiBCRCcBdQChAZQgoeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRwpcA1BXRVZCcBdQChAZQgseWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNejR1V3hkQj5CcBdQChAZQwIeWEUX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTpoZ2JPFjhCAVxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhURAFRBhhCAFxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQDhACQoNNl1CB1xeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBEdoBQR+GFpCBlxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDBlFW3RTCDlCBVxeGwU="
+      data-behance="https://www.behance.net/gallery/228748633/Cedar-Heights-Real-Estate-Logo-Brand-Identity">
+      <div class="pt" style="background:#0c160f"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZkJUZkNGCARCcBdQChAZQgMeWEUX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Cedar Heights" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Cedar Heights</div><div class="pn">Cedar Heights – Real Estate Logo &amp; Brand Identity</div><div class="pd">Real estate brand identity rooted in nature — Cedar tree mark, typography &amp; visual system.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding"
+      data-title="Creamio – Ice Cream Logo Design &amp; Visual Brand Identity"
+      data-client="Creamio"
+      data-desc="Vibrant and playful ice cream brand identity — custom logo, fresh colour palette, typography system, and packaging applications for a delightful dessert brand."
+      data-tags="Logo Design,Branding,Visual Identity,Food Logo,Packaging Design,Modern Logo,Minimal Design"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNcCh1YwNTGxlCcABRCg9dHR9yQFQeCwRdFRlbUxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQwR8AXZNSFZCcABRCg9dHR9yQFQeCwRdFRlbUBoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRCZYXXljEjdCcABRCg9dHR9yQFQeCwRdFRlbURoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWTYLYAVvFg1CcABRCg9dHR9yQFQeCwRdFRlbVhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUxFER3gFODxCcABRCg9dHR9yQFQeCwRdFRlbVxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNV0Z+Q2EESVlCcABRCg9dHR9yQFQeCwRdFRlbVBoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQh9kaXxlIB1CcABRCg9dHR9yQFQeCwRdFRlbVRoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZRZifmF5AQlCcABRCg9dHR9yQFQeCwRdFRlbWhoYQlc="
+      data-behance="https://www.behance.net/gallery/228340973/Creamio-Ice-Cream-Logo-Design-Visual-Brand-Identity">
+      <div class="pt" style="background:#1a060e"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNcCh1YwNTGxlCcABRCg9dHR9yQFQeCwRdFRlbUxoYQlc=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Creamio" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Creamio</div><div class="pn">Creamio – Ice Cream Brand Identity</div><div class="pd">Playful logo, colour palette, typography &amp; packaging for an ice cream brand.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding"
+      data-title="Moreway Logistic Solution Logo and Branding"
+      data-client="Moreway"
+      data-desc="Full brand identity for Moreway Logistic Solution — logo design, brand guidelines, vehicle mockups, and complete visual system for a modern logistics company."
+      data-tags="Modern Logo Design,Branding,Brand Identity,Logo Design,Visual Identity,Minimal Logo,Logistics Logo"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNfhpiQWFENylCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fXB0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfD5wAnQHJllCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fXx0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZAp4BHpCB1tCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fXh0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNA0RaZgYHCgRCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fWR0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNej90BEZ9KBhCcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fWB0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVgQBZAZhAy1CcQBVBQYZG1ZVXEEZGxQeFUECBlEeW15XRl1fWx0YRAw=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZAAHCGBfQRZCA0MaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZzxKSkRdEwlCA0AaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXz9RUkEBIjlCA0EaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQDEGZn9fGCdCA0YaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZjRmflVGGCFCA0caARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfhwKQ1FjQT5CRwBBCAkZH11TWUAAQl0CXF4bBQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTkBWllzNFdCRwBBCAkZH11TWUAAQl0BXF4bBQ=="
+      data-behance="https://www.behance.net/gallery/231115757/Moreway-Logistic-Solution-Logo-and-Branding">
+      <div class="pt" style="background:#0e1218"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNQDEGZn9fGCdCA0YaARJT" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Moreway" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Moreway</div><div class="pn">Moreway Logistic Solution Branding</div><div class="pd">Logo, brand guidelines, vehicle mockups &amp; full visual identity for a logistics brand.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding"
+      data-title="N7 Real Estate"
+      data-client="N7 Real Estate"
+      data-desc="Premium real estate brand identity for N7 — covering print, merchandise, coins, trophy, perfume, and car branding. A complete luxury visual system for a Dubai-based real estate brand."
+      data-tags="Branding,Print,Merchandise,Coins,Trophy,Car Branding,Premium,Real Estate,Dubai"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNAxpZYwRGBDVCYx1GHwRbHltfHxAzLkhxN1kJBVxcQl5V|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTjBlXkNvGltCAVxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNciBRWloAKh5CAFxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWTZ/YWZTByVCB1xEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbhxhBmACA19CBlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQiZBBXBEQihCej9zRlAEQAAABQdGQjpyQgRYUxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbQNwaGReRz9CchZdB08FXEJeVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZABcBlFdGAtCchZdB08GXEJeVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNf0poAHV7IllCej9zRlAEQAAABQdBQjpyQgRfUhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbCtkQ1gNAlxCej9zRlAEQAAABQdHQjpyQgRYWxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRxRaBkVNG19Cej9zRlAEQAAABQdHQjpyQgRfUhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAyIAQ19dNjhCej9zRlAEQAAACgVFQjpyQgRfUhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYCtEW2FyNz9Cej9zRlAEQAAABwdFQjpyQgRaUBoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNdz5CRkZsQBtCej9zRlAEQAAABwdFQjpyQgRcWhoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTCZ1Q2QCJChCej9zRlAEQAAABwZBQjpyQgRdWxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTStaVnEAKSlCej9zRlAEQAAABwZBQjpyQgRcVxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzhYfGMDOjdCej9zRlAEQAAABARIQjpyQgRZUBoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZih/V2FnPg1Cej9zRlAEQAAABAdAQjpyQgRbUxoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcAUASERSIzlCej9zRlAEQAAABQRJQjpyQgRcURoYQlc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDAgDakJ9GgdCej9zRlAEQAAABAVBQjpyQgRaVxoYQlc="
+      data-behance="https://www.behance.net/gallery/227912897/N7-Real-Estate">
+      <div class="pt" style="background:#0a0a10"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNTjBlXkNvGltCAVxEBQU=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="N7 Real Estate" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">N7 Real Estate</div><div class="pn">N7 Real Estate</div><div class="pd">Premium luxury brand identity — print, merchandise, coins, trophy &amp; car branding for Dubai real estate.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding"
+      data-title="Nussa Ferrero Brand Identity"
+      data-client="Nussa Ferrero"
+      data-desc="Complete brand identity for Nussa Ferrero — a dessert and ice cream brand. Includes logo, mascot design, brand guidelines, product design, social media posts, and pattern development."
+      data-tags="Brand Identity,Logo Design,Mascot,Branding,Brand Guidelines,Dessert,Ice Cream,Product Design,Social Media,Pattern"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNRgJWdnkCHQdCcR1MRRJaFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzpceAdlNyRCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CBF4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBDwBWlxlQydCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CB14FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeAEFBXYHB1dCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CBl4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRwpxaHR+QzVCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CAV4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBBgDYVVvSSlCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CAF4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRxV6V1QGJiRCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CA14FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBDwEAlBdIStCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CAl4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTVAfX5MPTxCAlxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcjlcVARfFh9CBFxeGwU="
+      data-behance="https://www.behance.net/gallery/228269755/Nussa-Ferrero-Brand-Identity">
+      <div class="pt" style="background:#1a0a06"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzpceAdlNyRCfQdHGAMZNFdCQFACAEBxAFUFBl0cVR0CBF4FHVQ=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Nussa Ferrero" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Nussa Ferrero</div><div class="pn">Nussa Ferrero Brand Identity</div><div class="pd">Logo, mascot, brand guidelines, product &amp; social media identity for a dessert brand.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding print"
+      data-title="Mood Spritz Label Design"
+      data-client="Mood Spritz"
+      data-desc="Pocket-sized spritz label design — four bold colour-story variants capturing distinct moods: calming blue, sunny orange, playful pink, and dreamy purple."
+      data-tags="Label Design,Branding,Print,Packaging,Visual Identity,Product Design,Spritz"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXAZiQ1lnRBhCcB1CDhAaAlxX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQih6WHhCSCFCcR5BDkxeAlU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQih6WHhCSDxCfABVBQVRXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXxVqQwJlPSdCYxtaAExeAlU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRgVcWlFvOwxCYwdGGw5RXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZRYGXUFsOCtCfh1bDwBbE0BUHF8ACA=="
+      data-behance="https://www.behance.net/gallery/238425459/Mood-Spritz-Label-Design">
+      <div class="pt" style="background:#0d0a14"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXAZiQ1lnRBhCcB1CDhAaAlxX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Mood Spritz" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Mood Spritz</div><div class="pn">Mood Spritz Label Design</div><div class="pd">Four bold colour-story label variants — calming, sunny, playful, and dreamy.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding"
+      data-title="Accelerec ATS System"
+      data-client="Accelerec"
+      data-desc="Complete brand identity and UI design system for Accelerec — an AI-powered Applicant Tracking System. Covers logo design, brand guidelines, product UI screens, and motion graphics showcasing the platform's smart recruitment workflow."
+      data-tags="Branding,UI Design,Logo Design,ATS,SaaS,Motion Graphics,Brand Identity"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhaU0ZiMghCYEMaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAQsDd0p3GA1CYEAaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBgtfekhkAyxCYEEaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTgRYYQF5PihCYEYaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQiZ/WmNHOlZCYEcaDAtS|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBgtfekhkAzVCYEQaDAtS"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#080e1a"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhaU0ZiMghCYEMaGwxT" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Accelerec ATS" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Accelerec</div><div class="pn">Accelerec ATS System</div><div class="pd">Brand identity &amp; UI design system for an AI-powered Applicant Tracking System.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="branding"
+      data-title="Binfazal Solar"
+      data-client="Binfazal Solar"
+      data-desc="Brand identity and visual system for Binfazal Solar — a renewable energy company. Logo, colour palette, stationery, and marketing collateral centred around clean energy and sustainable power solutions."
+      data-tags="Branding,Logo Design,Solar,Renewable Energy,Brand Identity,Stationery,Illustrator"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNbUt4el9/KltCAlxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZApwcgp3SRlCAVxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkEFW0MMGjlCAFxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNd0NoAwdzICdCB1xeGwU="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a1208"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNbUt4el9/KltCAlxeGwU=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Binfazal Solar" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Binfazal Solar</div><div class="pn">Binfazal Solar</div><div class="pd">Brand identity for a renewable energy company — logo, palette &amp; collateral built around clean solar power.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="Unity – Motion Banner Design"
+      data-client="Unity"
+      data-desc="Animated banner series for Unity — bold motion graphics and looping GIF banners designed for digital campaigns and brand presence across platforms."
+      data-tags="Motion Graphics,Animation,Banner Design,GIF,Digital Campaign,After Effects"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTpGR3V/MzlCcRNaBQdGXwMeVVwW|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZyN1W1ZWHl1CZhxdHxsZMFNeXFACQjsCXFMCBA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYgF0XVVtOixCZhxdHxsZJAcdV08XBgseEVsGT1sCRllfXAoKQ1QbUg=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#080a12"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTpGR3V/MzlCcRNaBQdGXwMeVVwW" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Unity" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Unity</div><div class="pn">Unity – Motion Banner Design</div><div class="pd">Animated banner series — looping motion graphics for digital campaigns.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="print branding"
+      data-title="Student Biryani Branding"
+      data-client="Student Biryani"
+      data-desc="Full branding and print design for Student Biryani — covering delivery packaging, car branding, menu boards, media wall, social media grids, and campaign design for a food brand."
+      data-tags="Branding,Print Design,Packaging,Car Branding,Campaign Design,Food,Instagram Grids,Media Wall"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNQihUYAVBMidCd0MaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfghoZAEAHhhCcR1MRiFBBl1FRhhAXkNZAlM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAUB+YAdmQClCd0EaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAgJceGRTQyFCcR1YCgwZRh8AAxsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQihUYAVBMl5CcR1YCgwZRh8AABsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfwRWQVV9HSdCcR1VGQYZQxxaQlI=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcxpwV0Z2HltCAVxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkcFUkNtCDlCAFxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAytxRFpeAgFCB1xeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcjlEZGZeFB9CfhdQAgMZJVNcXhsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYwJrVkEBOydCYEMaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQkoAY3VYGiRCYEAaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWShCBmZHAR5CYEEaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBwBUUgFCRiNCYEYaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkRQAXBkFxtCYEcaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTBhCdgtRGAlCYEQaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhZlAwBXKT1CYEUaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQDEDRnhfNzdCYEoaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfhoKQEJ9NBtCfkMaARJT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAEF1Z2V9RwxCfkAaARJT"
+      data-behance="https://www.behance.net/gallery/227888771/Student-Biryani-Branding">
+      <div class="pt" style="background:#120800"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNQihUYAVBMidCd0MaARJT" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Student Biryani" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Student Biryani</div><div class="pn">Student Biryani Branding</div><div class="pd">Full print &amp; brand system — packaging, car branding, boards, media wall &amp; social grids.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="social-media"
+      data-title="Pasokin – Social Media Design"
+      data-client="Pasokin"
+      data-desc="Social media content design for Pasokin — a health-focused peanut butter brand. Posts span seasonal campaigns, product benefits, nutritional callouts, and lifestyle content."
+      data-tags="Social Media,Graphic Design,Food Brand,Health,Product,Photoshop,Illustrator,Campaign Design"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSpGc1B+CCFCAlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXgNjRFFYSAhCAVxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDTRfZlxXI1lCcD8FRQhEFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzgKB1EERjlCcBpGAhFAH1NDHwReBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXgNjRFFYFz1CcBpGAhFAH1NDHwZeBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcgFmXQdWKFhCYxdVBRdAX3BFRkEVHUB7E1gHDUMXV14fAV4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBkoCXWBDPhtCYxdVBRdAX3BFRkEVHUB7E1gHDUMXV14fAF4FHVQ=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRzZYSXxYSBtCdRtaDhFAX2NFU1kZGxQeIlEKDEEGQR5YRRc=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXCJ2VwdGRjtCdB5BHw1aX3RCV1BeBR1U|BxlHAkdRTRsbHEBdRgQGAFRcVwhNeTkESHQAPj1CdAddBxYZNEBVVxsaHwo=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRT94AAdCI11CexNCDk9VX3BRXlQeDAhXX2cFA1cZHFpCUg==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTipKBWhiKS1CexdVGRYZNFtCV1sUQQdDFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTURqQ1hBFglCcR1VGBYZK11FQBg2BhldF0cYTwZcWEBV|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkR+RFFSODxCcR1VGBYZK11FQBg4CgxBBhkjB1UeRlgcXwAI|BxlHAkdRTRsbHEBdRgQGAFRcVwhNTipKBWhiKT9CYwBbHwddHB9iW1YYQj5dE18YT1IdQB13QxUdFFwcUUUIRBU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQyZFeAp/KTVCYgddCAkZN1xVQFIJQi9cHUcfTF4CVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUCNfRwRFJyFCZxNHHxsZE1xUH30VDgFHGk1FCEQV"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a100a"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSpGc1B+CCFCAlxEBQU=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Pasokin" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Pasokin</div><div class="pn">Pasokin – Social Media Design</div><div class="pd">Health brand social media — seasonal campaigns, product callouts &amp; lifestyle content.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="social-media"
+      data-title="Student Biryani – Social Media"
+      data-client="Student Biryani"
+      data-desc="Social media content design for Student Biryani — a multi-brand portfolio of posts spanning real estate, food, product, and security categories, all designed for high engagement on Instagram and Facebook."
+      data-tags="Social Media,Graphic Design,Food,Real Estate,Product,Branding,Instagram,Photoshop,Illustrator"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOzxCA0AMD1JQQwsHBwdAWF0KXwJcBgcRCgIAVEQNWVZcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRSBfZmRjSRtCA0tWDlcNQwsHBwdAWF0KXwJcBgcRUwJRDEkNVAdcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNX0ZYAwEGGzdCABdXDgQMQwsHBwdAWF0KXwJcBgcRCgIAVENXDgpcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfAphdHZxFjhCB0MBWlQFQwsHBwdAWF0KXwJcBgcRUQIBVxVcXgpcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUzh/dnRzFhVCBRAAXldSQwsHBwdAWF0KXwJcBgcRUwJRDEgLXwZcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOxVCBRBRCABSQwsHBwdAWF0KXwJcBgcRCgIAVEBYWQdcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkF6enh/NB9CBRcEXgEBQwsHBwdAWF0KXwJcBgcRCgIAVEVZDFVcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzFAQVZeIyVCBEoDX1JRQwsHBwdAWF0KXwJcBgcRUQIBVxQKDgtcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNd0NEZGZhJxVCBBYMWVYAQwsHBwdAWF0KXwJcBgcRCgIAVEMKCwtcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNX0ZYAwEGGxtCC0BQCFBWQwsHBwdAWF0KXwJcBgcRCgIAVEFbWgtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXkB+ZmAGEl1CUkQCXFNSQwsHBwdAWF0KXwJcBgcRUwJRDElbCwtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzxWfQFTJD1CUkpWXAdSQwsHBwdAWF0KXwJcBgcRCgIAVENbDwFcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYENCCGZ7Rh9CURdQCFpRQwsHBwdAWF0KXwJcBgcRCgIAVEJWWQZcXhsF|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBzxWfQFTJBZCUENWU1ADQwsHBwdAWF0KXwJcBgcRCgIAVEEMXQJcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUgt4BH9EPjxCUBdXDVQCQwsHBwdAWF0KXwJcBgcRCgIAVEIJCwtcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfxhgaF9FQghCVxQBWwMDQwsHBwdAWF0KXwJcBgcRCgIAVERZW1JcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXzVwQgVsHTxCVkMAXAYHQwsHBwdAWF0KXwJcBgcRUwJRDBFfCwNcQw4ARA==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZDhid1ZjGiJCVhRSX1pVQwsHBwdAWF0KXwJcBgcRCgIAVEJdC1ZcQw4ARA=="
+      data-behance="https://www.behance.net/gallery/197520709/Social-Media">
+      <div class="pt" style="background:#120800"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgEU1FWOzxCA0AMD1JQQwsHBwdAWF0KXwJcBgcRCgIAVEQNWVZcXhsF" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Student Biryani Social Media" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Student Biryani</div><div class="pn">Student Biryani – Social Media</div><div class="pd">Multi-brand social media posts — food, real estate, product &amp; security content.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="print branding"
+      data-title="Japan Electronics Pakistan – Print &amp; Branding"
+      data-client="Japan Electronics"
+      data-desc="Print and branding design for Japan Electronics Pakistan — a comprehensive set of retail signage, product display boards, shelf labels, and branded print materials across multiple product categories."
+      data-tags="Print Design,Branding,Retail Signage,Display Boards,Electronics,Packaging,Photoshop,Illustrator"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0ZIUlYNJAVCAkIEE1MGQBxaQlI=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDRQCdnZXMxVCAkIME1sAXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNXhgAVHZWBCtCAkECE1MGQhxaQlI=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQh9meAZdEl5CAkYCE1UFXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVzhxBERdQFxCAkUDE1AGXwQddVQDQQdDFQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRUVDfXxCRAFCAkUDE1AGXwQdeVwEDAVWHBoBElM=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNZihqanFMRVZCAkUNE1sAXEJeVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSN4YWp+QwFCAkVMUlcaGEJX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNDAhGSlkMITlCAUEDE1QGXFhAVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNdwpfSH9tCVxCB0pMUlYaGEJX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBiEAY1h4IgRCBUAZXhoGQB8GH2ERDQFWXF4bBQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBQhqBQp3Az1CBURMWlIEXEJeVQ==|BxlHAkdRTRsbHEBdRgQGAFRcVwhNBDxYAkhbIFZCBENMXlMaGEJX|BxlHAkdRTRsbHEBdRgQGAFRcVwhNfD5cQ0BPFB9CC0IZXhoNSx9kZBgyKENZAlM="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0c12"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0ZIUlYNJAVCAkIEE1MGQBxaQlI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Japan Electronics" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Japan Electronics Pakistan</div><div class="pn">Japan Electronics – Print &amp; Branding</div><div class="pd">Retail signage, display boards &amp; branded print across multiple product lines.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="print branding"
+      data-title="Perfect Home Defence"
+      data-client="Perfect Home Defence"
+      data-desc="Print design and brand collateral for Perfect Home Defence — a home security brand. Brochures, marketing flyers, and print communications built around safety, reliability, and residential protection."
+      data-tags="Print Design,Brochure,Flyer,Home Security,Branding,Photoshop,Illustrator"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNfhxlfnZNOwRCAlxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkF8QgBWCgdCAVxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRCZGVlp2GyxCAFxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNc0ADdgp+CitCB1xeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNc0ADdgp+CjZCBlxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNbUtFBnVnSAJCBVxeGwU="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#120a0a"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNfhxlfnZNOwRCAlxeGwU=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Perfect Home Defence" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Perfect Home Defence</div><div class="pn">Perfect Home Defence</div><div class="pd">Print collateral &amp; brand communications for a home security brand.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="print branding"
+      data-title="Settle In Turkey"
+      data-client="Settle In Turkey"
+      data-desc="Print and marketing design for Settle In Turkey — a relocation and immigration consultancy. Brochures, informational guides, and promotional collateral designed to help clients navigate settling in Turkey."
+      data-tags="Print Design,Brochure,Immigration,Relocation,Marketing,Branding,Photoshop,InDesign"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNej9Ce0FeHghCAlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNY0FqVHxCCRxCAVxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRABAQEJbPgVCAFxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNWRlZREZzCCJCB1xEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNABZwaVRkIwVCBlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkELB0pYPRdCBVxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNVjgBaksMMjlCBFxeGwU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQwQERGtyBx9CC1xeGwU="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#1a0806"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNej9Ce0FeHghCAlxEBQU=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Settle In Turkey" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Settle In Turkey</div><div class="pn">Settle In Turkey</div><div class="pd">Print &amp; marketing collateral for a relocation and immigration consultancy.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="social-media"
+      data-title="ERA – Social Media Design"
+      data-client="ERA"
+      data-desc="Social media design for ERA — a curated set of branded posts designed for consistent visual identity and engagement across digital platforms."
+      data-tags="Social Media,Graphic Design,Brand Identity,Digital,Instagram,Photoshop,Illustrator"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNfCVwagBBFwVCAlxDDgBE|BxlHAkdRTRsbHEBdRgQGAFRcVwhNdih/aVV2QFlCAVxDDgBE|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYwJqZ1wCBhVCAFxDDgBE|BxlHAkdRTRsbHEBdRgQGAFRcVwhNQCAAYwdPGjZCB1xDDgBE|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYCsDW3piFD9CBlxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNRzZKXgJvGhdCBVxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNUxlYfXADCh1CBFxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNcgFIYFx/AlhCC1xEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNYCsDW3piFAJCClxEBQU=|BxlHAkdRTRsbHEBdRgQGAFRcVwhNV0ZxdAcNCAFCAkIaGwxT|BxlHAkdRTRsbHEBdRgQGAFRcVwhNAkdDeANyJzVCAkMaARJT"
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0a0e"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNfCVwagBBFwVCAlxDDgBE" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="ERA Social Media" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">ERA</div><div class="pn">ERA – Social Media Design</div><div class="pd">Branded social media posts with consistent visual identity for digital platforms.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="Tiny Future – Logo Animation"
+      data-client="Tiny Future"
+      data-desc="Logo animation for Tiny Future — a YouTube channel creating AI-generated rhyme videos for children. A playful, branded motion sequence used as the channel intro across every upload and on social media."
+      data-tags="Logo Animation,Motion Graphics,Brand Identity,YouTube,Kids Content,After Effects,2D Animation"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FDSl6HAZXQF8pKxseQBkBLgc7Q0ZlfhIlGWNGbgAlbCodQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0a0a"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNYwJieAQFKDVCWh9VDAcaAlxX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Tiny Future" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Tiny Future</div><div class="pn">Tiny Future – Logo Animation</div><div class="pd">Channel intro for a YouTube channel creating AI-generated rhyme videos for children.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="Live Life Learn – Logo Animation"
+      data-client="Live Life Learn"
+      data-desc="Logo animation for Live Life Learn — a smooth, branded motion sequence bringing the identity to life for digital use across intros, social media, and brand presentations."
+      data-tags="Logo Animation,Motion Graphics,Brand Identity,After Effects,2D Animation"
+      data-gifs-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZhpwYmBtIxxCfz54KgxdH1NEW1oeXEBWCFMCBBkRXV0fQxkLCFxfQARPUxtUHVFaHhkIQQZRGUxTG1Q="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#060a12"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZhpwYmBtIxxCfz54KgxdH1NEW1oeXEBWCFMCBBkRXV0fQxkLCFxfQARPUxtUHVFaHhkIQQZRGUxTG1Q=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Live Life Learn" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Live Life Learn</div><div class="pn">Live Life Learn – Logo Animation</div><div class="pd">Branded logo motion sequence for digital &amp; social media use.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="Sitaray"
       data-client="Knowledge Platform"
-      data-desc="Over 100 interactive learning animations built for an e-learning platform serving 50,000+ active learners. Covered STEM, language, and social sciences for grades 1–12 across Pakistan."
-      data-tags="E-learning,2D Animation,Illustration,Character Animator">
-      <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#0b1a0e"/><rect x="96" y="56" width="128" height="68" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1"/><text x="160" y="97" text-anchor="middle" font-family="sans-serif" font-size="17" font-weight="600" fill="rgba(255,255,255,.28)">e-learn</text></svg>
+      data-desc="Promotional animation for Sitaray by Knowledge Platform — a national digital learning games competition in Pakistan. The video brings the platform's three-stage competition format, student journey, and reward system to life for schools and learners across the country."
+      data-tags="2D Animation,Motion Graphics,Explainer,EdTech,After Effects,Character Animator"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FAFp7IXd4V2ImVj9rKH8PFVs+cEJFTBpZBUcDdV8EWAsdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#080812"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNUCN/SnpXITxCWh9VDAcaAlxX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Sitaray" />
       <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">Knowledge Platform</div><div class="pn">National E-Learning Modules</div><div class="pd">100+ interactive learning animations for 50,000+ active learners.</div></div>
+      <div class="pi"><div class="pcl">Knowledge Platform</div><div class="pn">Sitaray</div><div class="pd">Promotional animation for a national digital learning games competition across Pakistani schools.</div></div>
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="brand"
-      data-title="Brand Motion Graphics"
-      data-client="PTCL"
-      data-desc="Created a suite of motion graphics and branded visual content for Pakistan's leading telecom operator. Work included promotional videos, infographics, and social media content that boosted campaign engagement significantly."
-      data-tags="Motion Graphics,Branding,Telecom,After Effects,Illustrator">
-      <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#1a1208"/><path d="M70,90 Q120,50 160,90 Q200,130 250,90" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2"/><circle cx="70" cy="90" r="4" fill="rgba(255,255,255,.3)"/><circle cx="160" cy="90" r="4" fill="rgba(255,255,255,.3)"/><circle cx="250" cy="90" r="4" fill="rgba(255,255,255,.3)"/></svg>
+    <div class="pc sa" data-cat="animation"
+      data-title="Poppie & Grace – Logo Animation"
+      data-client="Poppie & Grace"
+      data-desc="Logo animation for Poppie &amp; Grace — a smooth, branded motion sequence that introduces the identity across digital touchpoints, social media, and branded content."
+      data-tags="Logo Animation,Motion Graphics,Brand Identity,After Effects,2D Animation"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FA1JhFHdeY1AGLSsAJ0UZGnlLfHELZEUqB0s/Wh82YV8dQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0a0a"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BWgUlCShdI1EdIHJBZ0FATT1WI3JLZV4nXgp/XkZhJUJLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Poppie & Grace" />
       <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">PTCL</div><div class="pn">Brand Motion Graphics</div><div class="pd">Motion graphics and branded visual content for Pakistan's leading telecom operator.</div></div>
+      <div class="pi"><div class="pcl">Poppie &amp; Grace</div><div class="pn">Poppie &amp; Grace – Logo Animation</div><div class="pd">Branded logo motion sequence introducing the identity across digital &amp; social.</div></div>
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="government education"
-      data-title="Government Educational Media"
-      data-client="MoFEPT"
-      data-desc="Animated educational content commissioned by the Ministry of Federal Education and Professional Training. The project focused on curriculum-aligned visual content for federal schools across Pakistan."
-      data-tags="Government,Educational,Animation,Curriculum Design">
-      <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#0e0e1e"/><circle cx="160" cy="90" r="42" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="5,4"/><circle cx="160" cy="90" r="22" fill="rgba(255,255,255,.05)"/><line x1="55" y1="90" x2="118" y2="90" stroke="rgba(255,255,255,.14)" stroke-width="1"/><line x1="202" y1="90" x2="265" y2="90" stroke="rgba(255,255,255,.14)" stroke-width="1"/><line x1="160" y1="28" x2="160" y2="68" stroke="rgba(255,255,255,.14)" stroke-width="1"/><line x1="160" y1="112" x2="160" y2="152" stroke="rgba(255,255,255,.14)" stroke-width="1"/></svg>
+    <div class="pc sa" data-cat="animation"
+      data-title="Water Aid – Animated Video"
+      data-client="Water Aid"
+      data-desc="Animated video produced for Water Aid — a short-form motion piece communicating the organisation's mission around clean water access, hygiene, and community impact through accessible, warm visual storytelling."
+      data-tags="2D Animation,Motion Graphics,Explainer,Non-profit,Social Impact,After Effects"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FMVBVOnleaGdHNxtRJ0NZJWwCBwFmUUFcGl0YbAk2ZBwdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#081014"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BaAcRJyZdKGZcOkIQZ0cAcigfWAImUFpRQxxYaFBhIAFLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Water Aid" />
       <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">MoFEPT</div><div class="pn">Government Educational Media</div><div class="pd">Animated content for the Ministry of Federal Education and Professional Training.</div></div>
+      <div class="pi"><div class="pcl">Water Aid</div><div class="pn">Water Aid – Animated Video</div><div class="pd">Animated mission piece on clean water access, hygiene &amp; community impact.</div></div>
       <span class="parr">↗</span>
     </div>
 
-    <div class="pc sa" data-cat="animation brand"
-      data-title="NGO & Academic Animations"
-      data-client="Freelance 2015–2020"
-      data-desc="30+ animated videos for NGOs and academic institutions including IQRA University, Open Source Summit, Innomedia, and Kopykats. Managed full production cycles from concept and storyboard through to final render."
-      data-tags="Freelance,NGO,2D Animation,Full Production">
-      <div class="pt"><svg viewBox="0 0 320 180" style="width:100%;height:100%"><rect width="320" height="180" fill="#111"/><rect x="88" y="54" width="60" height="72" rx="6" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width="1"/><rect x="172" y="68" width="60" height="58" rx="6" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.09)" stroke-width="1"/><circle cx="118" cy="74" r="10" fill="rgba(255,255,255,.1)"/><circle cx="202" cy="84" r="10" fill="rgba(255,255,255,.1)"/></svg>
+    <div class="pc sa" data-cat="animation"
+      data-title="NCA Power to the Youth – Explainer"
+      data-client="NCA"
+      data-desc="Explainer animation for NCA's Power to the Youth initiative — a motion piece breaking down the programme's goals, audience, and impact through clear visual storytelling and character-led scenes."
+      data-tags="2D Animation,Explainer,Motion Graphics,Youth,Social Impact,After Effects"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FLzt8QABjWnMWDiRhF3haLQcUdkdqQRNdXQYbUwgyAhwdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#14100a"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8Bdmw4XV9gGnINA30gV3wDekMJKUQqQAhQBEdbV1FlRgFLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="NCA Power to the Youth" />
       <div class="pt-overlay">▶</div></div>
-      <div class="pi"><div class="pcl">Freelance · 2015–2020</div><div class="pn">NGO &amp; Academic Animations</div><div class="pd">30+ animated videos across IQRA University, Open Source Summit, Innomedia, and Kopykats.</div></div>
+      <div class="pi"><div class="pcl">NCA</div><div class="pn">NCA Power to the Youth – Explainer</div><div class="pd">Explainer animation for a youth-focused initiative — goals, audience &amp; impact.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="3CIX – Logo Reveal Animation"
+      data-client="3CIX"
+      data-desc="Logo reveal animation for 3CIX — a crisp, branded motion moment designed to introduce the identity with impact across video intros, presentations, and product touchpoints."
+      data-tags="Logo Animation,Logo Reveal,Motion Graphics,Brand Identity,After Effects"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FCTNSNm1DV3MCJwRgNAw6IFFCC1J6YhE7Hl8aZzg9BkAdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0c0c10"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BUGQWKzJAF3IZKl0hdAhjdxVfVFE6Ywo2Rx5aY2FqQl1LQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="3CIX Logo Reveal" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">3CIX</div><div class="pn">3CIX – Logo Reveal Animation</div><div class="pd">Crisp logo reveal for branded video intros, presentations &amp; product moments.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="3CIX Accelerec – Demo Video"
+      data-client="3CIX Accelerec"
+      data-desc="Demo video for 3CIX Accelerec — a motion piece walking through the product's features, interface, and use cases to communicate value and drive engagement."
+      data-tags="Product Demo,Motion Graphics,Explainer,Product,UI Animation,After Effects"
+      data-video-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FESRjKgd8WGcjFx9/AmENNFw6V35BdAEpP1obQAINckcdQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a1014"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BSHMnN1h/GGY4GkY+QmVUYxgnCH0BdRokZhtbRFtaNlpLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="3CIX Accelerec" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">3CIX Accelerec</div><div class="pn">3CIX Accelerec – Demo Video</div><div class="pd">Product demo walk-through — features, interface &amp; use cases in motion.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="animation"
+      data-title="Wallpapers"
+      data-client="Personal Work"
+      data-desc="A collection of short-form vertical wallpaper animations designed for mobile screens — looping 9:16 motion pieces exploring colour, texture, typography, and abstract visual motifs. Swipe or use the arrows to browse between wallpapers."
+      data-tags="Motion Graphics,2D Animation,Wallpapers,Vertical Video,9:16,After Effects"
+      data-reels-pages="Wallpaper 1::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FXBhCOmVUB1ZAWytnO38TNX82dAMAdiA1WX0efigkfEcdQEBQBgYIRA==|Wallpaper 2::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FGU9TOX52C2caACFRBUIGG3UFZH1FARNeBB4kcgw2VggdQEBQBgYIRA==|Wallpaper 3::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FHRdaQwZvUAMXGyFJMw0oMGxGdXRGVEFYGgQBYD8ucQQdQEBQBgYIRA==|Wallpaper 4::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FBDoEQn1ZU2EzDSNeHls7OnJAQ1hcQxU3AWsbYAkPDTsdQEBQBgYIRA==|Wallpaper 5::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FEVIFC0FmRAAzDg5AQnA9KkVBYkZGXx8eGkA/WRkVZTcdQEBQBgYIRA==|Wallpaper 6::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FCgxgKH9URlwJX1sDBGcMPUQIeUpDeAkOX3wWWBITXDkdQEBQBgYIRA==|Wallpaper 7::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FJ1dRS1t7YUAyCwlwPmYyKHYEenVHQj0nWGI7X1JSXxYdQEBQBgYIRA==|Wallpaper 8::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FUgtTInRWa0I4JiJWAlFYKmYbQUR4T0AjA0VBRRsPex8dQEBQBgYIRA==|Wallpaper 9::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FNBpcJmtxUQ04LSAKMQJYA2YFW3FgTSEAXXwEdRkKZR0dQEBQBgYIRA==|Wallpaper 10::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FMhNzCHR2dXJFBzVsOV0/J3MAe2ddXD48FVEheFsjdSEdQEBQBgYIRA==|Wallpaper 11::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FOAd2Nl1iQkAfJh57BGMpDEw9QR13eBJbQB4UaxsVcxsdQEBQBgYIRA==|Wallpaper 12::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FDApZJwNycXg4JFhsRnU9L15fY0FARgNCJkdHXl4gZDwdQEBQBgYIRA==|Wallpaper 13::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FGC9YSntTd14/XTQEP2cgU2YxBwRLTQgGG0sQWF4KBDsdQEBQBgYIRA==|Wallpaper 14::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FXFEBG2MAdl41GVlxJQIaUHMmVl9wegVbDHIlfQkMAwIdQEBQBgYIRA==|Wallpaper 15::BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH1RcHApCV10FBAl7G0t+UFITWiRqO10fDV5FamhnTDoVOmoRBAMqdkodQEBQBgYIRA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0c0812"><img data-enc="BxlHAkdRTRsWQFlEUF4IAlwVWA5MVx1fH0ZdBQIPXRNdB11dFg8BBU8GJzpXR1dbVnIme3tKYjsrKwBAdzs4ADxeenFzOFpLQAgJHFMGSgI=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Wallpapers" />
+      <div class="pt-overlay">▶</div></div>
+      <div class="pi"><div class="pcl">Personal Work</div><div class="pn">Wallpapers</div><div class="pd">Short-form vertical wallpaper animations for mobile — looping 9:16 motion pieces.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="web-design"
+      data-title="Zaiwar"
+      data-client="Zaiwar"
+      data-desc="Website design for Zaiwar — a distinctive visual system, structured content sections, and a cohesive brand aesthetic throughout."
+      data-tags="Web Design,UI Design,Landing Page,Figma,Photoshop"
+      data-web-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNBBlYclZMSFxCfh1XABdEXFhAVQ=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0e1018"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNBBlYclZMSFxCfh1XABdEXFhAVQ==" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Zaiwar" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Zaiwar</div><div class="pn">Zaiwar</div><div class="pd">Website design with a distinctive visual system &amp; cohesive brand aesthetic.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="web-design"
+      data-title="Sanctum"
+      data-client="Sanctum"
+      data-desc="Website design for Sanctum — a fitness and CrossFit box concept. A bold, training-focused aesthetic carried across every page of the site."
+      data-tags="Web Design,UI Design,Multi-page,Fitness,CrossFit,Figma,Photoshop"
+      data-web-pages="Homepage::BxlHAkdRTRsbHEBdRgQGAFRcVwhNAChlfHANKAlCex1ZDhJVFVceWEUX|About Us::BxlHAkdRTRsbHEBdRgQGAFRcVwhNBSJWZEtiQgxCchBbHhYZJ0EeWEUX|Contact Us::BxlHAkdRTRsbHEBdRgQGAFRcVwhNTCNGWAZfIFlCcB1aHwNXBh9lQRsaHwo=|Couches::BxlHAkdRTRsbHEBdRgQGAFRcVwhNWjRIYngCQVpCcB1BCApRARxaQlI=|Couches Page::BxlHAkdRTRsbHEBdRgQGAFRcVwhNDSUDCHkECQVCcB1BCApRAR9gU1IVQQdDFQ==|Leaderboard::BxlHAkdRTRsbHEBdRgQGAFRcVwhNZCpgBkBNRllCfxdVDwdGX3BfU0cUQQdDFQ==|Login::BxlHAkdRTRsbHEBdRgQGAFRcVwhNcgBwYEFnIAFCfx1TAgwaGEJX|Schedule::BxlHAkdRTRsbHEBdRgQGAFRcVwhNDUB4e1xtMllCYBFcDgZBHlceWEUX|WOD::BxlHAkdRTRsbHEBdRgQGAFRcVwhNBSJqAlpNMz9CZD1wRQhEFQ=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0808"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNAChlfHANKAlCex1ZDhJVFVceWEUX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Sanctum" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Sanctum</div><div class="pn">Sanctum</div><div class="pd">Website design for a CrossFit box — training, schedule, leaderboard &amp; membership.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="web-design"
+      data-title="Scale X Pro"
+      data-client="Scale X Pro"
+      data-desc="Web design for Scale X Pro — a premium product landing and commerce experience. A bold, confident visual language ties the product story and purchase journey into one cohesive brand experience."
+      data-tags="Web Design,UI Design,Landing Page,E-commerce,Product Design,Figma"
+      data-web-pages="Homepage::BxlHAkdRTRsbHEBdRgQGAFRcVwhNXBVVQgZvHQFCYBFVBwcZKh9gQFpdJwJeF0QKBVFcWEBV|Buy Now::BxlHAkdRTRsbHEBdRgQGAFRcVwhNVgh+A3l+CSNCYBFVBwcZKh9gQFpdLRhKX3oEFRoYQlc="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0a0a10"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNXBVVQgZvHQFCYBFVBwcZKh9gQFpdJwJeF0QKBVFcWEBV" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Scale X Pro" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Scale X Pro</div><div class="pn">Scale X Pro</div><div class="pd">Product landing &amp; commerce experience with a bold, confident aesthetic.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="web-design"
+      data-title="Hamtum Watches"
+      data-client="Hamtum Watches"
+      data-desc="Website design for Hamtum Watches — a luxury timepiece brand. Showcases the collection, craftsmanship, and brand story in one continuous premium visual narrative."
+      data-tags="Web Design,UI Design,Landing Page,Luxury,Watches,E-commerce,Figma"
+      data-web-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNUj9AQ3YFFz5Cex1ZDhJVFVcBHF8ACA=="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#0d0a08"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNUj9AQ3YFFz5Cex1ZDhJVFVcBHF8ACA==" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Hamtum Watches" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Hamtum Watches</div><div class="pn">Hamtum Watches</div><div class="pd">Luxury timepiece brand — showcasing collection, craftsmanship &amp; brand story.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="web-design"
+      data-title="MTM Global"
+      data-client="MTM Global"
+      data-desc="Website design for MTM Global — a sports and lifestyle holding company based in Doha. A cohesive corporate visual system unifies the entire brand portfolio, spanning Aspire Active, Crossfit DOHA, DOHAfac, Elite, Qgym, and The Venue."
+      data-tags="Web Design,UI Design,Multi-page,Corporate,Fitness,Sports,Figma,Photoshop"
+      data-web-pages="Homepage::BxlHAkdRTRsbHEBdRgQGAFRcVwhNZwN4YHF7FAtCex1ZDhJVFVceWEUX|Our Brands::BxlHAkdRTRsbHEBdRgQGAFRcVwhNeQpEfGR+RV9CfAdGRiBGE1xUQRsaHwo=|Aspire Active::BxlHAkdRTRsbHEBdRgQGAFRcVwhNUzVDRF9CCiFCcgFEAhBRX3NTRlwGCkNZAlM=|Crossfit DOHA::BxlHAkdRTRsbHEBdRgQGAFRcVwhNVyhQZlANMwFCcABbGBFSG0Yddno4LkNZAlM=|DOHAfac::BxlHAkdRTRsbHEBdRgQGAFRcVwhNVgJhe1F7QiFCdz18KgRVERxaQlI=|Elite::BxlHAkdRTRsbHEBdRgQGAFRcVwhNRxgCAENBGhxCdh5dHwcaGEJX|Qgym::BxlHAkdRTRsbHEBdRgQGAFRcVwhNAiUDAVVxJ1hCYhVNBkxeAlU=|The Venue::BxlHAkdRTRsbHEBdRgQGAFRcVwhNeCBcZ34DNFxCZxpRRjRRHEdVHF8ACA==|Contact Us::BxlHAkdRTRsbHEBdRgQGAFRcVwhNfgBGQHxlEglCcB1aHwNXBh9lQRsaHwo="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#080a0c"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNZwN4YHF7FAtCex1ZDhJVFVceWEUX" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="MTM Global" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">MTM Global</div><div class="pn">MTM Global</div><div class="pd">Sports &amp; lifestyle holding company — 6 sub-brands unified by a cohesive corporate system.</div></div>
+      <span class="parr">↗</span>
+    </div>
+
+    <div class="pc sa" data-cat="web-design"
+      data-title="Comparables.ai"
+      data-client="Comparables.ai"
+      data-desc="Website design for Comparables.ai — an AI-driven market intelligence platform. Clean, product-led aesthetic that communicates the data, positioning, and trust signals users need to evaluate the platform at a glance."
+      data-tags="Web Design,UI Design,Landing Page,SaaS,AI,Product Design,Figma"
+      data-web-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNV0JqSXAAKV5CZBdWRlMNQAIdABsaHwo="
+      data-behance="https://www.behance.net/omi6910660">
+      <div class="pt" style="background:#08090c"><img data-enc="BxlHAkdRTRsbHEBdRgQGAFRcVwhNV0JqSXAAKV5CZBdWRlMNQAIdABsaHwo=" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" alt="Comparables.ai" />
+      <div class="pt-overlay">↗</div></div>
+      <div class="pi"><div class="pcl">Comparables.ai</div><div class="pn">Comparables.ai</div><div class="pd">AI-driven market intelligence platform — clean, product-led design focused on data &amp; trust.</div></div>
       <span class="parr">↗</span>
     </div>
 
@@ -534,26 +1226,11 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
 <div id="experience" class="w">
   <div class="sec-hdr sa"><span class="sec-lbl">Experience</span></div>
   <div class="el">
-    <div class="er sa from-left">
-      <div class="em"><div class="ep">Aug 2025 – Present</div><div class="eco">Knowledge Platform</div></div>
-      <div><div class="ero">Team Lead — Graphic Design</div><div class="edc">Lead a team of 4 designers across all visual projects. Overseeing end-to-end production for e-learning platforms serving 50,000+ learners. Established design standards and asset libraries, cutting production time by ~20%.</div><div class="etg"><span class="tag">Team Leadership</span><span class="tag">Creative Direction</span><span class="tag">E-learning</span></div></div>
-    </div>
-    <div class="er sa from-left">
-      <div class="em"><div class="ep">2020 – Aug 2025</div><div class="eco">Knowledge Platform</div></div>
-      <div><div class="ero">Senior 2D Animator</div><div class="edc">Developed 100+ educational animations using After Effects and Character Animator. Created content for PTV Teleschool, UNICEF, NIBAF, MoFEPT and PTCL, improving user engagement by 25%.</div><div class="etg"><span class="tag">After Effects</span><span class="tag">Character Animator</span><span class="tag">2D Animation</span></div></div>
-    </div>
-    <div class="er sa from-left">
-      <div class="em"><div class="ep">2016 – 2020</div><div class="eco">JTelemarketing · Limecom · Admark</div></div>
-      <div><div class="ero">Graphics &amp; 2D Animator</div><div class="edc">Developed motion graphics for digital marketing campaigns. Produced UI prototypes using Figma and Adobe XD. Delivered brand assets across web, social, and print.</div><div class="etg"><span class="tag">Motion Graphics</span><span class="tag">Figma</span><span class="tag">Branding</span></div></div>
-    </div>
-    <div class="er sa from-left">
-      <div class="em"><div class="ep">2015 – 2020</div><div class="eco">Freelance</div></div>
-      <div><div class="ero">Freelance Animator</div><div class="edc">Produced 30+ animated videos for educational and social awareness initiatives. Managed full production cycles independently — concept, storyboard, animation, final render — for 5+ repeat clients.</div><div class="etg"><span class="tag">UNICEF</span><span class="tag">IQRA University</span><span class="tag">Full-cycle Production</span></div></div>
-    </div>
-    <div class="er sa from-left">
-      <div class="em"><div class="ep">2012 – 2016</div><div class="eco">Iqra University, Islamabad</div></div>
-      <div><div class="ero">BSc Computer Science</div><div class="edc">Bachelor of Science in Computer Science — foundation for interactive and digital design work.</div></div>
-    </div>
+    <div class="er sa from-left"><div class="em"><div class="ep">Aug 2025 – Present</div><div class="eco">Knowledge Platform</div></div><div><div class="ero">Team Lead — Graphic Design</div><div class="edc">Lead a team of 4 designers across all visual projects. Overseeing end-to-end production for e-learning platforms serving 50,000+ learners. Established design standards and asset libraries, cutting production time by ~20%.</div><div class="etg"><span class="tag">Team Leadership</span><span class="tag">Creative Direction</span><span class="tag">E-learning</span></div></div></div>
+    <div class="er sa from-left"><div class="em"><div class="ep">2020 – Aug 2025</div><div class="eco">Knowledge Platform</div></div><div><div class="ero">Senior 2D Animator</div><div class="edc">Developed 100+ educational animations using After Effects and Character Animator. Created content for PTV Teleschool, UNICEF, NIBAF, MoFEPT and PTCL, improving user engagement by 25%.</div><div class="etg"><span class="tag">After Effects</span><span class="tag">Character Animator</span><span class="tag">2D Animation</span></div></div></div>
+    <div class="er sa from-left"><div class="em"><div class="ep">2016 – 2020</div><div class="eco">JTelemarketing · Limecom · Admark</div></div><div><div class="ero">Graphics &amp; 2D Animator</div><div class="edc">Developed motion graphics for digital marketing campaigns. Produced UI prototypes using Figma and Adobe XD. Delivered brand assets across web, social, and print.</div><div class="etg"><span class="tag">Motion Graphics</span><span class="tag">Figma</span><span class="tag">Branding</span></div></div></div>
+    <div class="er sa from-left"><div class="em"><div class="ep">2015 – 2020</div><div class="eco">Freelance</div></div><div><div class="ero">Freelance Animator</div><div class="edc">Produced 30+ animated videos for educational and social awareness initiatives. Managed full production cycles independently — concept, storyboard, animation, final render — for 5+ repeat clients.</div><div class="etg"><span class="tag">UNICEF</span><span class="tag">IQRA University</span><span class="tag">Full-cycle Production</span></div></div></div>
+    <div class="er sa from-left"><div class="em"><div class="ep">2012 – 2016</div><div class="eco">Iqra University, Islamabad</div></div><div><div class="ero">BSc Computer Science</div><div class="edc">Bachelor of Science in Computer Science — foundation for interactive and digital design work.</div></div></div>
   </div>
 </div>
 
@@ -576,11 +1253,11 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
     <h2>Let's work <span class="dim">together.</span></h2>
     <p>Open to freelance projects, collabs, and full-time roles in animation and motion design.</p>
     <div class="cl">
-        <a href="mailto:omerakbr@hotmail.com" class="btn p">✉ omerakbr@hotmail.com</a>
-        <a href="https://www.behance.net/omi6910660" target="_blank" class="btn">Behance ↗</a>
-        <a href="https://www.instagram.com/omer.akbar" target="_blank" class="btn">Instagram ↗</a>
-        <a href="tel:+923465325080" class="btn">📞 +92 346 532 5080</a>
-      </div>
+      <a href="mailto:omerakbr@hotmail.com" class="btn p">✉ omerakbr@hotmail.com</a>
+      <a href="https://www.behance.net/omi6910660" target="_blank" class="btn">Behance ↗</a>
+      <a href="https://www.instagram.com/omer.akbar" target="_blank" class="btn">Instagram ↗</a>
+      <a href="tel:+923465325080" class="btn">📞 +92 346 532 5080</a>
+    </div>
   </div>
 </div>
 
@@ -593,402 +1270,608 @@ footer{border-top:1px solid var(--line);padding:18px 28px;max-width:1040px;margi
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><canvas id="confetti-canvas"></canvas>
+<canvas id="confetti-canvas"></canvas>
 
 <script>
-/* ── THEME ── */
 function toggleTheme(){
   const h=document.documentElement,d=h.getAttribute('data-theme')==='dark';
   h.setAttribute('data-theme',d?'light':'dark');
   document.getElementById('ti').textContent=d?'☾':'☀';
 }
-
-/* ── TYPEWRITER ── */
-window.addEventListener('DOMContentLoaded', function(){
-  var el = document.getElementById('tw-target');
-  if(!el) return;
-  var words = ['Graphic Designer.', 'Motion Artist.', 'Visual Storyteller.'];
-  var wi = 0, ci = 0, deleting = false;
-  function run(){
-    var word = words[wi];
-    if(deleting){ ci--; } else { ci++; }
-    el.textContent = word.substring(0, ci);
-    var wait = deleting ? 60 : 110;
-    if(!deleting && ci === word.length){ wait = 2200; deleting = true; }
-    else if(deleting && ci === 0){ deleting = false; wi = (wi+1) % words.length; wait = 350; }
-    setTimeout(run, wait);
+function closeModal(e,force){
+  if(force||e&&e.target.id==='modal-overlay'){
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow='';
   }
-  setTimeout(run, 1000);
-});
-
-/* ── CURSOR ── */
-window.addEventListener('DOMContentLoaded', function(){
-  var dot  = document.getElementById('cursor');
-  var ring = document.getElementById('cursor-ring');
-  if(!dot || !ring) return;
-
-  var mx=0, my=0, rx=0, ry=0;
-
-  document.addEventListener('mousemove', function(e){
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-  });
-
-  function lagRing(){
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(lagRing);
-  }
-  lagRing();
-
-  document.querySelectorAll('a, button, .pc, .tool-card, .sc, .ar').forEach(function(el){
-    el.addEventListener('mouseenter', function(){ document.body.classList.add('ch'); });
-    el.addEventListener('mouseleave', function(){ document.body.classList.remove('ch'); });
-  });
-
-  /* trail dots */
-  var TN = 8;
-  var trails = [];
-  for(var i=0; i<TN; i++){
-    var t = document.createElement('div');
-    t.className = 'trail';
-    document.body.appendChild(t);
-    trails.push({el:t, x:0, y:0});
-  }
-  var hist = [];
-  document.addEventListener('mousemove', function(e){
-    hist.push({x: e.clientX, y: e.clientY});
-    if(hist.length > TN * 4) hist.shift();
-  });
-  function animTrail(){
-    trails.forEach(function(tr, i){
-      var idx = hist.length - 1 - i * 3;
-      if(idx >= 0){
-        var p = hist[idx];
-        tr.x += (p.x - tr.x) * 0.25;
-        tr.y += (p.y - tr.y) * 0.25;
-        tr.el.style.left = tr.x + 'px';
-        tr.el.style.top  = tr.y + 'px';
-        var f = 1 - i / TN;
-        tr.el.style.opacity = f * 0.3;
-        tr.el.style.transform = 'translate(-50%,-50%) scale(' + (f * 0.7 + 0.3) + ')';
-      }
-    });
-    requestAnimationFrame(animTrail);
-  }
-  animTrail();
-});
-
-
-/* ── COUNTER ANIMATION ── */
-function animCount(el){
-  var target = parseInt(el.dataset.count);
-  var suf    = el.dataset.suffix || '';
-  var n = 0, step = Math.ceil(target / 45);
-  var t = setInterval(function(){
-    n = Math.min(n + step, target);
-    el.textContent = n + suf;
-    if(n >= target) clearInterval(t);
-  }, 28);
 }
 
-/* ── SCROLL ANIMATIONS ── */
-window.addEventListener('DOMContentLoaded', function(){
-  /* assign stagger delays */
-  document.querySelectorAll('.stagger').forEach(function(g){
-    var kids = g.querySelectorAll('.sa');
-    kids.forEach(function(c, i){ c.dataset.delay = i * 70; });
-  });
-
-  var allSa = Array.prototype.slice.call(document.querySelectorAll('.sa'));
-  var countersAnimated = false;
-
-  function reveal(){
-    var winH = window.innerHeight || document.documentElement.clientHeight;
-    allSa.forEach(function(el){
-      if(el.classList.contains('vis')) return;
-      var rect = el.getBoundingClientRect();
-      if(rect.top < winH - 50){
-        var delay = parseInt(el.dataset.delay || 0);
-        setTimeout(function(){ el.classList.add('vis'); }, delay);
-      }
-    });
-
-    /* trigger counters once stats scroll into view */
-    if(!countersAnimated){
-      var cnts = document.querySelectorAll('[data-count]');
-      cnts.forEach(function(el){
-        var r = el.getBoundingClientRect();
-        if(r.top < winH - 30){
-          countersAnimated = true;
-          cnts.forEach(animCount);
-        }
-      });
-    }
+window.addEventListener('DOMContentLoaded',function(){
+  var el=document.getElementById('tw-target');
+  if(!el)return;
+  var words=['Graphic Designer.','Motion Artist.','Visual Storyteller.'];
+  var wi=0,ci=0,deleting=false;
+  function run(){
+    var word=words[wi];
+    if(deleting){ci--;}else{ci++;}
+    el.textContent=word.substring(0,ci);
+    var wait=deleting?60:110;
+    if(!deleting&&ci===word.length){wait=2200;deleting=true;}
+    else if(deleting&&ci===0){deleting=false;wi=(wi+1)%words.length;wait=350;}
+    setTimeout(run,wait);
   }
-
-  window.addEventListener('scroll', reveal, {passive:true});
-  /* also run once on load for anything already in view */
-  setTimeout(reveal, 80);
+  setTimeout(run,1000);
 });
 
-/* ── ACTIVE NAV ── */
+window.addEventListener('DOMContentLoaded',function(){
+  if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+  var dot=document.getElementById('cursor');
+  var ring=document.getElementById('cursor-ring');
+  if(!dot||!ring)return;
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  function lagRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lagRing);}
+  lagRing();
+  document.querySelectorAll('a,button,.pc,.tool-card,.sc,.ar').forEach(function(el){el.addEventListener('mouseenter',function(){document.body.classList.add('ch');});el.addEventListener('mouseleave',function(){document.body.classList.remove('ch');});});
+});
+
+function animCount(el){
+  var target=parseInt(el.dataset.count),suf=el.dataset.suffix||'',n=0,step=Math.ceil(target/45);
+  var t=setInterval(function(){n=Math.min(n+step,target);el.textContent=n+suf;if(n>=target)clearInterval(t);},28);
+}
+
+window.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.stagger').forEach(function(g){var kids=g.querySelectorAll('.sa');kids.forEach(function(c,i){c.dataset.delay=i*70;});});
+  var allSa=Array.prototype.slice.call(document.querySelectorAll('.sa'));
+  var countersAnimated=false;
+  function reveal(){
+    var winH=window.innerHeight||document.documentElement.clientHeight;
+    allSa.forEach(function(el){if(el.classList.contains('vis'))return;var rect=el.getBoundingClientRect();if(rect.top<winH-50){var delay=parseInt(el.dataset.delay||0);setTimeout(function(){el.classList.add('vis');},delay);}});
+    if(!countersAnimated){var cnts=document.querySelectorAll('[data-count]');cnts.forEach(function(el){var r=el.getBoundingClientRect();if(r.top<winH-30){countersAnimated=true;cnts.forEach(animCount);}});}
+  }
+  window.addEventListener('scroll',reveal,{passive:true});
+  setTimeout(reveal,80);
+});
+
 (function(){
   const secs=['work','experience','contact'];
   const btns=document.querySelectorAll('[data-nav]');
   window.addEventListener('scroll',()=>{
     let cur='';
-    secs.forEach(id=>{
-      const el=document.getElementById(id);
-      if(el&&el.getBoundingClientRect().top<200)cur=id;
-    });
-    btns.forEach(b=>{
-      b.classList.toggle('active',b.getAttribute('href')==='#'+cur);
-    });
+    secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<200)cur=id;});
+    btns.forEach(b=>{b.classList.toggle('active',b.getAttribute('href')==='#'+cur);});
   });
 })();
 
-/* ── WORK FILTERS ── */
 (function(){
-  document.querySelectorAll('.fbtn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
-      btn.classList.add('on');
-      const f=btn.dataset.filter;
-      document.querySelectorAll('.pc').forEach(card=>{
-        const cats=card.dataset.cat||'';
-        const show=f==='all'||cats.includes(f);
-        card.classList.toggle('hidden',!show);
-      });
-    });
-  });
-})();
+  var pg=document.getElementById('proj-grid');
+  var prevBtn=document.getElementById('sarr-prev');
+  var nextBtn=document.getElementById('sarr-next');
+  var dotsWrap=document.getElementById('slider-dots');
+  if(!pg)return;
 
-/* ── PROJECT MODALS ── */
-(function(){
-  let gifList = [], gifIdx = 0;
+  var allCards=Array.from(pg.querySelectorAll('.pc'));
+  var current=0;
 
-  function setGif(idx){
-    gifIdx = Math.max(0, Math.min(idx, gifList.length-1));
-    const main = document.getElementById('gif-main');
-    main.src = gifList[gifIdx];
-    document.getElementById('gif-counter').textContent = (gifIdx+1) + ' / ' + gifList.length;
-    document.getElementById('gif-prev').disabled = gifIdx === 0;
-    document.getElementById('gif-next').disabled = gifIdx === gifList.length - 1;
-    document.querySelectorAll('.gif-thumb').forEach(function(t,i){ t.classList.toggle('active', i===gifIdx); });
-    // scroll thumb into view
-    const strip = document.getElementById('gif-strip');
-    const thumb = strip.querySelectorAll('.gif-thumb')[gifIdx];
-    if(thumb) thumb.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  function visCards(){
+    return allCards.filter(function(c){return c.style.display!=='none';});
   }
 
-  document.getElementById('gif-prev').addEventListener('click', function(){ setGif(gifIdx-1); });
-  document.getElementById('gif-next').addEventListener('click', function(){ setGif(gifIdx+1); });
+  function perPage(){
+    var vw=window.innerWidth;
+    if(vw>1300)return 4;
+    if(vw>800)return 3;
+    if(vw>480)return 2;
+    return 1;
+  }
 
-  // keyboard
-  document.addEventListener('keydown', function(e){
-    const ov = document.getElementById('modal-overlay');
-    if(!ov.classList.contains('open')) return;
-    if(e.key==='ArrowRight') setGif(gifIdx+1);
-    if(e.key==='ArrowLeft')  setGif(gifIdx-1);
-    if(e.key==='Escape') closeModal(null,true);
+  function getGap(){return 8;}
+
+  function rebuildDots(){
+    dotsWrap.innerHTML='';
+    var cards=visCards();
+    var max=Math.max(0,cards.length-perPage());
+    for(var i=0;i<=max;i++){
+      var d=document.createElement('button');
+      d.className='sdot'+(i===current?' active':'');
+      (function(idx){d.addEventListener('click',function(){goTo(idx);});})(i);
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function updateUI(){
+    var cards=visCards();
+    var max=Math.max(0,cards.length-perPage());
+    dotsWrap.querySelectorAll('.sdot').forEach(function(d,i){
+      d.classList.toggle('active',i===current);
+    });
+    prevBtn.disabled=current<=0;
+    nextBtn.disabled=current>=max;
+  }
+
+  function goTo(idx,instant){
+    var cards=visCards();
+    if(!cards.length){pg.scrollLeft=0;return;}
+    var pp=perPage();
+    var max=Math.max(0,cards.length-pp);
+    current=Math.max(0,Math.min(idx,max));
+    var cardW=cards[0].offsetWidth+getGap();
+    pg.scrollTo({left:current*cardW,behavior:instant?'instant':'smooth'});
+    updateUI();
+  }
+
+  function applyFilter(f){
+    allCards.forEach(function(card){
+      var cats=(card.dataset.cat||'').split(' ');
+      card.style.display=(f==='all'||cats.indexOf(f)!==-1)?'':'none';
+    });
+    current=0;
+    pg.scrollTo({left:0,behavior:'instant'});
+    rebuildDots();
+    updateUI();
+  }
+
+  var scrollTimer;
+  pg.addEventListener('scroll',function(){
+    clearTimeout(scrollTimer);
+    scrollTimer=setTimeout(function(){
+      var cards=visCards();
+      if(!cards.length)return;
+      var cardW=cards[0].offsetWidth+getGap();
+      if(cardW<=0)return;
+      var idx=Math.round(pg.scrollLeft/cardW);
+      var max=Math.max(0,cards.length-perPage());
+      var newIdx=Math.max(0,Math.min(idx,max));
+      if(newIdx!==current){current=newIdx;updateUI();}
+    },60);
+  },{passive:true});
+
+  document.querySelectorAll('.fbtn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('on');});
+      btn.classList.add('on');
+      applyFilter(btn.dataset.filter);
+    });
   });
 
-  document.querySelectorAll('.pc').forEach(function(card){
-    card.addEventListener('click', function(){
-      const gifsRaw = card.dataset.gifs || '';
-      const box = document.getElementById('modal-box');
-      const thumb = document.getElementById('modal-thumb');
-      const gallery = document.getElementById('gif-gallery');
+  prevBtn.addEventListener('click',function(){goTo(current-1);});
+  nextBtn.addEventListener('click',function(){goTo(current+1);});
+  window.addEventListener('resize',function(){rebuildDots();goTo(current,true);});
 
-      if(gifsRaw){
-        // GIF gallery mode
-        gifList = gifsRaw.split('|').map(function(s){ return s.trim(); });
-        gifIdx = 0;
-        box.classList.add('gallery-mode');
-        thumb.style.display = 'none';
-        gallery.style.display = 'block';
+  applyFilter('animation');
+})();
 
-        // build strip
-        const strip = document.getElementById('gif-strip');
-        strip.innerHTML = '';
-        gifList.forEach(function(url, i){
-          const d = document.createElement('div');
-          d.className = 'gif-thumb' + (i===0?' active':'');
-          d.innerHTML = '<img src="' + url + '" alt="gif ' + (i+1) + '" loading="lazy" />';
-          d.addEventListener('click', function(e){ e.stopPropagation(); setGif(i); });
-          strip.appendChild(d);
+(function(){
+  var canvas=document.getElementById('confetti-canvas');
+  var ctx=canvas.getContext('2d');
+  var pieces=[],running=false,W,H;
+  var COLORS=['#3b82f6','#60a5fa','#a78bfa','#f472b6','#34d399','#fbbf24','#f87171','#ffffff','#818cf8','#2dd4bf'];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+  window.addEventListener('resize',resize);resize();
+  function spawnBurst(ox,oy){for(var i=0;i<130;i++){var angle=Math.random()*Math.PI*2;var speed=Math.random()*10+3;var sz=Math.random()*9+4;var rect=Math.random()<0.6;pieces.push({x:ox,y:oy,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed-(Math.random()*7+3),w:sz,h:rect?sz*(Math.random()+0.5):sz,rot:Math.random()*Math.PI*2,rv:(Math.random()-0.5)*0.22,color:COLORS[Math.floor(Math.random()*COLORS.length)],rect:rect,alpha:1,grav:0.22+Math.random()*0.15,life:1});}if(!running){running=true;loop();}}
+  function loop(){ctx.clearRect(0,0,W,H);pieces=pieces.filter(function(p){return p.life>0;});if(!pieces.length){running=false;return;}pieces.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=p.grav;p.vx*=0.99;p.rot+=p.rv;p.life-=0.013;p.alpha=Math.max(0,p.life);ctx.save();ctx.globalAlpha=p.alpha;ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.color;if(p.rect){ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);}else{ctx.beginPath();ctx.arc(0,0,p.w/2,0,Math.PI*2);ctx.fill();}ctx.restore();});requestAnimationFrame(loop);}
+  document.querySelectorAll('.ar').forEach(function(card){card.addEventListener('click',function(){var r=card.getBoundingClientRect();spawnBurst(r.left+r.width/2,r.top+r.height/2);});});
+})();
+
+(function(){
+  var wrap=document.querySelector('.hero-gif-wrap');if(!wrap)return;
+  if(window.matchMedia('(max-width:768px)').matches)return;
+  wrap.addEventListener('mousemove',function(e){var r=wrap.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-0.5;var y=(e.clientY-r.top)/r.height-0.5;var rx=-y*18;var ry=x*18;wrap.style.transition='transform .08s ease,box-shadow .08s ease';wrap.style.transform='perspective(700px) rotateX('+rx+'deg) rotateY('+ry+'deg) scale(1.03)';wrap.style.boxShadow=(ry*-1.2)+'px '+(rx*1.2)+'px 56px rgba(0,0,0,.55)';});
+  wrap.addEventListener('mouseleave',function(){wrap.style.transition='transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease';wrap.style.transform='perspective(700px) rotateX(0deg) rotateY(0deg) scale(1)';wrap.style.boxShadow='0 28px 56px rgba(0,0,0,.5)';});
+})();
+
+(function(){
+  var cv=document.createElement('canvas');cv.width=cv.height=64;var ctx=cv.getContext('2d');var lnk=document.createElement('link');lnk.rel='icon';lnk.type='image/png';document.head.appendChild(lnk);
+  var phase=0,STEP=1/48;
+  function draw(){var S=64,R=32;ctx.clearRect(0,0,S,S);ctx.beginPath();ctx.roundRect(0,0,S,S,13);ctx.fillStyle='#0a0a0c';ctx.fill();[0,0.33,0.66].forEach(function(off){var t=(phase+off)%1;var r=4+t*26;var a=Math.max(0,0.8*(1-t*1.25));ctx.beginPath();ctx.arc(R,R,r,0,Math.PI*2);ctx.strokeStyle='rgba(59,130,246,'+a+')';ctx.lineWidth=1.8*(1-t*0.6);ctx.stroke();});var pulse=0.5+0.5*Math.sin(phase*Math.PI*2);var ig=ctx.createRadialGradient(R,R,0,R,R,18);ig.addColorStop(0,'rgba(59,130,246,'+(0.1+pulse*0.15)+')');ig.addColorStop(1,'rgba(59,130,246,0)');ctx.fillStyle=ig;ctx.beginPath();ctx.arc(R,R,18,0,Math.PI*2);ctx.fill();ctx.shadowColor='#3b82f6';ctx.shadowBlur=6+pulse*8;ctx.fillStyle='#fff';ctx.font='bold 24px system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('O',R,R+1);ctx.shadowBlur=0;phase=(phase+STEP)%1;}
+  draw();lnk.href=cv.toDataURL('image/png');
+  setInterval(function(){draw();lnk.href=cv.toDataURL('image/png');},120);
+})();
+
+/* ── Image decoder + lazy-loader ─────────────────────── */
+(function(){
+  var _rk=[111,109,51,114,52,107,98,52,114,50,48,50,53,112];
+  var _k=String.fromCharCode.apply(null,_rk);
+  window._decUrl=function(s){try{var b=atob(s);var r='';for(var i=0;i<b.length;i++){r+=String.fromCharCode(b.charCodeAt(i)^_k.charCodeAt(i%_k.length));}return r;}catch(e){return '';}};
+  window._proxyUrl=function(u,w){if(!u)return u;if(/\.gif(\?|$)/i.test(u))return u;if(/drive\.google\.com/i.test(u))return u;var m=u.match(/^https?:\/\/(.+)$/);if(!m)return u;return 'https://wsrv.nl/?url='+encodeURIComponent(m[1])+'&w='+(w||1280)+'&output=webp&q=82';};
+  window._thumbUrl=function(u,w){if(!u)return u;return u.replace(/^(https?:\/\/i\.postimg\.cc\/[^\/]+)\/([^\/]+)$/,'$1/'+(w||1080)+'/$2');};
+  function loadEncImages(){
+    document.querySelectorAll('[data-enc]').forEach(function(el){
+      var url=window._decUrl(el.getAttribute('data-enc'));if(!url)return;
+      var isHero=el.closest('.hero-gif-wrap');
+      var proxied=window._proxyUrl(url,isHero?600:600);
+      el.dataset.stage='proxy';
+      el.addEventListener('error',function(){
+        if(el.dataset.stage==='proxy'){el.dataset.stage='thumb';el.src=window._thumbUrl(url,960);}
+        else if(el.dataset.stage==='thumb'){el.dataset.stage='orig';el.src=url;}
+      });
+      if(isHero){el.fetchPriority='high';el.src=proxied;}
+      else if('IntersectionObserver' in window){var obs=new IntersectionObserver(function(entries,o){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.src=proxied;o.unobserve(entry.target);}});},{rootMargin:'200px'});obs.observe(el);}
+      else{el.src=proxied;}
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',loadEncImages);}else{loadEncImages();}
+  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+  document.addEventListener('dragstart',function(e){if(e.target.tagName==='IMG')e.preventDefault();});
+  document.addEventListener('selectstart',function(e){if(e.target.tagName==='IMG')e.preventDefault();});
+  document.addEventListener('keydown',function(e){var ctrl=e.ctrlKey||e.metaKey;if(ctrl&&(e.key==='s'||e.key==='S'||e.key==='u'||e.key==='U'))e.preventDefault();});
+})();
+
+/* ── Lightbox (reels / video / web-design / images) ───── */
+(function(){
+  var lb        = document.getElementById('gif-lb');
+  var lbCount   = document.getElementById('gif-lb-count');
+  var lbTitle   = document.getElementById('gif-lb-title');
+  var lbPanel   = document.getElementById('gif-lb-panel');
+  var wrap      = document.getElementById('img-scroll-wrap');
+  var track     = document.getElementById('img-scroll-track');
+  var progress  = document.getElementById('scroll-progress-bar');
+  var countEl   = document.getElementById('scroll-count');
+  var prevBtn   = document.getElementById('snav-prev');
+  var nextBtn   = document.getElementById('snav-next');
+  var isMobile  = window.matchMedia('(hover:none) and (pointer:coarse)').matches;
+
+  var targetX=0, currentX=0, raf=null, maxX=0, LERP=0.082;
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function clamp(v){return Math.max(0,Math.min(maxX,v));}
+  function tick(){
+    currentX=lerp(currentX,targetX,LERP);
+    track.style.transform='translateX('+(-currentX)+'px)';
+    updateProgress();
+    if(Math.abs(targetX-currentX)>0.3){raf=requestAnimationFrame(tick);}
+    else{currentX=targetX;track.style.transform='translateX('+(-currentX)+'px)';updateProgress();raf=null;}
+  }
+  function startTick(){if(!raf)raf=requestAnimationFrame(tick);}
+  function scrollTo(x,instant){targetX=clamp(x);if(instant){currentX=targetX;track.style.transform='translateX('+(-currentX)+'px)';updateProgress();}else startTick();}
+  function scrollBy(dx){scrollTo(targetX+dx);}
+  function updateMax(){maxX=Math.max(0,track.scrollWidth-wrap.clientWidth);}
+  function updateProgress(){
+    var pct=maxX>0?(currentX/maxX*100):0;
+    progress.style.width=pct+'%';
+    if(countEl&&lbCount)lbCount.textContent=countEl.textContent;
+    if(lb.classList.contains('reels-mode')&&lb._syncActiveReel){lb._syncActiveReel();}
+  }
+
+  wrap.addEventListener('wheel',function(e){
+    if(lb.classList.contains('web-mode'))return;
+    e.preventDefault();
+    var delta=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;
+    scrollBy(delta*1.1);
+  },{passive:false});
+
+  var dragActive=false,dragStartX=0,dragStartScroll=0,dragVel=0,lastDragX=0;
+  wrap.addEventListener('mousedown',function(e){
+    if(lb.classList.contains('web-mode'))return;
+    dragActive=true;dragStartX=e.clientX;dragStartScroll=targetX;
+    dragVel=0;lastDragX=e.clientX;
+    wrap.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!dragActive)return;
+    dragVel=lastDragX-e.clientX;
+    lastDragX=e.clientX;
+    scrollTo(dragStartScroll+(dragStartX-e.clientX),true);
+  });
+  document.addEventListener('mouseup',function(){
+    if(!dragActive)return;
+    dragActive=false;
+    wrap.classList.remove('dragging');
+    scrollBy(dragVel*8);
+  });
+
+  if(!isMobile){
+    var touchStartX=0,touchScrollStart=0;
+    wrap.addEventListener('touchstart',function(e){if(lb.classList.contains('web-mode'))return;touchStartX=e.touches[0].clientX;touchScrollStart=targetX;},{passive:true});
+    wrap.addEventListener('touchmove',function(e){if(lb.classList.contains('web-mode'))return;scrollTo(touchScrollStart+(touchStartX-e.touches[0].clientX),true);e.preventDefault();},{passive:false});
+    wrap.addEventListener('touchend',function(e){if(lb.classList.contains('web-mode'))return;var vel=touchStartX-e.changedTouches[0].clientX;scrollBy(vel*3);},{passive:true});
+  }
+
+  prevBtn.addEventListener('click',function(){
+    if(lb.classList.contains('web-mode'))return;
+    if(isMobile)wrap.scrollBy({left:-wrap.clientWidth,behavior:'smooth'});
+    else scrollBy(-wrap.clientWidth*0.75);
+  });
+  nextBtn.addEventListener('click',function(){
+    if(lb.classList.contains('web-mode'))return;
+    if(isMobile)wrap.scrollBy({left:wrap.clientWidth,behavior:'smooth'});
+    else scrollBy(+wrap.clientWidth*0.75);
+  });
+
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('open'))return;
+    if(e.key==='Escape'){lbClose();return;}
+    if(lb.classList.contains('web-mode'))return;
+    if(e.key==='ArrowLeft')scrollBy(-360);
+    if(e.key==='ArrowRight')scrollBy(+360);
+  });
+
+  function renderPanel(title,card){
+    var el=document.getElementById('lbp-dynamic');
+    if(!card){el.innerHTML='';return;}
+    var meta=(card.dataset.client||'')+' · '+(card.dataset.title||'');
+    var tags=(card.dataset.tags||'').split(',').filter(Boolean).map(function(t){return '<span>'+t.trim()+'</span>';}).join('');
+    var link=card.dataset.behance||'https://www.behance.net/omi6910660';
+    el.innerHTML=
+      '<div class="lbp-tag">'+meta+'</div>'+
+      '<h2 class="lbp-title">'+(card.dataset.title||'')+'</h2>'+
+      '<div class="lbp-section"><div class="lbp-label">About</div><p class="lbp-body">'+(card.dataset.desc||'')+'</p></div>'+
+      (tags?'<div class="lbp-section"><div class="lbp-label">Tags</div><div class="lbp-tags">'+tags+'</div></div>':'')+
+      '<a href="'+link+'" target="_blank" class="lbp-behance">View on Behance \u2197</a>';
+  }
+
+  function lbOpen(card){
+    /* Video mode: embedded iframe */
+    if(card.dataset.videoEnc){
+      var videoUrl=window._decUrl(card.dataset.videoEnc);
+      lbTitle.textContent=(card.dataset.client||'')+' \u2014 '+(card.dataset.title||'');
+      lbCount.textContent='';countEl.textContent='';
+      track.innerHTML='';track.style.transform='none';
+      var vframe=document.createElement('div');vframe.className='video-frame';
+      var iframe=document.createElement('iframe');
+      iframe.src=videoUrl;
+      iframe.setAttribute('allow','autoplay; fullscreen; encrypted-media');
+      iframe.setAttribute('allowfullscreen','true');
+      iframe.setAttribute('loading','eager');
+      vframe.appendChild(iframe);track.appendChild(vframe);
+      renderPanel(card.dataset.title||'',card);
+      lbPanel.classList.remove('open');
+      lb.classList.remove('web-mode');lb.classList.remove('reels-mode');
+      lb.classList.add('video-mode');lb.classList.add('open');
+      document.body.style.overflow='hidden';
+      return;
+    }
+
+    /* Reels mode: 9:16 horizontal slider */
+    if(card.dataset.reelsPages){
+      var reels=card.dataset.reelsPages.split('|').map(function(s){var idx=s.indexOf('::');return{name:s.substring(0,idx),url:window._decUrl(s.substring(idx+2))};}).filter(function(r){return r.url;});
+      if(!reels.length)return;
+      lbTitle.textContent=(card.dataset.client||'')+' \u2014 '+(card.dataset.title||'');
+      lbCount.textContent=reels.length+' reels';countEl.textContent=reels.length+' reels';
+      track.innerHTML='';track.style.transform='translateX(0)';
+      track.style.paddingLeft='';track.style.paddingRight='';
+      targetX=0;currentX=0;
+
+      var reelItems=reels.map(function(r,i){
+        var item=document.createElement('div');item.className='si';item.dataset.reelIdx=i;
+        var m=r.url.match(/\/file\/d\/([^\/]+)\//);
+        var fileId=m?m[1]:'';
+        var thumb=document.createElement('img');
+        thumb.className='reel-thumb';thumb.alt=r.name;
+        thumb.loading=i<3?'eager':'lazy';
+        if(fileId){thumb.src='https://drive.google.com/thumbnail?id='+fileId+'&sz=w800';}
+        item.appendChild(thumb);
+        var icon=document.createElement('div');icon.className='reel-play-icon';icon.innerHTML='&#9654;';
+        item.appendChild(icon);
+        track.appendChild(item);
+        return item;
+      });
+
+      function activateReel(idx){
+        reelItems.forEach(function(item,i){
+          var existingIframe=item.querySelector('iframe');
+          if(i===idx){
+            item.classList.add('active');
+            if(!existingIframe){
+              var iframe=document.createElement('iframe');
+              iframe.src=reels[i].url;
+              iframe.setAttribute('allow','autoplay; fullscreen; encrypted-media');
+              iframe.setAttribute('allowfullscreen','true');
+              item.appendChild(iframe);
+            }
+          }else{
+            item.classList.remove('active');
+            if(existingIframe){existingIframe.remove();}
+          }
         });
-
-        setGif(0);
-      } else {
-        // standard mode
-        box.classList.remove('gallery-mode');
-        thumb.style.display = '';
-        gallery.style.display = 'none';
-        thumb.innerHTML = card.querySelector('.pt').innerHTML;
       }
 
-      document.getElementById('modal-cat').textContent   = card.dataset.client;
-      document.getElementById('modal-title').textContent = card.dataset.title;
-      document.getElementById('modal-desc').textContent  = card.dataset.desc;
-      const tagsEl = document.getElementById('modal-tags');
-      tagsEl.innerHTML = '';
-      (card.dataset.tags||'').split(',').forEach(function(t){
-        const s = document.createElement('span');
-        s.className = 'modal-tag';
-        s.textContent = t.trim();
-        tagsEl.appendChild(s);
+      reelItems.forEach(function(item,i){
+        item.addEventListener('click',function(e){
+          if(e.target.closest('iframe'))return;
+          var itemRect=item.getBoundingClientRect();
+          var wrapRect=wrap.getBoundingClientRect();
+          var delta=(itemRect.left+itemRect.width/2)-(wrapRect.left+wrapRect.width/2);
+          scrollBy(delta);
+        });
       });
-      document.getElementById('modal-overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    });
-  });
-})();
 
-function closeModal(e,force){
-  if(force||e.target===document.getElementById('modal-overlay')){
-    document.getElementById('modal-overlay').classList.remove('open');
-    document.body.style.overflow='';
-  }
-}
-function sendMsg(e){
-  e.preventDefault();
-  const btn=e.target.querySelector('.cf-send');
-  btn.textContent='Sending…';btn.disabled=true;
-  setTimeout(()=>{
-    btn.style.display='none';
-    document.getElementById('cf-sent').classList.add('show');
-    e.target.reset();
-  },1000);
-}
+      var lastActive=-1;
+      function syncActiveReel(){
+        var wrapRect=wrap.getBoundingClientRect();
+        var wrapCenter=wrapRect.left+wrapRect.width/2;
+        var bestIdx=0,bestDist=Infinity;
+        reelItems.forEach(function(item,i){
+          var r=item.getBoundingClientRect();
+          var c=r.left+r.width/2;
+          var d=Math.abs(c-wrapCenter);
+          if(d<bestDist){bestDist=d;bestIdx=i;}
+        });
+        if(bestIdx!==lastActive){lastActive=bestIdx;activateReel(bestIdx);}
+      }
+      lb._syncActiveReel=syncActiveReel;
 
-/* ── CARD TILT ── */
-document.querySelectorAll('.sc,.tool-card,.ar,.pc').forEach(card=>{
-  card.addEventListener('mousemove',e=>{
-    const r=card.getBoundingClientRect();
-    const x=(e.clientX-r.left)/r.width-.5;
-    const y=(e.clientY-r.top)/r.height-.5;
-    card.style.transform=`perspective(600px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateZ(4px)`;
-  });
-  card.addEventListener('mouseleave',()=>{
-    card.style.transform='';
-  });
-});
+      renderPanel(card.dataset.title||'',card);
+      lbPanel.classList.remove('open');
+      lb.classList.remove('web-mode');lb.classList.remove('video-mode');
+      lb.classList.add('reels-mode');lb.classList.add('open');
+      document.body.style.overflow='hidden';
 
-/* ── CONFETTI ── */
-(function(){
-  var canvas = document.getElementById('confetti-canvas');
-  var ctx    = canvas.getContext('2d');
-  var pieces = [];
-  var running = false;
-  var W, H;
-  var COLORS = ['#3b82f6','#60a5fa','#a78bfa','#f472b6','#34d399','#fbbf24','#f87171','#ffffff','#818cf8','#2dd4bf'];
-
-  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  window.addEventListener('resize', resize);
-  resize();
-
-  function spawnBurst(ox, oy){
-    for(var i = 0; i < 130; i++){
-      var angle = Math.random() * Math.PI * 2;
-      var speed = Math.random() * 10 + 3;
-      var sz    = Math.random() * 9 + 4;
-      var rect  = Math.random() < 0.6;
-      pieces.push({
-        x: ox, y: oy,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - (Math.random() * 7 + 3),
-        w: sz, h: rect ? sz * (Math.random() + 0.5) : sz,
-        rot: Math.random() * Math.PI * 2,
-        rv: (Math.random() - 0.5) * 0.22,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        rect: rect, alpha: 1, grav: 0.22 + Math.random() * 0.15, life: 1
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          var wrapRect=wrap.getBoundingClientRect();
+          var slot0=reelItems[0];
+          if(slot0){
+            var slotW=slot0.offsetWidth;
+            var sidePad=Math.max(20,Math.round((wrapRect.width-slotW)/2));
+            track.style.paddingLeft=sidePad+'px';
+            track.style.paddingRight=sidePad+'px';
+          }
+          updateMax();syncActiveReel();
+        });
       });
+      return;
     }
-    if(!running){ running = true; loop(); }
-  }
 
-  function loop(){
-    ctx.clearRect(0, 0, W, H);
-    pieces = pieces.filter(function(p){ return p.life > 0; });
-    if(!pieces.length){ running = false; return; }
-    pieces.forEach(function(p){
-      p.x += p.vx; p.y += p.vy; p.vy += p.grav; p.vx *= 0.99;
-      p.rot += p.rv; p.life -= 0.013; p.alpha = Math.max(0, p.life);
-      ctx.save();
-      ctx.globalAlpha = p.alpha;
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot);
-      ctx.fillStyle = p.color;
-      if(p.rect){ ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); }
-      else { ctx.beginPath(); ctx.arc(0,0,p.w/2,0,Math.PI*2); ctx.fill(); }
-      ctx.restore();
+    /* Web-design mode: scrollable 16:9 frame */
+    if(card.dataset.webEnc||card.dataset.webPages){
+      var pages;
+      if(card.dataset.webPages){
+        pages=card.dataset.webPages.split('|').map(function(s){var idx=s.indexOf('::');return{name:s.substring(0,idx),url:window._decUrl(s.substring(idx+2))};}).filter(function(p){return p.url;});
+      }else{
+        pages=[{name:card.dataset.title||'',url:window._decUrl(card.dataset.webEnc)}];
+      }
+      if(!pages.length)return;
+      lbTitle.textContent=(card.dataset.client||'')+' \u2014 '+(card.dataset.title||'');
+      lbCount.textContent='';countEl.textContent='';
+      track.innerHTML='';track.style.transform='none';
+
+      var tabs=null;
+      if(pages.length>1){tabs=document.createElement('div');tabs.className='web-tabs';track.appendChild(tabs);}
+
+      var frame=document.createElement('div');frame.className='web-frame';
+      var imgs=pages.map(function(p,i){
+        var im=document.createElement('img');im.alt=p.name||card.dataset.title||'';
+        im.setAttribute('draggable','false');
+        im.loading=i===0?'eager':'lazy';im.decoding='async';im.dataset.stage='proxy';
+        im.addEventListener('error',function(){
+          if(im.dataset.stage==='proxy'){im.dataset.stage='thumb';im.src=window._thumbUrl(p.url,1280);}
+          else if(im.dataset.stage==='thumb'){im.dataset.stage='orig';im.src=p.url;}
+        });
+        im.src=window._proxyUrl(p.url,1280);
+        im.style.display=i===0?'block':'none';
+        frame.appendChild(im);return im;
+      });
+
+      if(pages.length>1){
+        var preload=function(){pages.slice(1).forEach(function(p){var pre=new Image();pre.decoding='async';pre.src=window._proxyUrl(p.url,1280);});};
+        if(imgs[0].complete)preload();else imgs[0].addEventListener('load',preload,{once:true});
+      }
+
+      var sb=document.createElement('div');sb.className='web-scrollbar';
+      var thumb=document.createElement('div');thumb.className='web-scrollbar-thumb';
+      sb.appendChild(thumb);
+      var row=document.createElement('div');row.className='web-row';
+      row.appendChild(frame);row.appendChild(sb);
+      track.appendChild(row);
+
+      function updateThumb(){
+        var visible=frame.clientHeight;var total=frame.scrollHeight;
+        if(total<=visible+1){thumb.style.display='none';return;}
+        thumb.style.display='';
+        var ratio=visible/total;var thumbH=Math.max(40,ratio*visible);
+        thumb.style.height=thumbH+'px';
+        var maxScroll=total-visible;var maxThumb=visible-thumbH;
+        var pct=maxScroll>0?frame.scrollTop/maxScroll:0;
+        thumb.style.top=(pct*maxThumb)+'px';
+      }
+      frame.addEventListener('scroll',updateThumb,{passive:true});
+      imgs.forEach(function(im){im.addEventListener('load',function(){requestAnimationFrame(updateThumb);});});
+      window.addEventListener('resize',updateThumb);
+
+      var dragging=false,startY=0,startTop=0;
+      function dragMove(clientY){
+        if(!dragging)return;
+        var visible=frame.clientHeight;var thumbH=thumb.offsetHeight;var maxThumb=visible-thumbH;
+        var newTop=Math.max(0,Math.min(maxThumb,startTop+(clientY-startY)));
+        var pct=maxThumb>0?newTop/maxThumb:0;
+        frame.scrollTop=pct*(frame.scrollHeight-visible);
+      }
+      function dragEnd(){if(!dragging)return;dragging=false;thumb.classList.remove('dragging');document.body.style.userSelect='';}
+      thumb.addEventListener('mousedown',function(e){dragging=true;startY=e.clientY;startTop=parseFloat(thumb.style.top)||0;thumb.classList.add('dragging');document.body.style.userSelect='none';e.preventDefault();});
+      document.addEventListener('mousemove',function(e){dragMove(e.clientY);});
+      document.addEventListener('mouseup',dragEnd);
+      thumb.addEventListener('touchstart',function(e){dragging=true;startY=e.touches[0].clientY;startTop=parseFloat(thumb.style.top)||0;thumb.classList.add('dragging');e.preventDefault();},{passive:false});
+      document.addEventListener('touchmove',function(e){if(!dragging)return;dragMove(e.touches[0].clientY);e.preventDefault();},{passive:false});
+      document.addEventListener('touchend',dragEnd);
+
+      function showPage(idx){
+        imgs.forEach(function(im,i){im.style.display=i===idx?'block':'none';});
+        frame.scrollTop=0;
+        if(tabs){tabs.querySelectorAll('.web-tab').forEach(function(t,i){t.classList.toggle('active',i===idx);});}
+        requestAnimationFrame(function(){requestAnimationFrame(updateThumb);});
+      }
+
+      if(tabs){
+        pages.forEach(function(p,i){
+          var b=document.createElement('button');
+          b.className='web-tab'+(i===0?' active':'');
+          b.textContent=p.name;
+          b.addEventListener('click',function(){showPage(i);});
+          tabs.appendChild(b);
+        });
+      }
+
+      showPage(0);
+      renderPanel(card.dataset.title||'',card);
+      lbPanel.classList.remove('open');
+      lb.classList.remove('reels-mode');lb.classList.remove('video-mode');
+      lb.classList.add('web-mode');lb.classList.add('open');
+      document.body.style.overflow='hidden';
+      return;
+    }
+
+    /* Images mode: horizontal gallery */
+    var gifsEnc=card.dataset.gifsEnc||'';
+    var urls=gifsEnc.split('|').map(function(s){return window._decUrl(s.trim());}).filter(Boolean);
+    lbTitle.textContent=(card.dataset.client||'')+' \u2014 '+(card.dataset.title||'');
+    lbCount.textContent=urls.length+' images';countEl.textContent=urls.length+' images';
+    track.innerHTML='';track.style.paddingLeft='';track.style.paddingRight='';
+    urls.forEach(function(url,i){
+      var item=document.createElement('div');item.className='si';
+      var img=document.createElement('img');
+      img.alt='Image '+(i+1);img.loading=i<5?'eager':'lazy';
+      img.setAttribute('draggable','false');
+      img.dataset.stage='proxy';
+      img.addEventListener('error',function(){
+        if(img.dataset.stage==='proxy'){img.dataset.stage='thumb';img.src=window._thumbUrl(url,1600);}
+        else if(img.dataset.stage==='thumb'){img.dataset.stage='orig';img.src=url;}
+      });
+      img.src=window._proxyUrl(url,1600);
+      if(isMobile){img.style.width='100%';img.style.height='auto';img.style.maxHeight='100%';img.style.objectFit='contain';}
+      else{img.style.height='100%';img.style.width='auto';}
+      item.appendChild(img);track.appendChild(item);
     });
-    requestAnimationFrame(loop);
+    targetX=0;currentX=0;
+    track.style.transform='translateX(0)';progress.style.width='0%';
+    renderPanel(card.dataset.title||'',card);
+    lbPanel.classList.remove('open');
+    lb.classList.remove('web-mode');lb.classList.remove('reels-mode');lb.classList.remove('video-mode');
+    lb.classList.add('open');
+    document.body.style.overflow='hidden';
+    requestAnimationFrame(function(){requestAnimationFrame(function(){updateMax();});});
+    track.querySelectorAll('img').forEach(function(img){img.addEventListener('load',updateMax);});
   }
 
-  document.querySelectorAll('.ar').forEach(function(card){
-    card.addEventListener('click', function(){
-      var r = card.getBoundingClientRect();
-      spawnBurst(r.left + r.width/2, r.top + r.height/2);
+  function lbClose(){
+    if(raf){cancelAnimationFrame(raf);raf=null;}
+    var wasVideo=lb.classList.contains('video-mode')||lb.classList.contains('reels-mode');
+    lb.classList.remove('open');lb.classList.remove('web-mode');
+    lb.classList.remove('video-mode');lb.classList.remove('reels-mode');
+    lbPanel.classList.remove('open');
+    document.body.style.overflow='';
+    if(wasVideo){track.innerHTML='';lb._syncActiveReel=null;}
+    else{setTimeout(function(){track.innerHTML='';},400);}
+  }
+
+  document.getElementById('gif-lb-close').addEventListener('click',lbClose);
+  document.getElementById('gif-lb-info').addEventListener('click',function(){lbPanel.classList.toggle('open');});
+  document.getElementById('gif-lb-panel-close').addEventListener('click',function(){lbPanel.classList.remove('open');});
+  window.addEventListener('resize',updateMax);
+
+  /* Project card click → open the right lightbox mode */
+  document.querySelectorAll('.pc').forEach(function(card){
+    card.addEventListener('click',function(){
+      if(card.dataset.gifsEnc||card.dataset.webEnc||card.dataset.webPages||card.dataset.videoEnc||card.dataset.reelsPages){lbOpen(card);return;}
+      document.getElementById('modal-thumb').innerHTML=card.querySelector('.pt').innerHTML;
+      document.getElementById('modal-cat').textContent=card.dataset.client||'';
+      document.getElementById('modal-title').textContent=card.dataset.title||'';
+      document.getElementById('modal-desc').textContent=card.dataset.desc||'';
+      var tagsEl=document.getElementById('modal-tags');tagsEl.innerHTML='';
+      (card.dataset.tags||'').split(',').forEach(function(t){var s=document.createElement('span');s.className='modal-tag';s.textContent=t.trim();tagsEl.appendChild(s);});
+      document.getElementById('modal-overlay').classList.add('open');document.body.style.overflow='hidden';
     });
   });
 })();
-
-/* ── PROJECT SLIDER ── */
-(function(){
-  const track = document.getElementById('proj-grid');
-  const prevBtn = document.getElementById('sarr-prev');
-  const nextBtn = document.getElementById('sarr-next');
-  const dotsWrap = document.getElementById('slider-dots');
-  if(!track) return;
-
-  const cards = Array.from(track.querySelectorAll('.pc'));
-  let current = 0;
-
-  cards.forEach(function(_, i){
-    const d = document.createElement('button');
-    d.className = 'sdot' + (i===0?' active':'');
-    d.addEventListener('click', function(){ goTo(i); });
-    dotsWrap.appendChild(d);
-  });
-
-  function getVisible(){
-    const w = track.parentElement.offsetWidth;
-    if(w < 500) return 1;
-    if(w < 800) return 2;
-    return 3;
-  }
-
-  function goTo(idx){
-    const vis = getVisible();
-    const max = Math.max(0, cards.length - vis);
-    current = Math.max(0, Math.min(idx, max));
-    const cardW = cards[0].offsetWidth + 14;
-    track.style.transition = 'transform .45s cubic-bezier(.22,1,.36,1)';
-    track.style.transform = 'translateX(-' + (current * cardW) + 'px)';
-    dotsWrap.querySelectorAll('.sdot').forEach(function(d,i){ d.classList.toggle('active', i===current); });
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current >= max;
-  }
-
-  prevBtn.addEventListener('click', function(){ goTo(current - 1); });
-  nextBtn.addEventListener('click', function(){ goTo(current + 1); });
-  window.addEventListener('resize', function(){ goTo(current); });
-  goTo(0);
-
-  let tx = 0;
-  track.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
-  track.addEventListener('touchend',   function(e){
-    const dx = tx - e.changedTouches[0].clientX;
-    if(Math.abs(dx) > 40){ goTo(current + (dx > 0 ? 1 : -1)); }
-  }, {passive:true});
-})();
-
 </script>
 </body>
 </html>
